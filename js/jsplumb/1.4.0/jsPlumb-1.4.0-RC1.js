@@ -1631,6 +1631,7 @@
 		  	The newly created <Connection>.
 		 */
 		this.connect = function(params, referenceParams) {
+			alert('conectando....')
 			// prepare a final set of parameters to create connection with
 			var _p = _prepareConnectionParams(params, referenceParams), jpc;
 			// TODO probably a nicer return value if the connection was not made.  _prepareConnectionParams

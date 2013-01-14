@@ -41,12 +41,12 @@ This property can take from one to four values:
 	    line-height: 14px;
 	    background-color: #ccd5de;
 	    text-align: left;
-	    visibility: visible;
+	    visibility: visible;jshera
 	    /*margin-top: 20px;*/
 	    margin-right: auto;
 	    margin-left: auto;
 	    position: relative;
-	    width: 69%;/* tá 69% pq coloquei a borda de 1px*/
+	    width: 69%;/* tá 69% pq coloquei a borda de 1px no navigation*/
 	    float: left;
 	    height:100%;
 	    overflow: auto; 
@@ -148,14 +148,15 @@ This property can take from one to four values:
 .window { 
 	border:1px solid #346789;
 	box-shadow: 2px 2px 19px #aaa;
-	   -o-box-shadow: 2px 2px 19px #aaa;
-	   -webkit-box-shadow: 2px 2px 19px #aaa;
-	   -moz-box-shadow: 2px 2px 19px #aaa;
+	-o-box-shadow: 2px 2px 19px #aaa;
+	-webkit-box-shadow: 2px 2px 19px #aaa;
+	-moz-box-shadow: 2px 2px 19px #aaa;
 	-moz-border-radius:0.5em;
 	border-radius:0.5em;
 	opacity:0.8;
 	filter:alpha(opacity=80);
-	width:5em; height:5em;
+	width:50px; 
+        height:50px;
 	line-height:5em;
 	text-align:center;
 	z-index:20; position:absolute;
@@ -238,8 +239,7 @@ filter:alpha(opacity=60);
 <!-- /JS -->
 
 <!--  demo code -->
-<script type="text/javascript" src="js/jsplumb/flowchartConnectorsDemo.js"></script>
-
+<script type="text/javascript" src="js/jshera/flowchartConnectorsDemo.js"></script>
 
 <script type="text/javascript">
 //<![CDATA[
@@ -257,6 +257,7 @@ filter:alpha(opacity=60);
 			fillSpace: true,
 			animated: 'easeslide'
 		});
+		
 
 		//Recuperando os accordions abertos, se tiver mais separar por vírgulas
 		var accordions = jQuery('#navigation');
@@ -280,13 +281,37 @@ filter:alpha(opacity=60);
 			accordions.accordion("activate", -1);
                      }
 		});
+                
+                 var contaJanela = 0;
 
 		//Criar Tarefa
 		$('#criarTarefa').click(function(){
+		       contaJanela = jsPlumbDemo.retornarProximoID(contaJanela);	
+                       var nomeTarefa = 'window_' + contaJanela;
+		       //alert(nomeTarefa);
+	               $('<div class="window" id="' + nomeTarefa + '"> </div>').prependTo('#render');
+		       
+
+		       //pegando as coordenadas e mostrando na div de mensagem
+		       $('#' + nomeTarefa).mouseover(function(){
+			    //alert('mouseover');
+			    var posicao = $(this).position(); 
+			    $('#mensagem').css('background', 'red').text('left : ' + posicao.left + ' top : ' 
+				+ posicao.top + ' width : ' + $(this).width() + ' height : ' + $(this).height() );
+		       });
 			
+		       $('#' + nomeTarefa).mouseout(function(){
+			    //alert('mouseout');	
+			    $('#mensagem').text('');
+			});
+			
+		       //Criando a tarefa		
+		       jsPlumbDemo.criarTarefa(nomeTarefa);
 		});
 
+		$('#conectar').click(function(){
 		
+		});
 	});
 // ]]>	
 </script>
@@ -296,10 +321,15 @@ filter:alpha(opacity=60);
 		<div id="principal" align="center">
 			<div id="containerPlumb">
 				  <div id="render"></div>
+				   <!-- se chamar os método init dentro do jsplumb precisa destes componentes em tela -->
+				  <!-- 
+                                   
 				  <div class="window" id="window1"><strong>1</strong><br/><br/></div>
 				  <div class="window" id="window2"><strong>2</strong><br/><br/></div>
 				  <div class="window" id="window3"><strong>3</strong><br/><br/></div>
 				  <div class="window" id="window4"><strong>4</strong><br/><br/></div>	
+				-->	
+				 	
 			</div>
 			<div id="cadastro">
 				<ul id="navigation">
@@ -310,7 +340,8 @@ filter:alpha(opacity=60);
 							<b>Nome:</b> <input type="text" id="cad_nome" name="cad_nome"><br/>
 							<b>Data de In&iacute;cio:</b> <input type="text" id="cad_data_inicio" name="cad_data_inicio"><br/>
 							<b>Dura&ccedil;&atilde;o:</b> <input type="text" id="cad_duracao" name="cad_duracao"><br/>
-							<button type="button" id="criarTarefa">Criar Tarefa</button>
+							<button type="button" id="criarTarefa">Criar Tarefa</button>&nbsp;
+							<button type="button" id="conectar">Conectar</button>
 							</li>
 						</form>
 					</li>
@@ -343,6 +374,7 @@ filter:alpha(opacity=60);
 			</div>
 			<div id="inspector">
 				<button type="button" id="minimizar">Esconder</button>
+				<p id="mensagem"> </p>	
 			</div>
 		</div>
 	</body>
