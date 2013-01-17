@@ -280,11 +280,9 @@
 				            for (i=0; i< myEndpoints.length; i++) {
 						  console.log("endpoint : " + i + " anchor : " + myEndpoints[i].anchor);
                                                   //console.log("myEndpoints[i].anchor = " + $.isArray(myEndpoints[i].anchor));
-						  console.log("typeof - myEndpoints[i].anchor = " + typeof(myEndpoints[i].anchor));
+						  //console.log("typeof - myEndpoints[i].anchor = " + typeof(myEndpoints[i].anchor));
 					    }
 					   
-					} else {
-					    console.log("nao tem endpoints");		
 					}
 				}
 
@@ -309,6 +307,8 @@
 			 Havendo mais de uma tarefa, Pega a última tarefa, para reposicionar a mesma,
 			 mantendo o mesmo left e variando o top com base na altura mais um valor constante,
 			 a partir do último componente div.
+                         TODO consertar o problema de reposicionamento 
+			 Trabalhar com um único div que vai ter o seu offset alterado... o melhor vai ser criar um objeto para isto
 			*/	
 			if (allDivTarefas.length > 0) {
 			  var idUltimaTarefaTmp = allDivTarefas[allDivTarefas.length-1];
