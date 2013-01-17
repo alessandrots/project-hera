@@ -1,6 +1,6 @@
 ;(function() {
 	var allDivTarefas = [], e1, e2;
-        //var allSourceEndpoints = [], allTargetEndpoints = [];
+        var allDivHierarquias = [];
 
 	window.jsPlumbDemo = {
 		init : function() {
@@ -207,6 +207,7 @@
 			});      
 			
 			// this is the paint style for the connecting lines..
+			//aqui pode ser mudado nextColour que tem no stateMachineDemo-jquery.js
 			var connectorPaintStyle = {
 				lineWidth:5,
 				strokeStyle:"#deea18",
@@ -259,8 +260,47 @@
 
 			//Aqui tá colocando o label do source com o target (source-target)
 			init = function(connection) {
-				connection.getOverlay("label").setLabel(connection.sourceId.substring(6) + "-" + connection.targetId.substring(6));
-			};
+                                //id das janelas conectadas
+                                var idConector = connection.sourceId + "_" + connection.targetId;
+
+				//guardando as tarefas que foram conectadas				
+				if ($.inArray(idConector, allDivHierarquias) == -1){
+					allDivHierarquias.push(idConector)	;
+					//alert ('connection.sourceId = ' + connection.sourceId + ' - connection.targetId = ' + connection.targetId);
+					connection.getOverlay("label").setLabel(connection.sourceId.substring(6) + "-" + connection.targetId.substring(6));
+					
+                                        //console.log("c is a Connection object.  it connects " + connection.sourceId + " to " + connection.targetId);
+                                        //console.log("sourceEndpoint : " + connection.sourceEndpoint);
+
+					/* */
+					var myEndpoints = connection.endpoints;
+					if (myEndpoints != null && myEndpoints.length > 0) {
+					    //console.log("myEndpoints : " + myEndpoints.length);
+					    
+				            for (i=0; i< myEndpoints.length; i++) {
+						  console.log("endpoint : " + i + " anchor : " + myEndpoints[i].anchor);
+                                                  //console.log("myEndpoints[i].anchor = " + $.isArray(myEndpoints[i].anchor));
+						  console.log("typeof - myEndpoints[i].anchor = " + typeof(myEndpoints[i].anchor));
+					    }
+					   
+					} else {
+					    console.log("nao tem endpoints");		
+					}
+				}
+
+				//parametros - não tem parametros
+				/*
+				var allParams = connection.getParameters();
+				if (allParams != null && allParams.length > 0) {
+				    console.log("tamanho : " + allParams.length);
+		                    for (key in allParams) {
+					  console.log("parametro : " + key + " value : " + connection.getParameter(key)());
+				    }
+				} else {
+				    console.log("nao tem parametros");		
+				}
+				*/
+			};//fim init
 
 			jsPlumb.draggable(jsPlumb.getSelector(".window"));
 		
@@ -305,17 +345,13 @@
 
 			// listen for new connections; initialise them the same way we initialise the connections at startup.
 			jsPlumb.bind("jsPlumbConnection", function(connInfo, originalEvent) {
-				alert('DESCOBRIIIIII... '); 
+				//alert('DESCOBRIIIIII... '); 
 				init(connInfo.connection);
 			});
 
 			//TODO ver pagina 5 do tutorial para conexão depois
 	        },
-              
-                conectarComponentes: function() {
-		   //jsPlumb.connect({uuids:["window_1001", "window_1002"]});
-                   //jsPlumb.connect({source:e1, target:e2});//TODO
-		},
+                
   
                /**
 	          retornarProximoID - função de teste
