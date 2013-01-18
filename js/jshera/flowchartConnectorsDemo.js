@@ -1,8 +1,12 @@
 ;(function() {
 	var allDivTarefas = [], e1, e2;
         var allDivHierarquias = [];
+        //var self = this;
+        var arvore = null;
+	
 
 	window.jsPlumbDemo = {
+
 		init : function() {
 			jsPlumb.importDefaults({
 				// default drag options
@@ -268,23 +272,32 @@
 					allDivHierarquias.push(idConector)	;
 					//alert ('connection.sourceId = ' + connection.sourceId + ' - connection.targetId = ' + connection.targetId);
 					connection.getOverlay("label").setLabel(connection.sourceId.substring(6) + "-" + connection.targetId.substring(6));
-					
-                                        //console.log("c is a Connection object.  it connects " + connection.sourceId + " to " + connection.targetId);
-                                        //console.log("sourceEndpoint : " + connection.sourceEndpoint);
 
-					/* */
-					var myEndpoints = connection.endpoints;
-					if (myEndpoints != null && myEndpoints.length > 0) {
-					    //console.log("myEndpoints : " + myEndpoints.length);
-					    
-				            for (i=0; i< myEndpoints.length; i++) {
-						  console.log("endpoint : " + i + " anchor : " + myEndpoints[i].anchor);
-                                                  //console.log("myEndpoints[i].anchor = " + $.isArray(myEndpoints[i].anchor));
-						  //console.log("typeof - myEndpoints[i].anchor = " + typeof(myEndpoints[i].anchor));
-					    }
-					   
-					}
-				}
+                    if (arvore == null){
+                        arvore = new Arvore();
+
+                    }
+					
+                    //console.log("c is a Connection object.  it connects " + connection.sourceId + " to " + connection.targetId);
+                    //console.log("sourceEndpoint : " + connection.sourceEndpoint);
+                    arvore.montarArvore(connection.sourceId, connection.targetId);
+
+					/*
+                        var myEndpoints = connection.endpoints;
+                        if (myEndpoints != null && myEndpoints.length > 0) {
+                            //console.log("myEndpoints : " + myEndpoints.length);
+
+                                for (i=0; i< myEndpoints.length; i++) {
+                              console.log("endpoint : " + i + " anchor : " + myEndpoints[i].anchor);
+                                                      //console.log("myEndpoints[i].anchor = " + $.isArray(myEndpoints[i].anchor));
+                              console.log("typeof - myEndpoints[i].anchor = " + typeof(myEndpoints[i].anchor));
+                            }
+
+                        } else {
+                            console.log("nao tem endpoints");
+                        }
+                     */
+				}//fim if inArray
 
 				//parametros - não tem parametros
 				/*
@@ -307,19 +320,17 @@
 			 Havendo mais de uma tarefa, Pega a última tarefa, para reposicionar a mesma,
 			 mantendo o mesmo left e variando o top com base na altura mais um valor constante,
 			 a partir do último componente div.
-                         TODO consertar o problema de reposicionamento 
-			 Trabalhar com um único div que vai ter o seu offset alterado... o melhor vai ser criar um objeto para isto
 			*/	
 			if (allDivTarefas.length > 0) {
 			  var idUltimaTarefaTmp = allDivTarefas[allDivTarefas.length-1];
 			  var coordenadas = $('#' + idUltimaTarefaTmp).offset();
-                          var altura = $('#' + idUltimaTarefaTmp).height();
+              var altura = $('#' + idUltimaTarefaTmp).height();
                           
 			  
-                          $('#' + id).offset(function(index, coord) {
+              $('#' + id).offset(function(index, coord) {
 			      var newPosition =coordenadas.top + altura + 30;
 			      return {top: newPosition, left: coordenadas.left};
-			   }); 
+			  });
 			} else {
 			   $('#' + id).offset(function(index, coord) {
 			      return {top: coord.top +20, left: coord.left + 25};
@@ -333,8 +344,8 @@
 			jsPlumb.addEndpoint(id, { anchor:[1, 1, 0, 0] }, sourceEndpoint);
 
 			//Criando pontos de destino
-                        jsPlumb.addEndpoint(id, { anchor:[0.5, 0, 0, 0] }, targetEndpoint);
-                        jsPlumb.addEndpoint(id, { anchor:[0.5, 1, 0, 0] }, targetEndpoint); 
+            jsPlumb.addEndpoint(id, { anchor:[0.5, 0, 0, 0] }, targetEndpoint);
+            jsPlumb.addEndpoint(id, { anchor:[0.5, 1, 0, 0] }, targetEndpoint);
 			jsPlumb.addEndpoint(id, { anchor:[0, 0.5, -1, 0] }, targetEndpoint);
 			jsPlumb.addEndpoint(id, { anchor:[1, 0.5, -1, 0] }, targetEndpoint);
 
@@ -350,20 +361,32 @@
 			});
 
 			//TODO ver pagina 5 do tutorial para conexão depois
-	        },
+	    },
+
+        imprimir : function(escolha) {
+            if (arvore == null){
+                arvore = new Arvore();
+            }
+
+            if (escolha == 1){
+                arvore.imprimirHierarquia(arvore.root, escolha);
+            } else if (escolha == 2){
+                arvore.imprimirHierarquia(arvore.tarefas, escolha);
+            }
+        },
                 
   
-               /**
-	          retornarProximoID - função de teste
-	       */
-               retornarProximoID : function(proximoID) {
-		  //alert(proximoID);
-		  if (proximoID == 0){
-		    proximoID = 1000
-		  }
-		  proximoID = proximoID +1;
-		  return proximoID;
-	       }  
+        /**
+	        retornarProximoID - função de teste
+	    */
+        retornarProximoID : function(proximoID) {
+		          //alert(proximoID);
+                  if (proximoID == 0){
+                    proximoID = 1000
+                  }
+                  proximoID = proximoID +1;
+                  return proximoID;
+	    }
 	};
 })();
 
