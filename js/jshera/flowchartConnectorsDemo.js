@@ -242,8 +242,8 @@
 						//label:"Drag",
 						cssClass:"endpointSourceLabel" 
 					} ]
-			]
-				},
+			     ]
+			},
 			// a source endpoint that sits at BottomCenter
 			//	bottomSource = jsPlumb.extend( { anchor:"BottomCenter" }, sourceEndpoint),
 			// the definition of target endpoints (will appear when the user drags a connection) 
@@ -264,8 +264,8 @@
 
 			//Aqui tá colocando o label do source com o target (source-target)
 			init = function(connection) {
-                                //id das janelas conectadas
-                                var idConector = connection.sourceId + "_" + connection.targetId;
+                 //id das janelas conectadas
+                 var idConector = connection.sourceId + "_" + connection.targetId;
 
 				//guardando as tarefas que foram conectadas				
 				if ($.inArray(idConector, allDivHierarquias) == -1){
@@ -275,42 +275,13 @@
 
                     if (arvore == null){
                         arvore = new Arvore();
-
                     }
 					
                     //console.log("c is a Connection object.  it connects " + connection.sourceId + " to " + connection.targetId);
                     //console.log("sourceEndpoint : " + connection.sourceEndpoint);
                     arvore.montarArvore(connection.sourceId, connection.targetId);
-
-					/*
-                        var myEndpoints = connection.endpoints;
-                        if (myEndpoints != null && myEndpoints.length > 0) {
-                            //console.log("myEndpoints : " + myEndpoints.length);
-
-                                for (i=0; i< myEndpoints.length; i++) {
-                              console.log("endpoint : " + i + " anchor : " + myEndpoints[i].anchor);
-                                                      //console.log("myEndpoints[i].anchor = " + $.isArray(myEndpoints[i].anchor));
-                              console.log("typeof - myEndpoints[i].anchor = " + typeof(myEndpoints[i].anchor));
-                            }
-
-                        } else {
-                            console.log("nao tem endpoints");
-                        }
-                     */
 				}//fim if inArray
 
-				//parametros - não tem parametros
-				/*
-				var allParams = connection.getParameters();
-				if (allParams != null && allParams.length > 0) {
-				    console.log("tamanho : " + allParams.length);
-		                    for (key in allParams) {
-					  console.log("parametro : " + key + " value : " + connection.getParameter(key)());
-				    }
-				} else {
-				    console.log("nao tem parametros");		
-				}
-				*/
 			};//fim init
 
 			jsPlumb.draggable(jsPlumb.getSelector(".window"));
@@ -342,6 +313,7 @@
 			jsPlumb.addEndpoint(id, { anchor:[1, 0, 0, 0] }, sourceEndpoint);
 			jsPlumb.addEndpoint(id, { anchor:[0, 1, 0, 0] }, sourceEndpoint);
 			jsPlumb.addEndpoint(id, { anchor:[1, 1, 0, 0] }, sourceEndpoint);
+            //jsPlumb.addEndpoint(id, { anchor:[1, 1, 0, 1] }, sourceEndpoint);
 
 			//Criando pontos de destino
             jsPlumb.addEndpoint(id, { anchor:[0.5, 0, 0, 0] }, targetEndpoint);
@@ -373,6 +345,102 @@
             } else if (escolha == 2){
                 arvore.imprimirHierarquia(arvore.tarefas, escolha);
             }
+        },
+
+        clonarTarefa : function(idSource, idTarget) {
+             //selectEndpoints({source:idSource});
+
+            jsPlumb.importDefaults({
+                // default drag options
+                DragOptions : { cursor: 'pointer', zIndex:2000 },
+                // default to blue at one end and green at the other
+                EndpointStyles : [{ fillStyle:'#225588' }, { fillStyle:'#558822' }],
+
+                // blue endpoints 7 px; green endpoints 11. -> características das linhas
+                Endpoints : [ [ "Dot", {radius:7} ], [ "Dot", { radius:11 } ]],
+
+                // the overlays to decorate each connection with.  note that the label overlay uses a function to generate the label text; in this
+                // case it returns the 'labelText' member that we set on each connection in the 'init' method below.
+                ConnectionOverlays : [
+                    [ "Arrow", { location:0.9 } ],
+                    [ "Label", {
+                        location:0.1,
+                        id:"label",
+                        cssClass:"aLabel"
+                    }]
+                ],
+                ConnectorZIndex:5
+            });
+
+            // this is the paint style for the connecting lines..
+            //aqui pode ser mudado nextColour que tem no stateMachineDemo-jquery.js
+            var connectorPaintStyle = {
+                    lineWidth:5,
+                    strokeStyle:"#deea18",
+                    joinstyle:"round",
+                    outlineColor:"#EAEDEF",
+                    outlineWidth:7
+            },
+
+            // .. and this is the hover style.
+            connectorHoverStyle = {
+                    lineWidth:7,
+                    strokeStyle:"#2e2aF8"
+            },
+
+            targetEndpoint = {
+                    endpoint:"Dot",
+                    paintStyle:{ fillStyle:"#558822",radius:7 },
+                    hoverPaintStyle:connectorHoverStyle,
+                    maxConnections:-1,
+                    dropOptions:{ hoverClass:"hover", activeClass:"active" },
+                    isTarget:true,
+                    overlays:[
+                        [ "Label", {
+                            location:[0.5, -0.5],
+                            //label:"Drop",
+                            cssClass:"endpointTargetLabel" } ]
+                    ]
+            },
+
+            sourceEndpoint = {
+                endpoint:"Dot",
+                paintStyle:{ fillStyle:"#225588",radius:7 },
+                isSource:true,
+                connector:[ "Flowchart", { stub:[40, 60], gap:10 } ],
+                connectorStyle:connectorPaintStyle,
+                hoverPaintStyle:connectorHoverStyle,
+                connectorHoverStyle:connectorHoverStyle,
+                dragOptions:{},
+                overlays:[
+                    [ "Label", {
+                        location:[0.5, 1.5],
+                        //label:"Drag",
+                        cssClass:"endpointSourceLabel"
+                    } ]
+                ]
+            };
+
+            jsPlumb.draggable(jsPlumb.getSelector(".window"));
+
+            //console.log("total source endpoints = " + jsPlumb.selectEndpoints({source:$('#window_1001')}).length);
+            //console.log("total target endpoints = " + jsPlumb.selectEndpoints({target:$('#window_1001')}).length);
+
+            jsPlumb.selectEndpoints({source:$('#window_1001')}).each(function(endpoint) {
+                //console.log(" anchor.elementId = " +endpoint.anchor.elementId);
+                //console.log(" endpoint.uuid = " + endpoint.uuid + " isSource = " + endpoint.isSource);//ok
+                //jsPlumb.addEndpoint( $('#' + idTarget),sourceEndpoint, endpoint);
+                jsPlumb.addEndpoint($('#' + idTarget), sourceEndpoint, {anchor:endpoint.anchor});
+            });
+
+
+
+            jsPlumb.selectEndpoints({target:$('#window_1001')}).each(function(endpoint) {
+                //console.log(" anchor.elementId = " +endpoint.anchor.elementId);
+                //console.log(" endpoint.uuid = " + endpoint.uuid + " isTarget = " + endpoint.isTarget);//ok
+                //jsPlumb.addEndpoint( $('#' + idTarget),endpoint);
+                jsPlumb.addEndpoint($('#' + idTarget), targetEndpoint, {anchor:endpoint.anchor});
+            });
         },
                 
   

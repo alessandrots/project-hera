@@ -71,8 +71,8 @@ function Arvore() {
                     tarefa_.adicionarTarefa(tarefaOrigem);
                     this.tarefas.push(tarefaOrigem.nome);
                 } else if (tarefa_.filhos != null  && tarefa_.filhos.length > 0) {
-                    //faz chamada recursiva percorrendo todos os filhos
                     /**
+                     * faz chamada recursiva percorrendo todos os filhos
                      * Ao chegar no final de todos os filhos, volta a percorrer o
                      * nível acima.
                      */
