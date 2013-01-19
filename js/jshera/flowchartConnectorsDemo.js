@@ -273,6 +273,7 @@
 					//alert ('connection.sourceId = ' + connection.sourceId + ' - connection.targetId = ' + connection.targetId);
 					connection.getOverlay("label").setLabel(connection.sourceId.substring(6) + "-" + connection.targetId.substring(6));
 
+
                     if (arvore == null){
                         arvore = new Arvore();
                     }
@@ -309,11 +310,11 @@
 			}  
 			
 			//Criando pontos de origem
+            //TODO botar num loop igual dynamicAnchorsDemo.js = for (var i = 0 ; i < divsWithWindowClass.length; i++) {
 			jsPlumb.addEndpoint(id, { anchor:[0, 0, 0, 0] }, sourceEndpoint);
 			jsPlumb.addEndpoint(id, { anchor:[1, 0, 0, 0] }, sourceEndpoint);
 			jsPlumb.addEndpoint(id, { anchor:[0, 1, 0, 0] }, sourceEndpoint);
 			jsPlumb.addEndpoint(id, { anchor:[1, 1, 0, 0] }, sourceEndpoint);
-            //jsPlumb.addEndpoint(id, { anchor:[1, 1, 0, 1] }, sourceEndpoint);
 
 			//Criando pontos de destino
             jsPlumb.addEndpoint(id, { anchor:[0.5, 0, 0, 0] }, targetEndpoint);
@@ -328,7 +329,6 @@
 
 			// listen for new connections; initialise them the same way we initialise the connections at startup.
 			jsPlumb.bind("jsPlumbConnection", function(connInfo, originalEvent) {
-				//alert('DESCOBRIIIIII... '); 
 				init(connInfo.connection);
 			});
 
@@ -348,8 +348,6 @@
         },
 
         clonarTarefa : function(idSource, idTarget) {
-             //selectEndpoints({source:idSource});
-
             jsPlumb.importDefaults({
                 // default drag options
                 DragOptions : { cursor: 'pointer', zIndex:2000 },
@@ -373,7 +371,7 @@
             });
 
             // this is the paint style for the connecting lines..
-            //aqui pode ser mudado nextColour que tem no stateMachineDemo-jquery.js
+            //TODO aqui pode ser mudado nextColour que tem no stateMachineDemo-jquery.js
             var connectorPaintStyle = {
                     lineWidth:5,
                     strokeStyle:"#deea18",
@@ -423,30 +421,60 @@
 
             jsPlumb.draggable(jsPlumb.getSelector(".window"));
 
-            //console.log("total source endpoints = " + jsPlumb.selectEndpoints({source:$('#window_1001')}).length);
-            //console.log("total target endpoints = " + jsPlumb.selectEndpoints({target:$('#window_1001')}).length);
 
-            jsPlumb.selectEndpoints({source:$('#window_1001')}).each(function(endpoint) {
+            //COPIANDO OS ENDPOINTS do tipo SOURCE
+            jsPlumb.selectEndpoints({source:$('#' + idSource)}).each(function(endpoint) {
                 //console.log(" anchor.elementId = " +endpoint.anchor.elementId);
                 //console.log(" endpoint.uuid = " + endpoint.uuid + " isSource = " + endpoint.isSource);//ok
-                //jsPlumb.addEndpoint( $('#' + idTarget),sourceEndpoint, endpoint);
                 jsPlumb.addEndpoint($('#' + idTarget), sourceEndpoint, {anchor:endpoint.anchor});
             });
 
-
-
-            jsPlumb.selectEndpoints({target:$('#window_1001')}).each(function(endpoint) {
+            //COPIANDO OS ENDPOINTS do tipo TARGET
+            jsPlumb.selectEndpoints({target:$('#' + idSource)}).each(function(endpoint) {
                 //console.log(" anchor.elementId = " +endpoint.anchor.elementId);
                 //console.log(" endpoint.uuid = " + endpoint.uuid + " isTarget = " + endpoint.isTarget);//ok
-                //jsPlumb.addEndpoint( $('#' + idTarget),endpoint);
                 jsPlumb.addEndpoint($('#' + idTarget), targetEndpoint, {anchor:endpoint.anchor});
             });
+
+            //Recuperando o ARRAY de Anchor para para os endpoints source da tarefa
+            jsPlumb.selectEndpoints({source:$('#' + idSource)}).each(function(endpoint) {
+                console.log(" SOURCE anchor id = " +endpoint.anchor.elementId  + " x = " + endpoint.anchor.x
+                    + " y = " + endpoint.anchor.y
+                    + " dx = " + endpoint.anchor.getOrientation(endpoint)[0]
+                    + " dy = " + endpoint.anchor.getOrientation(endpoint)[1]);
+            });
+
+            //Recuperando o ARRAY de Anchor para os endpoints target da tarefa
+            jsPlumb.selectEndpoints({target:$('#' + idSource)}).each(function(endpoint) {
+                console.log(" TARGET anchor id = " +endpoint.anchor.elementId  + " x = " + endpoint.anchor.x
+                    + " y = " + endpoint.anchor.y
+                    + " dx = " + endpoint.anchor.getOrientation(endpoint)[0]
+                    + " dy = " + endpoint.anchor.getOrientation(endpoint)[1]);
+            });
+
+            //para conexões ver doc. TODO -> Retrieving Connection Information
+            /*
+            jsPlumb.select({scope:"foo"}).each(function(connection) {
+                // do something
+            });
+
+             var c = jsPlumb.getAllConnections();
+
+             var c = jsPlumb.getConnections({source:["mySourceElement", "yourSourceElement"]});
+
+             var c = jsPlumb.getConnections({target:"myTargetElement"});
+
+             //Get all connections for the given source and targets (return value is a map of scope names to connection lists):
+             >>>>> var c = jsPlumb.getConnections({source:"mySourceElement", target:["target1", "target2"]});/TODO parece ser bem interessante
+            */
+
+            //ver depois Utility Functions TODO
         },
                 
   
         /**
-	        retornarProximoID - função de teste
-	    */
+         * retornarProximoID - função de teste
+	     */
         retornarProximoID : function(proximoID) {
 		          //alert(proximoID);
                   if (proximoID == 0){
