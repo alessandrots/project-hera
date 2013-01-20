@@ -104,24 +104,32 @@
 
 		       //pegando as coordenadas e mostrando na div de mensagem
 		       $('#' + nomeTarefa).mouseover(function(){
+                    //TODO parou de funcionar depois que cria uma nova tarefa
 			        var posicao = $(this).position();
-			        $('#mensagem').css('background', 'red').text('left : ' + posicao.left + ' top : '
-				        + posicao.top + ' width : ' + $(this).width() + ' height : ' + $(this).height() );
+
+                    $('#mensagem').show('slow', function(){
+                       $(this).css('background', 'red').text('left : ' + posicao.left + ' top : '
+                               + posicao.top + ' width : ' + $(this).width() + ' height : ' + $(this).height() );
+                    });
+
 		       });
 			
 		       $('#' + nomeTarefa).mouseout(function(){
-                    $('#mensagem').text('');
+                   //$('#mensagem').text('');
+                   $('#mensagem').hide(2000, function(){
+                       $(this).text('');
+                   });
                });
 
                $('#' + nomeTarefa).click(function(){
                     //alert('ja cliquei');
                    $('#mensagem').hide('fast');
-                    $('#tarefaSelecionada').val(nomeTarefa);
+                   $('#tarefaSelecionada').val(nomeTarefa);
                });
 			
 		     //Criando a tarefa
 		     jsPlumbDemo.criarTarefa(nomeTarefa);
-		});
+		});//end criarTarefa
 
         //Botão Conectar
 		$('#conectar').click(function(){
@@ -157,12 +165,28 @@
                 jsPlumbDemo.clonarTarefa($('#tarefaSelecionada').val(), nomeTarefaNova);
 
             } else {
-                $('#mensagem').show('slow', function(){
-                    $(this).css({color:'red', borderColor:'blue'}).text('Clique numa tarefa para clonar a mesma.');
+                $('#mensagem').show('fast', function(){
+                    $(this).css({background:'red', borderColor:'blue'}).text('Clique numa tarefa para clonar a mesma.');
+                });
+
+                $('#mensagem').delay(2000);
+
+                $('#mensagem').hide('slow', function(){
+                    $(this).text('');
                 });
             }
+        });//fim clonarTarefa
 
-        });
+
+        //Botão Clonar Tarefa
+        $('#carregarConexoes').click(function(){
+
+            jsPlumbDemo.carregarConexoes('window_1001', 'window_1002');
+
+        });//fim clonarTarefa
+
+
+
 	});
 // ]]>	
 </script>
@@ -189,9 +213,10 @@
                                 <b>Data de In&iacute;cio:</b> <input type="text" id="cad_data_inicio" name="cad_data_inicio"><br/>
                                 <b>Dura&ccedil;&atilde;o:</b> <input type="text" id="cad_duracao" name="cad_duracao"><br/>
                                 <button type="button" id="criarTarefa">Criar Tarefa</button>&nbsp;
-                                <button type="button" id="conectar">Conectar</button>&nbsp;
-                                <button type="button" id="clonarTarefa">Clonar Tarefa</button><br>
-                                <input type="text" id="tarefaSelecionada" name="tarefaSelecionada"><br/>
+                                <button type="button" id="clonarTarefa">Clonar Tarefa</button>&nbsp;
+                                <button type="button" id="carregarConexoes">Carrega Conexoes</button><br>
+                                <input type="text" id="tarefaSelecionada" name="tarefaSelecionada"><br/><br/>
+                                <p id="mensagem"> </p><br/>
                             </li>
                             </form>
                         </p>
@@ -241,7 +266,7 @@
                             <button type="button" id="imprimir">Imprimir Hierarquia das Tarefas</button>
                             <button type="button" id="imprimir2">Imprimir das Tarefas ja guardadas</button>
                             <br>
-                        <p id="mensagem"> </p>
+
                         </p>
                     </div>
 
