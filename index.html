@@ -2,273 +2,79 @@
 <html>
 	<head>
         <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<title>CSS desde o in&iacute;cio - p&aacute;gina 7-2</title>
-		<!--  -->
+		<title>New Project - Controle suas Tarefas</title>
+
+        <!-- CSS -->
 		<link rel="stylesheet" href="css/demo-new.css">
 		<link rel="stylesheet" href="css/flowchartDemo.css">
-		
-<!--
-The padding property sets or returns the padding of an element.
+        <link rel="stylesheet" href="css/core.css">
+        <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.9.2.custom.min.css"  />
 
-This property can take from one to four values:
-    One value, like: div {padding: 50px} - all four sides will have a padding of 50px
-    Two values, like: div {padding: 50px 10px} - the top and bottom padding will be 50px, left and right padding will be 10px
-    Three values, like: div {padding: 50px 10px 20px} - the top padding will be 50px, left and right padding will be 10px, bottom padding will be 20px
-    Four values, like: div {padding: 50px 10px 20px 30px} - the top padding will be 50px, right padding will be 10px, bottom padding will be 20px, 
-	left padding will be 30px
+        <!-- JQuery-->
+        <script type="text/javascript" src="js/jquery/jquery-1.8.3.js"></script>
+        <script type="text/javascript" src="js/jquery/modernizr.custom.59241.js"></script>
+        <script type="text/javascript" src="js/jquery/jquery-ui-1.9.2.custom.min.js"></script>
+        <script type="text/javascript" src="js/jquery/jquery.ui.touch-punch.min.js"></script>
 
-    overflow: auto; Vai fazer a barra de rolagem aparecer, quando o que estiver <DIV>dentro das divs, ou, quadro<DIV> ultrapassar as medidas largura ou altura.
+        <!-- BEZIER-->
+        <script type="text/javascript" src="js/jsplumb/lib/jsBezier-0.5.js"></script>
 
--->
-<style type="text/css" media="screen">
-<!--
-    #principal {
-	    background-color: #ffffff;
-	    text-align: left;
-	    visibility: visible;
-	    margin-top: 20px;
-	    margin-right: auto;
-	    margin-left: auto;
-	    position: relative;
-	    width:100%;
-	    height: 600px;
-    }
+        <!-- DEP -->
+        <!-- jsplumb util -->
+        <script type="text/javascript" src="js/jsplumb/1.4.0/jsPlumb-util-1.4.0-RC1.js"></script>
+        <!-- base DOM adapter -->
+        <script type="text/javascript" src="js/jsplumb/1.4.0/jsPlumb-dom-adapter-1.4.0-RC1.js"></script>
+        <!-- main jsplumb engine -->
+        <script type="text/javascript" src="js/jsplumb/1.4.0/jsPlumb-1.4.0-RC1.js"></script>
+        <!-- connectors, endpoint and overlays  -->
+        <script type="text/javascript" src="js/jsplumb/1.4.0/jsPlumb-defaults-1.4.0-RC1.js"></script>
+        <!-- state machine connectors -->
+        <script type="text/javascript" src="js/jsplumb/1.4.0/jsPlumb-connectors-statemachine-1.4.0-RC1.js"></script>
+        <!-- flowchart connectors -->
+        <script type="text/javascript" src="js/jsplumb/1.4.0/jsPlumb-connectors-flowchart-1.4.0-RC1.js"></script>
+        <!-- SVG renderer -->
+        <script type="text/javascript" src="js/jsplumb/1.4.0/jsPlumb-renderers-svg-1.4.0-RC1.js"></script>
+        <!-- jquery jsPlumb adapter -->
+        <script type="text/javascript" src="js/jsplumb/1.4.0/jquery.jsPlumb-1.4.0-RC1.js"></script>
+        <!-- /JS -->
 
-    #containerPlumb {
-	    font-size: 11px;
-	    /* border:1px solid #CCCCCC;*/	
-	    font-family: Verdana, Geneva, Arial, sans-serif;
-	    line-height: 14px;
-	    background-color: #ccd5de;
-	    text-align: left;
-	    visibility: visible;
-	    /*margin-top: 20px;*/
-	    margin-right: auto;
-	    margin-left: auto;
-	    position: relative;
-	    width: 69%;/* tá 69% pq coloquei a borda de 1px no navigation*/
-	    float: left;
-	    height:100%;
-	    overflow: auto; 
-    }
+        <!--  demo code -->
+        <script type="text/javascript" src="js/jshera/flowchartConnectorsDemo.js"></script>
 
-    #cadastro {
-	    font-size: 11px;
-	    font-family: Verdana, Geneva, Arial, sans-serif;
-	    line-height: 14px;
-	    background-color: #ffffff;
-	    text-align: left;
-	    visibility: visible;
-	    /*margin-top: 40px;*/
-	    margin-right: auto;
-	    margin-left: auto;
-	    position: relative;
-	    width: 30%;
-	    float: left;
-	    height:95%;
-    }
-
-   #inspector {
-	background-color: #ccc;
-        margin-top: 20px;
-	position: relative;
-	padding-top: 30px;
-	border-color: #666;
-	border-width: 1px;
-	border-style: double;
-	clear: left
-   }
-
-/*********************************************/
-/*          Componentes Accordion 	     */	
-/*********************************************/
-   #navigation {
-	border:1px solid #5263AB;
-	margin:0px;
-	padding:0px;
-	text-indent:0px;
-	background-color:#E2E2E2;
-	width: 100%;
-        height:100%;
-  }
-
-  #navigation a.head {
-	  cursor:pointer;
-	  border:1px solid #CCCCCC;
-	  background:#5263AB url(js/accordion/collapsed.gif) no-repeat scroll 3px 4px;
-	  color:#FFFFFF;
-	  display:block;
-	  font-weight:bold;
-	  margin:0px;
-	  padding:0px;
-	  text-indent:14px;
-	  text-decoration: none;
-  }
-
-  #navigation a.head:hover {
-	  color:#FFFF99;
-  }
-
-  #navigation a.selected {
-	  background-image: url(js/accordion/expanded.gif);
-  }
-
-  #navigation a.current {
-	  background-color:#FFFF99;
-  }
-
-  #navigation ul {
-	  border-width:0px;
-	  margin:0px;
-	  padding:0px;
-	  text-indent:0px;
-  }
-
-  #navigation li {
-	  list-style:none outside none; display:inline;
-  }
-
-  #navigation li li a {
-	  color:#000000;
-	  display:block;
-	  text-indent:10px;
-	  text-decoration: none;
-  }
-
-  #navigation li li a:hover {
-	  background-color:#FFFF99;
-	  color:#FF0000;
-  }
-
-/*********************************************/
-/*          Componentes jsPlumb 	     */	
-/*********************************************/
-/*
-
-.window { 
-	border:1px solid #346789;
-	box-shadow: 2px 2px 19px #aaa;
-	-o-box-shadow: 2px 2px 19px #aaa;
-	-webkit-box-shadow: 2px 2px 19px #aaa;
-	-moz-box-shadow: 2px 2px 19px #aaa;
-	-moz-border-radius:0.5em;
-	border-radius:0.5em;
-	opacity:0.8;
-	filter:alpha(opacity=80);
-	width:50px; 
-        height:50px;
-	line-height:5em;
-	text-align:center;
-	z-index:20; position:absolute;
-	background-color:#eeeeef;
-	color:black;
-	font-family:helvetica;padding:0.5em;
-	font-size:0.9em;
-}
-
-.window:hover {
-    box-shadow: 2px 2px 19px #444;
-   -o-box-shadow: 2px 2px 19px #444;
-   -webkit-box-shadow: 2px 2px 19px #444;
-   -moz-box-shadow: 2px 2px 19px #444;
-    opacity:0.6;
-filter:alpha(opacity=60);
-
-}
-
-.active {
-	border:1px dotted green;
-}
-.hover {
-	border:1px dotted red;
-}
-
-#window1 { top:34em;left:5em;}
-#window2 { top:7em; left:36em;}
-#window3 { top:27em;left:48em; }
-#window4 { top:23em; left:22em;}
-
-._jsPlumb_connector { z-index:4; }
-._jsPlumb_endpoint, .endpointTargetLabel, .endpointSourceLabel{ z-index:21;cursor:pointer; }
-
-.hl { border:3px solid red; }
-
-#debug { position:absolute; background-color:black; color:red; z-index:5000 }
-
-.aLabel {
- 	background-color:white; 
-	padding:0.4em; 
-	font:12px sans-serif; 
-	color:#444;
-	z-index:21;
-	border:1px dotted gray;
-	opacity:0.8;
-	filter:alpha(opacity=80);
-}
-*/
-
--->
-</style> 
-
-<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="js/accordion/jquery.accordion.js"></script>
-<script type="text/javascript" src="js/accordion/lib/jquery.easing.js"></script>
-<script type="text/javascript" src="js/accordion/lib/jquery.dimensions.js"></script>
-<script type="text/javascript" src="js/jsplumb/lib/jquery-ui-1.8.23-min.js"></script>
-<script type="text/javascript" src="js/jsplumb/lib/jquery.ui.touch-punch.min.js"></script>
-<script type="text/javascript" src="js/jsplumb/lib/jsBezier-0.5.js"></script>
-
-<!-- /DEP -->
-
-<!-- jsplumb util -->
-<script type="text/javascript" src="js/jsplumb/1.4.0/jsPlumb-util-1.4.0-RC1.js"></script>
-<!-- base DOM adapter -->
-<script type="text/javascript" src="js/jsplumb/1.4.0/jsPlumb-dom-adapter-1.4.0-RC1.js"></script>
-<!-- main jsplumb engine -->
-<script type="text/javascript" src="js/jsplumb/1.4.0/jsPlumb-1.4.0-RC1.js"></script>
-<!-- connectors, endpoint and overlays  -->
-<script type="text/javascript" src="js/jsplumb/1.4.0/jsPlumb-defaults-1.4.0-RC1.js"></script>
-<!-- state machine connectors -->
-<script type="text/javascript" src="js/jsplumb/1.4.0/jsPlumb-connectors-statemachine-1.4.0-RC1.js"></script>
-<!-- flowchart connectors -->
-<script type="text/javascript" src="js/jsplumb/1.4.0/jsPlumb-connectors-flowchart-1.4.0-RC1.js"></script>        
-<!-- SVG renderer -->
-<script type="text/javascript" src="js/jsplumb/1.4.0/jsPlumb-renderers-svg-1.4.0-RC1.js"></script>		
-<!-- jquery jsPlumb adapter -->
-<script type="text/javascript" src="js/jsplumb/1.4.0/jquery.jsPlumb-1.4.0-RC1.js"></script>
-<!-- /JS -->
-
-<!--  demo code -->
-<script type="text/javascript" src="js/jshera/flowchartConnectorsDemo.js"></script>
-
-<script type="text/javascript" src="js/jshera/core.js"></script>
+        <script type="text/javascript" src="js/jshera/core.js"></script>
 
 <script type="text/javascript">
 //<![CDATA[
 	$(document).ready(function() {
-		//$('#cadastro').toggle('fast');//OK
-		//$('#cadastro').show();//OK
-		//$('#cadastro').hide();//
 
-		//Colocando o efeito do accordion
-		$('#navigation').accordion({
-			active: false,
-			header: '.head',
-			navigation: true,
-			event: 'mouseover',
-			fillSpace: true,
-			animated: 'easeslide'
-		});
-		
 
-		//Recuperando os accordions abertos, se tiver mais separar por vírgulas
-		var accordions = jQuery('#navigation');
+        var opcoesAcordeao = {
+            fillSpace: true,
+            autoHeight: false,
+            collapsible: true
+        };
+        $('.acordeao').accordion(opcoesAcordeao);
+        $('.acordeao').accordion("activate", -1);
+
+        /* */
+        //criando as abas
+        var opcoesAbas = {
+            select: function(event, ui) {
+                $('.msg-fly').remove();
+                var mensagem ='';
+                mensagem += ' Aba selecionada foi a ' +(parseInt(ui.index) + 1) +'a.,' +
+                        ' denominada: '+ ui.tab.firstChild.nodeValue;
+                $('<p />', {
+                    class: 'msg-fly',
+                    text: mensagem
+                }).insertBefore($('#inspector')).hide().fadeIn(2000);
+            }
+        };
+        $('#inspector').tabs(opcoesAbas);
+
 
         //Limpando a ultima tarefa selecionada
         $('#tarefaSelecionada').val('');
-
-		//para fechar todos os accordions
-		accordions.accordion("activate", -1);
 
 		//Mostrando e exibindo a janela
 		$('#minimizar').click(function(){
@@ -282,11 +88,11 @@ filter:alpha(opacity=60);
                 $('#containerPlumb').css({width:'69%'});
 		        $('#cadastro').show('fast');
 			    $(this).text('Esconder')
-			    accordions.accordion("activate", -1);
+                 $('.acordeao').accordion("activate", -1);
              }
 		});
                 
-                 var contaJanela = 0;
+        var contaJanela = 0;
 
 		//Criar Tarefa
 		$('#criarTarefa').click(function(){
@@ -298,14 +104,12 @@ filter:alpha(opacity=60);
 
 		       //pegando as coordenadas e mostrando na div de mensagem
 		       $('#' + nomeTarefa).mouseover(function(){
-			        //alert('mouseover');
 			        var posicao = $(this).position();
 			        $('#mensagem').css('background', 'red').text('left : ' + posicao.left + ' top : '
 				        + posicao.top + ' width : ' + $(this).width() + ' height : ' + $(this).height() );
 		       });
 			
 		       $('#' + nomeTarefa).mouseout(function(){
-                    //alert('mouseout');
                     $('#mensagem').text('');
                });
 
@@ -351,7 +155,7 @@ filter:alpha(opacity=60);
 
                 //Clonando a tarefa
                 jsPlumbDemo.clonarTarefa($('#tarefaSelecionada').val(), nomeTarefaNova);
-                //$('#tarefaSelecionada').val();
+
             } else {
                 $('#mensagem').show('slow', function(){
                     $(this).css({color:'red', borderColor:'blue'}).text('Clique numa tarefa para clonar a mesma.');
@@ -368,66 +172,93 @@ filter:alpha(opacity=60);
 		<div id="principal" align="center">
 			<div id="containerPlumb">
 				  <div id="render"></div>
-				   <!-- se chamar os método init dentro do jsplumb precisa destes componentes em tela -->
-				  <!-- 
-                                   
-				  <div class="window" id="window1"><strong>1</strong><br/><br/></div>
-				  <div class="window" id="window2"><strong>2</strong><br/><br/></div>
-				  <div class="window" id="window3"><&nbsp;strong>3</strong><br/><br/></div>
-				  <div class="window" id="window4"><strong>4</strong><br/><br/></div>	
-				-->	
-				 	
+				   <!-- desenho dos componentes - workspace do usuário -->
 			</div>
-			<div id="cadastro">
-				<ul id="navigation">
-					<li>
-					      <a class="head" href="?p=1.1.1">Cadastro</a>
-						<form>
-							<li>
-							<b>Nome:</b> <input type="text" id="cad_nome" name="cad_nome"><br/>
-							<b>Data de In&iacute;cio:</b> <input type="text" id="cad_data_inicio" name="cad_data_inicio"><br/>
-							<b>Dura&ccedil;&atilde;o:</b> <input type="text" id="cad_duracao" name="cad_duracao"><br/>
-							<button type="button" id="criarTarefa">Criar Tarefa</button>&nbsp;
-							<button type="button" id="conectar">Conectar</button>&nbsp;
-                            <button type="button" id="clonarTarefa">Clonar Tarefa</button><br>
-                            <input type="text" id="tarefaSelecionada" name="tarefaSelecionada"><br/>
-							</li>
-						</form>
-					</li>
-					<li>
-					
-						<a class="head" href="?p=1.1.2">Depend&ecirc;ncias</a>
-						<ul>
-							<li><a href="?p=1.1.2.1">Electric</a></li>
-							<li><a href="?p=1.1.2.2">Acoustic</a></li>
-							<li><a href="?p=1.1.2.3">Amps</a></li>
-							<li><a href="?p=1.1.2.4">Effects</a></li>
-							<li><a href="?p=1.1.2.5">Accessories</a></li>
-						</ul> 
-					</li>
-					<li>
-						<a class="head" href="?p=1.1.3">Outras</a>
-						<ul>
-							<li><a href="?p=1.1.3.2">Acoustic Drums</a></li>
-							<li><a href="?p=1.1.3.3">Electronic Drums</a></li>
-							<li><a href="?p=1.1.3.4">Cymbals</a></li>
-							<li><a href="?p=1.1.3.5">Hardware</a></li>
-							<li><a href="?p=1.1.3.6">Accessories</a></li>
-						</ul> 
-					</li>
-					<li>
-						<a class="head" href="?p=1.1.3">Close All</a>
-						<!-- somente para fechar a exibição de todos os accordions-->
-					</li>	
-				</ul>
-			</div>
-			<div id="inspector">
-				<button type="button" id="minimizar">Esconder</button>
-                <button type="button" id="imprimir">Imprimir Hierarquia das Tarefas</button>
-                <button type="button" id="imprimir2">Imprimir das Tarefas ja guardadas</button>
-                <br>
-				<p id="mensagem"> </p>	
-			</div>
+
+
+
+            <!--<div id="cadastro" class="redim ui-widget-content ui-corner-all">-->
+            <div id="cadastro">
+                <div class="acordeao">
+                    <h3><a href="#">Cadastro</a></h3>
+                    <div>
+                        <p>
+                            <form>
+                            <li>
+                                <b>Nome:</b> <input type="text" id="cad_nome" name="cad_nome"><br/>
+                                <b>Data de In&iacute;cio:</b> <input type="text" id="cad_data_inicio" name="cad_data_inicio"><br/>
+                                <b>Dura&ccedil;&atilde;o:</b> <input type="text" id="cad_duracao" name="cad_duracao"><br/>
+                                <button type="button" id="criarTarefa">Criar Tarefa</button>&nbsp;
+                                <button type="button" id="conectar">Conectar</button>&nbsp;
+                                <button type="button" id="clonarTarefa">Clonar Tarefa</button><br>
+                                <input type="text" id="tarefaSelecionada" name="tarefaSelecionada"><br/>
+                            </li>
+                            </form>
+                        </p>
+
+                    </div>
+
+                    <h3><a href="#">Depend&ecirc;ncias</a></h3>
+                    <div>
+                        <p>
+                        <ul>
+                            <li><a href="?p=1.1.2.1">Electric</a></li>
+                            <li><a href="?p=1.1.2.2">Acoustic</a></li>
+                            <li><a href="?p=1.1.2.3">Amps</a></li>
+                            <li><a href="?p=1.1.2.4">Effects</a></li>
+                            <li><a href="?p=1.1.2.5">Accessories</a></li>
+                        </ul>
+                        </p>
+                    </div>
+
+                    <h3><a href="#">Outras</a></h3>
+                    <div>
+                        <p>
+                            <ul>
+                            <li><a href="?p=1.1.3.2">Acoustic Drums</a></li>
+                            <li><a href="?p=1.1.3.3">Electronic Drums</a></li>
+                            <li><a href="?p=1.1.3.4">Cymbals</a></li>
+                            <li><a href="?p=1.1.3.5">Hardware</a></li>
+                            <li><a href="?p=1.1.3.6">Accessories</a></li>
+                            </ul>
+                        </p>
+                    </div>
+
+                </div> <!-- fim acordeao -->
+            </div> <!-- fim redimensionável -->
+
+            <section>
+                <div id="inspector">
+                    <ul>
+                        <li><a href="#geral">Geral</a></li>
+                        <li><a href="#hierarquia">Hierarquia</a></li>
+                        <li><a href="#aba-3">Aba-3</a></li>
+                        <li><a href="#aba-4">Aba-4</a></li>
+                    </ul>
+                    <div id="geral">
+                        <p>
+                            <button type="button" id="minimizar">Esconder</button>
+                            <button type="button" id="imprimir">Imprimir Hierarquia das Tarefas</button>
+                            <button type="button" id="imprimir2">Imprimir das Tarefas ja guardadas</button>
+                            <br>
+                        <p id="mensagem"> </p>
+                        </p>
+                    </div>
+
+                    <div id="hierarquia">
+                        <p>Ananás ou abacaxi.</p>
+                    </div>
+
+                    <div id="aba-3">
+                        <p>Cupuaçu é o fruto.</p>
+                    </div>
+
+                    <div id="aba-4">
+                        <p>A laranja.</p>
+                    </div>
+                </div>
+            </section>
+
 		</div>
 	</body>
 </html>
