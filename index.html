@@ -15,6 +15,7 @@
         <script type="text/javascript" src="js/jquery/modernizr.custom.59241.js"></script>
         <script type="text/javascript" src="js/jquery/jquery-ui-1.9.2.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery/jquery.ui.touch-punch.min.js"></script>
+        <script type="text/javascript" src="js/jquery/jquery.selectboxes.js"></script>
 
         <!-- BEZIER-->
         <script type="text/javascript" src="js/jsplumb/lib/jsBezier-0.5.js"></script>
@@ -76,6 +77,9 @@
         //Limpando a ultima tarefa selecionada
         $('#tarefaSelecionada').val('');
 
+        //desmarcando o checkbox
+        $("#cbxCloneTarget").attr("checked",false);
+
 		//Mostrando e exibindo a janela
 		$('#minimizar').click(function(){
 		     if ($(this).text() ==  'Esconder'){
@@ -99,7 +103,7 @@
 		       contaJanela = jsPlumbDemo.retornarProximoID(contaJanela);	
                var nomeTarefa = 'window_' + contaJanela;
 		       //alert(nomeTarefa);
-	           $('<div class="window" id="' + nomeTarefa + '"> </div>').prependTo('#render');
+	           $('<div class="window" id="' + nomeTarefa + '"><strong>' + contaJanela + '</strong></div>').prependTo('#render');
 		       
 
 		       //pegando as coordenadas e mostrando na div de mensagem
@@ -121,10 +125,12 @@
                    });
                });
 
+              //Clique na tarefa para adicionar o nome no input
                $('#' + nomeTarefa).click(function(){
                     //alert('ja cliquei');
                    $('#mensagem').hide('fast');
                    $('#tarefaSelecionada').val(nomeTarefa);
+                   //$('#sltOrigem').addOption(nomeTarefa, nomeTarefa, false);
                });
 			
 		     //Criando a tarefa
@@ -151,11 +157,12 @@
             //Verificando se uma tarefa foi selecionada
             if ($('#tarefaSelecionada').val() != '') {
                 contaJanela = jsPlumbDemo.retornarProximoID(contaJanela);
-                console.log('contaJanela = ' + contaJanela);
+                //console.log('contaJanela = ' + contaJanela);
+
                 var nomeTarefaNova = 'window_' + contaJanela;
                 console.log('nomeTarefaNova = ' + nomeTarefaNova);
 
-                $('<div class="window" id="' + nomeTarefaNova + '"> </div>').prependTo('#render');
+                $('<div class="window" id="' + nomeTarefaNova + '"><strong>' + contaJanela + '</strong></div>').prependTo('#render');
 
                 $('#' + nomeTarefaNova).offset(function(index, coord) {
                     return {top: 300, left: 250};
@@ -178,10 +185,37 @@
         });//fim clonarTarefa
 
 
-        //Botão Clonar Tarefa
-        $('#carregarConexoes').click(function(){
+        $('#sltOrigem').change(function(){
+            if($(this).selectedTexts() != 'SELECIONE'){
+                $('#tarefaSelecionada').val($(this).val());
 
-            jsPlumbDemo.carregarConexoes('window_1001', 'window_1002');
+                //Voltando a informação inicial
+                $('#sltDestino').val('SELECIONE');
+
+                //forçando desmarcar o checkbox
+                $("#cbxCloneTarget").attr("checked",false);
+                console.log('tarefa origem selecionada = ' + $(this).val());
+            }
+        });
+
+        $('#sltDestino').change(function(){
+            if($(this).selectedTexts() != 'SELECIONE'){
+                $('#tarefaSelecionada').val($(this).val());
+
+                //Voltando a informação inicial
+                $('#sltOrigem').val('SELECIONE');
+
+                //marcando o checkbox de destino
+                $("#cbxCloneTarget").attr("checked",true);
+                console.log('tarefa destino selecionada = ' + $(this).val());
+            }
+        });
+
+
+        //Botão Clonar Tarefa
+        $('#copiarConexoes').click(function(){
+            //alert("O checkbox esta checado? " + $("#cbxCloneTarget").is(":checked"));
+            jsPlumbDemo.carregarConexoes('window_1001', 'window_1002');//TODO
 
         });//fim clonarTarefa
 
@@ -213,26 +247,55 @@
                                 <b>Data de In&iacute;cio:</b> <input type="text" id="cad_data_inicio" name="cad_data_inicio"><br/>
                                 <b>Dura&ccedil;&atilde;o:</b> <input type="text" id="cad_duracao" name="cad_duracao"><br/>
                                 <button type="button" id="criarTarefa">Criar Tarefa</button>&nbsp;
-                                <button type="button" id="clonarTarefa">Clonar Tarefa</button>&nbsp;
-                                <button type="button" id="carregarConexoes">Carrega Conexoes</button><br>
-                                <input type="text" id="tarefaSelecionada" name="tarefaSelecionada"><br/><br/>
+                                <!-- <button type="button" id="carregarConexoes">Carrega Conexoes</button> -->
+                                <br>
+
                                 <p id="mensagem"> </p><br/>
                             </li>
                             </form>
                         </p>
-
                     </div>
 
                     <h3><a href="#">Depend&ecirc;ncias</a></h3>
                     <div>
                         <p>
-                        <ul>
-                            <li><a href="?p=1.1.2.1">Electric</a></li>
-                            <li><a href="?p=1.1.2.2">Acoustic</a></li>
-                            <li><a href="?p=1.1.2.3">Amps</a></li>
-                            <li><a href="?p=1.1.2.4">Effects</a></li>
-                            <li><a href="?p=1.1.2.5">Accessories</a></li>
-                        </ul>
+                        <form>
+                            <div>
+                                <fieldset title="Componentes Originais">
+                                    <legend>Componentes Originais:</legend>
+                                    Origem:
+                                    <select id="sltOrigem">
+                                        <option value="999999">SELECIONE</option>
+                                    </select> &nbsp;
+                                    Destino:
+                                    <select id="sltDestino">
+                                        <option value="999999">SELECIONE</option>
+                                    </select>
+                                </fieldset><br>
+
+                                <fieldset title="Novos Componentes">
+                                    <legend>Novos Componentes:</legend>
+                                    Origem:
+                                    <select id="sltOrigemNovo">
+                                        <option value="999999">SELECIONE</option>
+                                    </select> &nbsp;
+                                    Destino:
+                                    <select id="sltDestinoNovo">
+                                        <option value="999999">SELECIONE</option>
+                                    </select>
+                                </fieldset><br>
+
+                                <fieldset title="Clonar componentes">
+                                    <legend>Componentes Originais:</legend>
+                                    <input type="checkbox" id="cbxCloneTarget">Clonar um componente de destino<br>
+                                    <input type="text" id="tarefaSelecionada" name="tarefaSelecionada"><br/>
+                                    <button type="button" id="clonarTarefa">Clonar Tarefa</button><br/>
+                                </fieldset><br><br>
+
+                                <button type="button" id="copiarConexoes">Carrega Conexoes</button><br>
+
+                            </div>
+                        </form>
                         </p>
                     </div>
 

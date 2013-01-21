@@ -98,6 +98,16 @@
                     if (arvore == null){
                         arvore = new Arvore();
                     }
+
+                    /*
+                     * Qdo fizer a conexão entre componentes já seta na respectiva combo quem é
+                     * de origem e quem é de destino.
+                     */
+                    //source - adicionando ao combo de origem
+                    $('#sltOrigem').addOption(connection.sourceId, connection.sourceId, false);
+
+                    //target - adicionando ao combo de destino
+                    $('#sltDestino').addOption(connection.targetId, connection.targetId, false);
 					
                     //console.log("c is a Connection object.  it connects " + connection.sourceId + " to " + connection.targetId);
                     //console.log("sourceEndpoint : " + connection.sourceEndpoint);
@@ -150,6 +160,7 @@
 
 			// listen for new connections; initialise them the same way we initialise the connections at startup.
 			jsPlumb.bind("jsPlumbConnection", function(connInfo, originalEvent) {
+                //alert('quando faz a conexão das tarefas');
 				init(connInfo.connection);
 			});
 
@@ -157,8 +168,11 @@
                 //console.log("connection " + connection.id + " is being dragged");
             });
 
+            //Clicar na seta de conexão
             jsPlumb.bind("click", function(connection) {
                 console.log("id = " + connection.id
+                    +  " source = " + connection.endpoints[0].elementId
+                    +  " target = " + connection.endpoints[1].elementId
                     +  " source x = " + connection.endpoints[0].anchor.x
                     +  " source y = " + connection.endpoints[0].anchor.y
                     +  " source dx = " + connection.endpoints[0].anchor.getOrientation(connection.endpoints[0])[0]
@@ -169,15 +183,6 @@
                     +  " target dx = " + connection.endpoints[1].anchor.getOrientation(connection.endpoints[1])[0]
                     +  " target dy = " + connection.endpoints[1].anchor.getOrientation(connection.endpoints[1])[1]
                 );
-
-
-
-                /*
-                + " x = " + endpoint.anchor.x
-                    + " y = " + endpoint.anchor.y
-                    + " dx = " + endpoint.anchor.getOrientation(endpoint)[0]
-                    + " dy = " + endpoint.anchor.getOrientation(endpoint)[1]);
-                */
             });
 
             //
@@ -215,10 +220,10 @@
 
         /***
          * Faz a clonagem da tarefa com todos os endpoints.
-         * @param idSource
-         * @param idTarget
+         * @param idTarefaModelo
+         * @param idTarget: É o nome da nova tarefa a ser clonada,
          */
-        clonarTarefa : function(idSource, idTarget) {
+        clonarTarefa : function(idTarefaModelo, idNovaTarefaClone) {
             jsPlumb.importDefaults({
                 // default drag options
                 DragOptions : { cursor: 'pointer', zIndex:2000 },
@@ -245,36 +250,49 @@
 
 
             //COPIANDO OS ENDPOINTS do tipo SOURCE
-            jsPlumb.selectEndpoints({source:$('#' + idSource)}).each(function(endpoint) {
+            jsPlumb.selectEndpoints({source:$('#' + idTarefaModelo)}).each(function(endpoint) {
                 //console.log(" anchor.elementId = " +endpoint.anchor.elementId);
                 //console.log(" endpoint.uuid = " + endpoint.uuid + " isSource = " + endpoint.isSource);//ok
-                jsPlumb.addEndpoint($('#' + idTarget), sourceEndpoint, {anchor:endpoint.anchor});
+                jsPlumb.addEndpoint($('#' + idNovaTarefaClone), sourceEndpoint, {anchor:endpoint.anchor});
             });
 
             //COPIANDO OS ENDPOINTS do tipo TARGET
-            jsPlumb.selectEndpoints({target:$('#' + idSource)}).each(function(endpoint) {
+            jsPlumb.selectEndpoints({target:$('#' + idTarefaModelo)}).each(function(endpoint) {
                 //console.log(" anchor.elementId = " +endpoint.anchor.elementId);
                 //console.log(" endpoint.uuid = " + endpoint.uuid + " isTarget = " + endpoint.isTarget);//ok
-                jsPlumb.addEndpoint($('#' + idTarget), targetEndpoint, {anchor:endpoint.anchor});
+                jsPlumb.addEndpoint($('#' + idNovaTarefaClone), targetEndpoint, {anchor:endpoint.anchor});
             });
 
             //Recuperando o ARRAY de Anchor para para os endpoints source da tarefa
-            jsPlumb.selectEndpoints({source:$('#' + idSource)}).each(function(endpoint) {
-                console.log(" SOURCE anchor id = " +endpoint.anchor.elementId  + " x = " + endpoint.anchor.x
-                    + " y = " + endpoint.anchor.y
-                    + " dx = " + endpoint.anchor.getOrientation(endpoint)[0]
-                    + " dy = " + endpoint.anchor.getOrientation(endpoint)[1]);
-            });
-
-            //Recuperando o ARRAY de Anchor para os endpoints target da tarefa
-            jsPlumb.selectEndpoints({target:$('#' + idSource)}).each(function(endpoint) {
-                console.log(" TARGET anchor id = " +endpoint.anchor.elementId
+            jsPlumb.selectEndpoints({source:$('#' + idTarefaModelo)}).each(function(endpoint) {
+                console.log(" SOURCE anchor id = " + endpoint.anchor.elementId
                     + " x = " + endpoint.anchor.x
                     + " y = " + endpoint.anchor.y
                     + " dx = " + endpoint.anchor.getOrientation(endpoint)[0]
                     + " dy = " + endpoint.anchor.getOrientation(endpoint)[1]);
             });
 
+            //Recuperando o ARRAY de Anchor para os endpoints target da tarefa
+            jsPlumb.selectEndpoints({target:$('#' + idTarefaModelo)}).each(function(endpoint) {
+                console.log(" TARGET anchor id = " + endpoint.anchor.elementId
+                    + " x = " + endpoint.anchor.x
+                    + " y = " + endpoint.anchor.y
+                    + " dx = " + endpoint.anchor.getOrientation(endpoint)[0]
+                    + " dy = " + endpoint.anchor.getOrientation(endpoint)[1]);
+            });
+
+            //para setar o nome da tarefa no combo específico
+            if ($("#cbxCloneTarget").is(":checked")) {
+                console.log("Clonei uma tarefa de target.");
+                //target - adicionando tarefa clonada ao combo de destino
+                $('#sltDestinoNovo').addOption(idNovaTarefaClone, idNovaTarefaClone, false);
+            } else {
+                console.log("Clonei uma tarefa de source.");
+                //source - adicionando tarefa clonada ao combo de origem
+                $('#sltOrigemNovo').addOption(idNovaTarefaClone, idNovaTarefaClone, false);
+            }
+
+            /*
             var connection_ = jsPlumb.getConnections({source:$('#' + idSource), target:$('#' + idTarget)});
 
 
@@ -290,6 +308,7 @@
                 +  " target dy = " + connection_.endpoints[1].anchor.getOrientation(connection.endpoints[1])[1]
             );
 
+            */
             //para conexões ver doc. TODO -> Retrieving Connection Information
             /*
             jsPlumb.select({scope:"foo"}).each(function(connection) {
@@ -311,7 +330,7 @@
 
 
         carregarConexoes : function(idSource, idTarget) {
-            /*
+            /* */
             jsPlumb.importDefaults({
                 // default drag options
                 DragOptions : { cursor: 'pointer', zIndex:2000 },
@@ -335,31 +354,89 @@
             });
 
             jsPlumb.draggable(jsPlumb.getSelector(".window"));
-            */
+
 
             console.log(' carregarConexoes ');
 
             var connection_ = jsPlumb.getConnections({source:$('#' + idSource), target:$('#' + idTarget)});
 
+            var endConnSource = null;
+            var endConnTarget = null;
+
             for (var j = 0; j < connection_.length; j++) {
-                console.log("id = " + connection_[j].id
+
+                console.log(" conexoes id = "
+                    +  connection_[j].id
                     +  " sourceId = " + connection_[j].sourceId
                     +  " targetId = " + connection_[j].targetId);
 
-                console.log(" source x = " + connection_[j].endpoints[0].anchor.x
+                console.log(" source x = "
+                    +  connection_[j].endpoints[0].anchor.x
                     +  " source y = " + connection_[j].endpoints[0].anchor.y
                     +  " source dx = " + connection_[j].endpoints[0].anchor.getOrientation(connection_[j].endpoints[0])[0]
                     +  " source dy = " + connection_[j].endpoints[0].anchor.getOrientation(connection_[j].endpoints[0])[1]);
 
-                console.log(" target x = " + connection_[j].endpoints[1].anchor.x
+                console.log(" target x = "
+                    +  connection_[j].endpoints[1].anchor.x
                     +  " target y = " + connection_[j].endpoints[1].anchor.y
                     +  " target dx = " + connection_[j].endpoints[1].anchor.getOrientation(connection_[j].endpoints[1])[0]
                     +  " target dy = " + connection_[j].endpoints[1].anchor.getOrientation(connection_[j].endpoints[1])[1]
                 );
+
+                //primeira conexao do tipo source
+                endConnSource = connection_[j].endpoints[0];
+
+                //primeira conexao do tipo target
+                endConnTarget = connection_[j].endpoints[1];
             }
 
-            //TÁ tudo ok acima.. agora é fazer as conexões acima em outras duas tarefas
-            //TODO chamar clonarTarefa depois chamar esta função aqui
+            console.log(" ");
+            console.log(" ");
+
+            if ($('#sltOrigemNovo').val() == 'SELECIONE' || $('#sltDestinoNovo').val() =='SELECIONE') {
+                alert('Escolha novas tarefas a serem conectados')
+            }
+
+            idNovaTarefaOrigem  = $('#sltOrigemNovo').val();
+            idNovaTarefaDestino = $('#sltDestinoNovo').val();
+
+            /* */
+            //Recuperando o ARRAY de Anchor para para os endpoints source da tarefa
+            jsPlumb.selectEndpoints({source:$('#' + idNovaTarefaOrigem)}).each(function(endpoint) {
+                console.log(" idNovaTarefaOrigem anchor id = "
+                    + endpoint.anchor.elementId
+                    + " x = " + endpoint.anchor.x
+                    + " y = " + endpoint.anchor.y
+                    + " dx = " + endpoint.anchor.getOrientation(endpoint)[0]
+                    + " dy = " + endpoint.anchor.getOrientation(endpoint)[1]);
+            });
+
+            //Recuperando o ARRAY de Anchor para os endpoints target da tarefa
+            jsPlumb.selectEndpoints({target:$('#' + idNovaTarefaDestino)}).each(function(endpoint) {
+                console.log(" idNovaTarefaDestino anchor id = "
+                    + endpoint.anchor.elementId
+                    + " x = " + endpoint.anchor.x
+                    + " y = " + endpoint.anchor.y
+                    + " dx = " + endpoint.anchor.getOrientation(endpoint)[0]
+                    + " dy = " + endpoint.anchor.getOrientation(endpoint)[1]);
+            });
+
+
+            //CONSEGUIIIIIIIIII... agora é comparar os anchors
+            /*
+            jsPlumb.connect({
+                source:idNovaTarefaOrigem,
+                target:idNovaTarefaDestino,
+                anchors:[[1,0,0,0], [0,0.5,-1,0]]
+            });
+            */
+
+            alert(' conectando via anchors ....')
+            jsPlumb.connect({
+                source:idNovaTarefaOrigem,
+                target:idNovaTarefaDestino,
+                anchors:[endConnSource.anchor, endConnTarget.anchor]
+            });
         },
                 
   
