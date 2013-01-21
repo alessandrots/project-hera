@@ -9,6 +9,8 @@
 		<link rel="stylesheet" href="css/flowchartDemo.css">
         <link rel="stylesheet" href="css/core.css">
         <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.9.2.custom.min.css"  />
+        <link rel="stylesheet" href="css/jstree/syntax/!style.css"/>
+        <link rel="stylesheet" href="css/jstree/!style.css"/>
 
         <!-- JQuery-->
         <script type="text/javascript" src="js/jquery/jquery-1.8.3.js"></script>
@@ -16,6 +18,10 @@
         <script type="text/javascript" src="js/jquery/jquery-ui-1.9.2.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery/jquery.ui.touch-punch.min.js"></script>
         <script type="text/javascript" src="js/jquery/jquery.selectboxes.js"></script>
+        <script type="text/javascript" src="js/jquery/jstree/jquery.cookie.js"></script>
+        <script type="text/javascript" src="js/jquery/jstree/jquery.hotkeys.js"></script>
+        <script type="text/javascript" src="js/jquery/jstree/jquery.jstree.js"></script>
+        <script type="text/javascript" src="css/jstree/syntax/!script.js"></script> <!-- TODO -->
 
         <!-- BEZIER-->
         <script type="text/javascript" src="js/jsplumb/lib/jsBezier-0.5.js"></script>
@@ -37,12 +43,11 @@
         <script type="text/javascript" src="js/jsplumb/1.4.0/jsPlumb-renderers-svg-1.4.0-RC1.js"></script>
         <!-- jquery jsPlumb adapter -->
         <script type="text/javascript" src="js/jsplumb/1.4.0/jquery.jsPlumb-1.4.0-RC1.js"></script>
-        <!-- /JS -->
 
-        <!--  demo code -->
+        <!-- code owner -->
         <script type="text/javascript" src="js/jshera/flowchartConnectorsDemo.js"></script>
-
         <script type="text/javascript" src="js/jshera/core.js"></script>
+        <script type="text/javascript" src="js/jshera/util.js"></script>
 
 <script type="text/javascript">
 //<![CDATA[
@@ -72,6 +77,20 @@
             }
         };
         $('#inspector').tabs(opcoesAbas);
+
+
+        //jstree
+        $("#arvoreTarefas")
+                .jstree({ "plugins" : ["themes","html_data","ui"] })
+                .bind("loaded.jstree", function (event, data) {
+                    // 1) the loaded event fires as soon as data is parsed and inserted
+                })
+                .one("reopen.jstree", function (event, data) {
+                    // 2) but if you are using the cookie plugin or the core `initially_open` option:
+                })
+                .one("reselect.jstree", function (event, data) {
+                    // 3) but if you are using the cookie plugin or the UI `initially_select` option:
+                });
 
 
         //Limpando a ultima tarefa selecionada
@@ -120,9 +139,11 @@
 			
 		       $('#' + nomeTarefa).mouseout(function(){
                    //$('#mensagem').text('');
+                   /*
                    $('#mensagem').hide(2000, function(){
                        $(this).text('');
                    });
+                   */
                });
 
               //Clique na tarefa para adicionar o nome no input
@@ -152,6 +173,11 @@
             jsPlumbDemo.imprimir(2);
         });
 
+        //Exibir hierarquia
+        $('#exibirHierarquia').click(function(){
+            jsPlumbDemo.exibirHierarquia();
+        });
+
         //Botão Clonar Tarefa
         $('#clonarTarefa').click(function(){
             //Verificando se uma tarefa foi selecionada
@@ -178,7 +204,7 @@
 
                 $('#mensagem').delay(2000);
 
-                $('#mensagem').hide('slow', function(){
+                $('#mensagem').hide('fast', function(){
                     $(this).text('');
                 });
             }
@@ -247,7 +273,7 @@
                                 <b>Data de In&iacute;cio:</b> <input type="text" id="cad_data_inicio" name="cad_data_inicio"><br/>
                                 <b>Dura&ccedil;&atilde;o:</b> <input type="text" id="cad_duracao" name="cad_duracao"><br/>
                                 <button type="button" id="criarTarefa">Criar Tarefa</button>&nbsp;
-                                <!-- <button type="button" id="carregarConexoes">Carrega Conexoes</button> -->
+                                <button type="button" id="exibirHierarquia">Exibir Hierarquia</button>
                                 <br>
 
                                 <p id="mensagem"> </p><br/>
@@ -261,6 +287,8 @@
                         <p>
                         <form>
                             <div>
+
+                                <!-- Clonagem de componentes -->
                                 <fieldset title="Componentes Originais">
                                     <legend>Componentes Originais:</legend>
                                     Origem:
@@ -270,9 +298,17 @@
                                     Destino:
                                     <select id="sltDestino">
                                         <option value="999999">SELECIONE</option>
-                                    </select>
+                                    </select><br>
+
+                                    <fieldset title="Clonar componentes">
+                                        <legend>Componentes Originais:</legend>
+                                        <input type="checkbox" id="cbxCloneTarget">Clonar um componente de destino<br>
+                                        <input type="text" id="tarefaSelecionada" name="tarefaSelecionada"><br/>
+                                        <button type="button" id="clonarTarefa">Clonar Tarefa</button><br/>
+                                    </fieldset>
                                 </fieldset><br>
 
+                                <!-- carregar novas conexões -->
                                 <fieldset title="Novos Componentes">
                                     <legend>Novos Componentes:</legend>
                                     Origem:
@@ -282,18 +318,10 @@
                                     Destino:
                                     <select id="sltDestinoNovo">
                                         <option value="999999">SELECIONE</option>
-                                    </select>
+                                    </select><br>
+
+                                    <button type="button" id="copiarConexoes">Carrega Conexoes</button><br>
                                 </fieldset><br>
-
-                                <fieldset title="Clonar componentes">
-                                    <legend>Componentes Originais:</legend>
-                                    <input type="checkbox" id="cbxCloneTarget">Clonar um componente de destino<br>
-                                    <input type="text" id="tarefaSelecionada" name="tarefaSelecionada"><br/>
-                                    <button type="button" id="clonarTarefa">Clonar Tarefa</button><br/>
-                                </fieldset><br><br>
-
-                                <button type="button" id="copiarConexoes">Carrega Conexoes</button><br>
-
                             </div>
                         </form>
                         </p>
@@ -334,7 +362,8 @@
                     </div>
 
                     <div id="hierarquia">
-                        <p>Ananás ou abacaxi.</p>
+                        <div id="arvoreTarefas"> <!-- style="height:200px;"-->
+                        </div>
                     </div>
 
                     <div id="aba-3">

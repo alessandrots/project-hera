@@ -1,3 +1,13 @@
+/**
+ * Created with JetBrains WebStorm.
+ * User: alessandrots
+ * Date: 12/01/2013
+ * Time: 08:00
+ *
+ * Arquivo responsável por criar objetos importantes na solução do
+ */
+
+
 function Arvore() {
     this.tarefaOrigem   = null;
     this.tarefaDestino  = null;
@@ -38,8 +48,10 @@ function Arvore() {
             this.tarefas.push(nomeTarefaDestino);
 
             //Adicionando tarefas de nível 0 e 1
-            this.tarefaDestino.adicionarTarefa(this.tarefaOrigem);
-            this.root.push(this.tarefaDestino);
+            //this.tarefaDestino.adicionarTarefa(this.tarefaOrigem);
+            this.tarefaOrigem.adicionarTarefa(this.tarefaDestino);
+            //this.root.push(this.tarefaDestino);
+            this.root.push(this.tarefaOrigem);
         }
     }//end of montarArvore
 
@@ -57,7 +69,7 @@ function Arvore() {
             for (var i=0;i<raiz.length;i++) {
                 tarefa_ = raiz[i];
                 //console.log(" no for reorganizarHierarquia tarefa_.nome = " + tarefa_.nome + " tarefaDestino.nome = " + tarefaDestino.nome);
-                if (tarefa_.nome == tarefaDestino.nome) {
+                if (tarefa_.nome == tarefaOrigem.nome) {
                     /**
                      * se a tarefa na raiz for o destino da tarefa origem,
                      * então ela deve ser filha da tarefa já guardada.
@@ -66,10 +78,10 @@ function Arvore() {
                      *
                      * ao encontrar, determina um nível abaixo da hierarquia da tarefa
                      */
-                    console.log("entrei no if origem = " + tarefaDestino.nome + " destino = " + tarefa_.nome);
-                    tarefaOrigem.nivel = tarefa_.nivel + 1;
-                    tarefa_.adicionarTarefa(tarefaOrigem);
-                    this.tarefas.push(tarefaOrigem.nome);
+                    console.log("entrei no if origem = " + tarefaOrigem.nome + " destino = " + tarefaDestino.nome);
+                    tarefaDestino.nivel = tarefa_.nivel + 1;
+                    tarefa_.adicionarTarefa(tarefaDestino);
+                    this.tarefas.push(tarefaDestino.nome);
                 } else if (tarefa_.filhos != null  && tarefa_.filhos.length > 0) {
                     /**
                      * faz chamada recursiva percorrendo todos os filhos
@@ -109,6 +121,64 @@ function Arvore() {
 
     }//end of imprimirHierarquia
 
+    /**
+     *
+     *
+     *  <ul>
+            <li id="rhtml_1" class="jstree-open">
+                <a href="#">Root node 1</a>
+                <ul>
+                    <li id="rhtml_2">
+                        <a href="#">Child node 1</a>
+                    </li>
+                    <li id="rhtml_3">
+                        <a href="#">Child node 2</a>
+                    </li>
+                </ul>
+            </li>
+            <li id="rhtml_4">
+                <a href="#">Root node 2</a>
+            </li>
+        </ul>
+     *
+     *
+     *
+     * @param raiz
+     */
+
+    var sb = new StringBuffer();
+
+    this.montarTreeView = function(raiz) {
+        var tarefa = null;
+        sb.append('<ul>');
+
+        if (raiz != null && raiz.length > 0){
+            for (var k=0;k<raiz.length;k++) {
+                tarefa = raiz[k];
+                console.log("Tarefa: " + tarefa.nome + " - Nivel: " + tarefa.nivel);
+                sb.append('<li id="'+ tarefa.nome + '" class="jstree-open">');
+                sb.append('<a href="#">'+ tarefa.nome + '</a>');
+
+                if (tarefa.filhos != null  && tarefa.filhos.length > 0) {
+                    console.log("Filho: ");
+                    //sb.append('<ul>');
+                    this.montarTreeView(tarefa.filhos);
+                    //sb.append('</ul>');
+                }
+                sb.append('</li>');
+            }
+        } else {
+            console.log("Nenhuma tarefa associada. ");
+            sb.append('<li id=\"no_root\" class=\"jstree-open\"> Nenhuma tarefa associada.</li>');
+        }
+
+        sb.append('</ul>');
+
+        //alert(sb.toString());
+        return sb.toString();
+
+    }//end of imprimirHierarquia
+
 }//end of Arvore
 
 
@@ -124,7 +194,7 @@ function HierarquiaTarefa() {
      */
     this.init = function(nomeTarefa, tipo) {
         this.nome = nomeTarefa;
-        this.nivel = (tipo == 'destino' ? 0:1);
+        this.nivel = (tipo == 'origem' ? 0:1);
         //alert(' construtor ');
     }
 

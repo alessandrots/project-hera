@@ -212,10 +212,40 @@
             }
 
             if (escolha == 1){
+                //imprime hierarquia em formato de árvore
                 arvore.imprimirHierarquia(arvore.root, escolha);
             } else if (escolha == 2){
+                //imprimi as tarefas que já foram guardadas
                 arvore.imprimirHierarquia(arvore.tarefas, escolha);
             }
+        },
+
+
+        exibirHierarquia : function() {
+            if (arvore == null){
+                arvore = new Arvore();
+            }
+
+            var sbRoot = new StringBuffer();
+
+            //imprime hierarquia em formato de árvore
+            var sb = arvore.montarTreeView(arvore.root);
+
+            sbRoot.append(sb.toString());
+
+            //alert('retorno = ' + sb.toString());
+            sbRoot.append('<script type="text/javascript">');
+            sbRoot.append('$(function () {');
+            sbRoot.append('$("#arvoreTarefas")');
+            sbRoot.append(' .jstree({ "plugins" : ["themes","html_data","ui"] }) ');
+            sbRoot.append('.bind("loaded.jstree", function (event, data) { })    ');
+            sbRoot.append('.one("reopen.jstree", function (event, data) { })     ');
+            sbRoot.append('.one("reselect.jstree", function (event, data) { }); ');
+            sbRoot.append('});');
+            sbRoot.append('</script>');
+
+            $('#arvoreTarefas').html('');
+            $('#arvoreTarefas').html(sbRoot.toString());
         },
 
         /***
