@@ -45,12 +45,15 @@
         <script type="text/javascript" src="js/jsplumb/1.4.0/jquery.jsPlumb-1.4.0-RC1.js"></script>
 
         <!-- code owner -->
-        <script type="text/javascript" src="js/jshera/flowchartConnectorsDemo.js"></script>
+        <!-- <script type="text/javascript" src="js/jshera/flowchartConnectorsDemo.js"></script> -->
+        <script type="text/javascript" src="js/jshera/flowchartConnectors.js"></script>
         <script type="text/javascript" src="js/jshera/core.js"></script>
         <script type="text/javascript" src="js/jshera/util.js"></script>
 
 <script type="text/javascript">
 //<![CDATA[
+
+    //TODO - botar num arquivo javascript
 	$(document).ready(function() {
 
 
@@ -119,7 +122,7 @@
 
 		//Criar Tarefa
 		$('#criarTarefa').click(function(){
-		       contaJanela = jsPlumbDemo.retornarProximoID(contaJanela);	
+		       contaJanela = retornarProximoID(contaJanela);
                var nomeTarefa = 'window_' + contaJanela;
 		       //alert(nomeTarefa);
 	           $('<div class="window" id="' + nomeTarefa + '"><strong>' + contaJanela + '</strong></div>').prependTo('#render');
@@ -182,7 +185,7 @@
         $('#clonarTarefa').click(function(){
             //Verificando se uma tarefa foi selecionada
             if ($('#tarefaSelecionada').val() != '') {
-                contaJanela = jsPlumbDemo.retornarProximoID(contaJanela);
+                contaJanela = retornarProximoID(contaJanela);
                 //console.log('contaJanela = ' + contaJanela);
 
                 var nomeTarefaNova = 'window_' + contaJanela;

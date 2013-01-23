@@ -37,3 +37,19 @@ StringBuffer.prototype.toString = function()
     return this.buffer.join("");
 }
 /******************************************/
+/**
+ * retornarProximoID - função de teste
+ *
+ * TODO definir uma chave para o nome de cada div.
+ *
+ * Tem que pensar que as divs vão ser geradas por usuários diferentes.
+ *
+ */
+function retornarProximoID(proximoID) {
+    //alert(proximoID);
+    if (proximoID == 0){
+        proximoID = 1000
+    }
+    proximoID = proximoID +1;
+    return proximoID;
+}

@@ -11,6 +11,10 @@
 function Arvore() {
     this.tarefaOrigem   = null;
     this.tarefaDestino  = null;
+
+    //variável que adiciona a estrutura html com base na árvore por meio de chamada recursiva
+    var sb = new StringBuffer();
+
     /**
      * Este atributo serve para guardar as tarefas que já fizeram alguma conexão.
      * @type {Array}
@@ -121,11 +125,41 @@ function Arvore() {
 
     }//end of imprimirHierarquia
 
+
+
+
+
+    this.montarTreeView = function(raiz, sbRoot) {
+        //imprime hierarquia em formato de árvore
+        var sb = this.montarTreeViewPrivate(raiz);
+
+        alert('montarTreeView com dois parametros.');
+
+        //adicionando a estrutura html montado com base na árvore
+        sbRoot.append(sb.toString());
+
+        //Adicionando o javascript que vai renderizar a árvore (fonte jstree)
+        sbRoot.append('<script type="text/javascript">');
+        sbRoot.append('$(function () {');
+        sbRoot.append('$("#arvoreTarefas")');
+        sbRoot.append(' .jstree({ "plugins" : ["themes","html_data","ui"] }) ');
+        sbRoot.append('.bind("loaded.jstree", function (event, data) { })    ');
+        sbRoot.append('.one("reopen.jstree", function (event, data) { })     ');
+        sbRoot.append('.one("reselect.jstree", function (event, data) { }); ');
+        sbRoot.append('});');
+        sbRoot.append('</script>');
+
+        return sbRoot.toString();
+    }
+
+
+
+
     /**
      *
      *
-     *  <ul>
-            <li id="rhtml_1" class="jstree-open">
+     <ul>
+         <li id="rhtml_1" class="jstree-open">
                 <a href="#">Root node 1</a>
                 <ul>
                     <li id="rhtml_2">
@@ -135,20 +169,17 @@ function Arvore() {
                         <a href="#">Child node 2</a>
                     </li>
                 </ul>
-            </li>
-            <li id="rhtml_4">
-                <a href="#">Root node 2</a>
-            </li>
-        </ul>
+         </li>
+         <li id="rhtml_4">
+            <a href="#">Root node 2</a>
+         </li>
+     </ul>
      *
      *
      *
      * @param raiz
      */
-
-    var sb = new StringBuffer();
-
-    this.montarTreeView = function(raiz) {
+    this.montarTreeViewPrivate = function(raiz) {
         var tarefa = null;
         sb.append('<ul>');
 
@@ -162,7 +193,7 @@ function Arvore() {
                 if (tarefa.filhos != null  && tarefa.filhos.length > 0) {
                     console.log("Filho: ");
                     //sb.append('<ul>');
-                    this.montarTreeView(tarefa.filhos);
+                    this.montarTreeViewPrivate(tarefa.filhos);
                     //sb.append('</ul>');
                 }
                 sb.append('</li>');
