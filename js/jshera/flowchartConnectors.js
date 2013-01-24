@@ -5,6 +5,7 @@
         var arvore = null;
 
     // this is the paint style for the connecting lines..
+    //CORES: http://shibolete.tripod.com/RGB.html
     //TODO aqui pode ser mudado nextColour que tem no stateMachineDemo-jquery.js
     var connectorPaintStyle = {
             lineWidth:5,
@@ -15,29 +16,32 @@
         },
 
     // .. and this is the hover style.
-        connectorHoverStyle = {
+    connectorHoverStyle = {
             lineWidth:7,
             strokeStyle:"#2e2aF8"
-        },
+    },
 
-        targetEndpoint = {
+    targetEndpoint = {
             endpoint:"Dot",
-            paintStyle:{ fillStyle:"#558822",radius:7 },
+            paintStyle:{ fillStyle:"#238E23",radius:7 },//Verde Floresta
             hoverPaintStyle:connectorHoverStyle,
             maxConnections:-1,
             dropOptions:{ hoverClass:"hover", activeClass:"active" },
             isTarget:true,
+            parameters:{
+                "II_TT":0
+            },
             overlays:[
                 [ "Label", {
                     location:[0.5, -0.5],
                     //label:"Drop",
                     cssClass:"endpointTargetLabel" } ]
             ]
-        },
+    },
 
-        sourceEndpoint = {
+    sourceEndpoint = {
             endpoint:"Dot",
-            paintStyle:{ fillStyle:"#225588",radius:7 },
+            paintStyle:{ fillStyle:"#5959AB",radius:7 },//Azul Rich
             isSource:true,
             maxConnections:-1,
             connector:[ "Flowchart", { stub:[40, 60], gap:10 } ],
@@ -45,6 +49,9 @@
             hoverPaintStyle:connectorHoverStyle,
             connectorHoverStyle:connectorHoverStyle,
             dragOptions:{},
+            parameters:{
+                "II_TT":0
+            },
             overlays:[
                 [ "Label", {
                     location:[0.5, 1.5],
@@ -52,19 +59,41 @@
                     cssClass:"endpointSourceLabel"
                 } ]
             ]
-        },
+    },
 
-    //TODO criar o novo padrão da tarefa e testar e style de endpoint
+    //padrão de destino para II e TT
+    targetIITTEndpoint = {
+            endpoint:"Dot",
+            paintStyle:{ fillStyle:"#8C1717",radius:7 },//Escarlata
+            hoverPaintStyle:connectorHoverStyle,
+            maxConnections:-1,
+            dropOptions:{ hoverClass:"hover", activeClass:"active" },
+            isTarget:true,
+            parameters:{
+                "II_TT":1
+            },
+            overlays:[
+                [ "Label", {
+                    location:[0.5, -0.5],
+                    //label:"Drop",
+                    cssClass:"endpointTargetLabel" } ]
+            ]
+    },
+
+    //padrão de origem para II e TT
     sourceIITTEndpoint = {
         endpoint:"Dot",
-        paintStyle:{ fillStyle:"#225588",radius:7 },
+        paintStyle:{ fillStyle:"#FF7F00",radius:7 },//Coral
         isSource:true,
         maxConnections:-1,
-        connector:[ "Flowchart", { stub:[40, 60], gap:10 } ],
+        connector:[ "StateMachine", { curviness:90 } ],
         connectorStyle:connectorPaintStyle,
         hoverPaintStyle:connectorHoverStyle,
         connectorHoverStyle:connectorHoverStyle,
         dragOptions:{},
+        parameters:{
+            "II_TT":1
+        },
         overlays:[
             [ "Label", {
                 location:[0.5, 1.5],
@@ -113,7 +142,7 @@
 				if ($.inArray(idConector, allDivHierarquias) == -1){
 					allDivHierarquias.push(idConector)	;
 					//alert ('connection.sourceId = ' + connection.sourceId + ' - connection.targetId = ' + connection.targetId);
-					connection.getOverlay("label").setLabel(connection.sourceId.substring(6) + "-" + connection.targetId.substring(6));
+					//connection.getOverlay("label").setLabel(connection.sourceId.substring(6) + "-" + connection.targetId.substring(6));
 
 
                     if (arvore == null){
@@ -130,8 +159,7 @@
                     //target - adicionando ao combo de destino
                     $('#sltDestino').addOption(connection.targetId, connection.targetId, false);
 					
-                    //console.log("c is a Connection object.  it connects " + connection.sourceId + " to " + connection.targetId);
-                    //console.log("sourceEndpoint : " + connection.sourceEndpoint);
+                    //guardando para a hierarquia
                     arvore.montarArvore(connection.sourceId, connection.targetId);
 				}//fim if inArray
 
@@ -166,18 +194,21 @@
 			}
             */
 			
-			//Criando pontos de origem
-            //TODO botar num loop igual dynamicAnchorsDemo.js = for (var i = 0 ; i < divsWithWindowClass.length; i++) {
-			jsPlumb.addEndpoint(id, { anchor:[0, 0, 0, 0] }, sourceEndpoint);
-			jsPlumb.addEndpoint(id, { anchor:[1, 0, 0, 0] }, sourceEndpoint);
-			jsPlumb.addEndpoint(id, { anchor:[0, 1, 0, 0] }, sourceEndpoint);
-			jsPlumb.addEndpoint(id, { anchor:[1, 1, 0, 0] }, sourceEndpoint);
+			//Criando pontos de origem II e TT (sourceIITTEndpoint)
+            jsPlumb.addEndpoint(id, { anchor:[0, 1, 0, 0] }, sourceIITTEndpoint);
+			jsPlumb.addEndpoint(id, { anchor:[1, 0, 0, 0] }, sourceIITTEndpoint);
 
-			//Criando pontos de destino
-            jsPlumb.addEndpoint(id, { anchor:[0.5, 0, 0, 0] }, targetEndpoint);
-            jsPlumb.addEndpoint(id, { anchor:[0.5, 1, 0, 0] }, targetEndpoint);
-			jsPlumb.addEndpoint(id, { anchor:[0, 0.5, -1, 0] }, targetEndpoint);
-			jsPlumb.addEndpoint(id, { anchor:[1, 0.5, -1, 0] }, targetEndpoint);
+            //Criando pontos de target II e TT (sourceIITTEndpoint)
+            jsPlumb.addEndpoint(id, { anchor:[0, 0, 0, 0] }, targetIITTEndpoint);
+			jsPlumb.addEndpoint(id, { anchor:[1, 1, 0, 0] }, targetIITTEndpoint);
+
+			//Criando pontos de origem
+			jsPlumb.addEndpoint(id, { anchor:[0, 0.3, -1, 0] }, sourceEndpoint);
+            jsPlumb.addEndpoint(id, { anchor:[0, 0.6, -1, 0] }, targetEndpoint);
+
+            //Criando pontos de destino
+			jsPlumb.addEndpoint(id, { anchor:[1, 0.3, -1, 0] }, sourceEndpoint);
+            jsPlumb.addEndpoint(id, { anchor:[1, 0.6, -1, 0] }, targetEndpoint);
 
 			/**
 			 Guardando as divs tarefas criadas para trabalhar a hierarquia.
@@ -254,9 +285,6 @@
 
             var sbRoot = new StringBuffer();
             sbRoot = arvore.montarTreeView(arvore.root, sbRoot);
-
-            $('#arvoreTarefas').html('');
-            $('#arvoreTarefas').html(sbRoot.toString());
         },
 
         /***
@@ -294,14 +322,25 @@
             jsPlumb.selectEndpoints({source:$('#' + idTarefaModelo)}).each(function(endpoint) {
                 //console.log(" anchor.elementId = " +endpoint.anchor.elementId);
                 //console.log(" endpoint.uuid = " + endpoint.uuid + " isSource = " + endpoint.isSource);//ok
-                jsPlumb.addEndpoint($('#' + idNovaTarefaClone), sourceEndpoint, {anchor:endpoint.anchor});
+                //console.log(" source - endpoint.II_TT = " + endpoint.getParameter("II_TT"));
+                if (endpoint.getParameter("II_TT") == 1) {
+                    jsPlumb.addEndpoint($('#' + idNovaTarefaClone), sourceIITTEndpoint, {anchor:endpoint.anchor});
+                } else {
+                    jsPlumb.addEndpoint($('#' + idNovaTarefaClone), sourceEndpoint, {anchor:endpoint.anchor});
+                }
+
             });
 
             //COPIANDO OS ENDPOINTS do tipo TARGET
             jsPlumb.selectEndpoints({target:$('#' + idTarefaModelo)}).each(function(endpoint) {
                 //console.log(" anchor.elementId = " +endpoint.anchor.elementId);
                 //console.log(" endpoint.uuid = " + endpoint.uuid + " isTarget = " + endpoint.isTarget);//ok
-                jsPlumb.addEndpoint($('#' + idNovaTarefaClone), targetEndpoint, {anchor:endpoint.anchor});
+                //console.log(" target - endpoint.II_TT = " + endpoint.getParameter("II_TT"));
+                if (endpoint.getParameter("II_TT") == 1) {
+                    jsPlumb.addEndpoint($('#' + idNovaTarefaClone), targetIITTEndpoint, {anchor:endpoint.anchor});
+                } else {
+                    jsPlumb.addEndpoint($('#' + idNovaTarefaClone), targetEndpoint, {anchor:endpoint.anchor});
+                }
             });
 
             //Recuperando o ARRAY de Anchor para para os endpoints source da tarefa
@@ -404,10 +443,10 @@
                     +  " target dy = " + connection_[j].endpoints[1].anchor.getOrientation(connection_[j].endpoints[1])[1]
                 );
 
-                //Endpoint de origem pertencene a conexao recuperada
+                //Endpoint de ORIGEM pertencene a conexao recuperada
                 endConnSource = connection_[j].endpoints[0];
 
-                //Endpoint de destino pertencene a conexao recuperada
+                //Endpoint de DESTINO pertencene a conexao recuperada
                 endConnTarget = connection_[j].endpoints[1];
             }
 
@@ -439,19 +478,33 @@
                     + " dy = " + endpoint.anchor.getOrientation(endpoint)[1]);
             });
 
-            /*
-            //Conectando os componentes com base nos anchors
+            //TODO - quase lá
             jsPlumb.connect({
                 source:idNovaTarefaOrigem,
                 target:idNovaTarefaDestino,
-                anchors:[[1,0,0,0], [0,0.5,-1,0]]
-            });
-            */
-            jsPlumb.connect({
-                source:idNovaTarefaOrigem,
-                target:idNovaTarefaDestino,
+                endpoint:[ "Dot", { fillStyle:"#5959AB",radius:7  } ],
+                connector:[ "Flowchart", { stub:[40, 60], gap:10 } ],
+                connectorStyle:connectorPaintStyle,
+                hoverPaintStyle:connectorHoverStyle,
+                connectorHoverStyle:connectorHoverStyle,
+                overlays: [
+                    [ "Label", {
+                        location:[0.5, 1.5],
+                        cssClass:"endpointSourceLabel"
+                    } ]
+                ],
                 anchors:[endConnSource.anchor, endConnTarget.anchor]
             });
+
+            /*
+            jsPlumb.makeSource(idNovaTarefaOrigem, {
+                endpoint:sourceEndpoint
+            });
+
+            jsPlumb.makeTarget(idNovaTarefaDestino, {
+                endpoint:targetEndpoint
+            });
+            */
         }
                 
   

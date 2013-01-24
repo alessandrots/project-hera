@@ -133,7 +133,7 @@ function Arvore() {
         //imprime hierarquia em formato de árvore
         var sb = this.montarTreeViewPrivate(raiz);
 
-        alert('montarTreeView com dois parametros.');
+        //alert('montarTreeView com dois parametros.');
 
         //adicionando a estrutura html montado com base na árvore
         sbRoot.append(sb.toString());
@@ -148,6 +148,9 @@ function Arvore() {
         sbRoot.append('.one("reselect.jstree", function (event, data) { }); ');
         sbRoot.append('});');
         sbRoot.append('</script>');
+
+        $('#arvoreTarefas').html('');
+        $('#arvoreTarefas').html(sbRoot.toString());
 
         return sbRoot.toString();
     }
