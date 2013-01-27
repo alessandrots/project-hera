@@ -261,36 +261,80 @@ function Arvore() {
     }
 
     this.obterUltimoNivel = function() {
-        return   this.ultimoNivel;
+        return  this.ultimoNivel;
     }
 
-    /* */
+    /*setarUltimoNivel
+    * Reposiciona os objetos numa hierarquia horizontal e vertical. Faz um offset em cada tarefa.
+    *
+    */
     this.reposicionarObjetos = function() {
         var hierarquiaControle = new HierarquiaTarefa();
         var colecaoPorNivel    = new Array();
         var tarefa             = null;
         var arrayNiveis        = new Array();
+        var referenciaPosicao  = new ReferenciaPosicao();
+        var referenciaPosicao2 = null;
+        var newPosition        = 0;
+        var arrayRefPosicaoPorNivel = new Array();
 
         //reposicionamento dos objetos com chamada recursiva
         this.reposicionarObjetosPrivate(hierarquiaControle, colecaoPorNivel, this.root, arrayNiveis);
 
+        //setando o maior nível da arvore em memória
+        this.setarUltimoNivel(arrayNiveis[arrayNiveis.length -1]);
+        console.log(' Ultimo nivel ='  + this.obterUltimoNivel());
+
+        //gerando um array de ReferenciaPosicao de acordo com o maximo de niveis daquela árvore
+        referenciaPosicao.recuperarArrayReferenciaPosicaoPorNivel(this.obterUltimoNivel(), arrayRefPosicaoPorNivel);
+
+        //Recuperando o array de arrays de tarefas
         colecaoPorNivel = hierarquiaControle.colecaoMesmoNivel;
 
         if (colecaoPorNivel.length >0) {
             for (var k=0;k < colecaoPorNivel.length;k++) {
                 tmpColecao = colecaoPorNivel[k];
-                console.log('NIVEL = '+ k);
+
+                //recuperando para cada nível a posição da primeira linha horizontal
+                referenciaPosicao2 = arrayRefPosicaoPorNivel[k];
+
+                //percorrendo as tarefas verticalmente (variando o top)
                 for (var i=0;i < tmpColecao.length;i++) {
                     tarefa = tmpColecao[i];
-                    console.log('Tarefa -> NOME = '+ tarefa.nome);
+                    referenciaPosicao2.altura = $('#' + tarefa.nome).height();
+                    //console.log('Tarefa -> NOME = '+ tarefa.nome);
 
-                    //TODO - AGORA ADICIONAR A LÓGICA DE RESPOSICIONAMENTO COM A CLASSE ReferenciaPosicao
-                    //TODO E A FUNÇAÕ obterUltimoNivel
+                    //mudando só o top
+                    if (i > 0){
+                        newPosition = referenciaPosicao2.obterNovaPosicaoTopPorNivel();
+                        console.log('newPosition = '+ newPosition);
+                        referenciaPosicao2.top = newPosition;
+                    }
+                    console.log('top: '+ referenciaPosicao2.top + ' left: ' + referenciaPosicao2.left);
+
+                    //reposicionando os elementos
+                    $('#' + tarefa.nome).offset({top: referenciaPosicao2.top, left: referenciaPosicao2.left});
                 }
             }
         }
-    }
+    }//end of reposicionarObjetos
 
+    /**
+     * Gera uma estrutura de array de arrays de tarefas, no seguinte formato:
+     * [
+     *  [t_1,t_2,t_3], //nível 0
+     *  [t_4,t_5,t_6], //nível 1
+     *  [t_7,t_8,t_9], //nível 2
+     *  ...
+     * ]
+     *
+     * Este método faz chamada recursiva.
+     *
+     * @param hierarquiaControle: o objeto que vai guardar a coleção de arrays
+     * @param colecaoPorNivel: o array de arrays
+     * @param raiz: as tarefas no formato de árvore
+     * @param arrNiveis: um array de inteiros, cada inteiro representa um nível [0,1,2...]
+     */
     this.reposicionarObjetosPrivate = function(hierarquiaControle,colecaoPorNivel,raiz, arrNiveis) {
         var tarefa = null;
 
@@ -317,7 +361,6 @@ function Arvore() {
                     arrNiveis.push(tarefa.nivel);
                 }
 
-                //console.log("Tarefa: " + tarefa.nome + " - Nivel: " + tarefa.nivel);
                 if (tarefa.filhos != null  && tarefa.filhos.length > 0) {
                     this.reposicionarObjetosPrivate(hierarquiaControle,colecaoPorNivel,tarefa.filhos, arrNiveis);
                 }
@@ -407,6 +450,35 @@ function ReferenciaPosicao() {
 
         //reposicionando os elementos
         $('#' + nomeTarefa).offset({top: this.refPosicaoTarefa.top, left: this.refPosicaoTarefa.left});
+    }
+
+
+    this.obterNovaPosicaoTopPorNivel = function() {
+        return this.top + Math.round(this.altura) + variacao;
+    }
+
+    /**
+     * 2) Ao clicar no botão de ordenação da hierarquia, vai rolar o seguinte:
+     * 2.1) A hierarquia ZERO, vai estar no TOP: 100/LEFT: 150
+     * 2.2)A hierarquia UM, vai estar no TOP: 100/LEFT: 300, então todo o left vai variar de 100% e todo o top vai variar de 110%.
+     *
+     * @param ultimoNivel
+     */
+    this.recuperarArrayReferenciaPosicaoPorNivel = function(ultimoNivel, arrayRefPosicaoPorNivel) {
+        for (var k=0;k<ultimoNivel + 1;k++) {
+            if (k == 0){
+                referenciaPosicaoTarefa = new ReferenciaPosicao();
+                referenciaPosicaoTarefa.left   = 150;
+                referenciaPosicaoTarefa.top    = 100;
+                arrayRefPosicaoPorNivel.push(referenciaPosicaoTarefa);
+            } else {
+                tmpRefPosicao = arrayRefPosicaoPorNivel[k-1];
+                newReferenciaPosicaoTarefa = new ReferenciaPosicao();
+                newReferenciaPosicaoTarefa.left = tmpRefPosicao.left + 150;
+                newReferenciaPosicaoTarefa.top = tmpRefPosicao.top;
+                arrayRefPosicaoPorNivel.push(newReferenciaPosicaoTarefa);
+            }
+        }
     }
 }
 

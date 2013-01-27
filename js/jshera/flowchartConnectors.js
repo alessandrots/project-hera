@@ -133,9 +133,11 @@
 
 	window.jsPlumbDemo = {
 
-		/********************************************************/
-		/* Criacao da Tarefa */
-		/********************************************************/
+
+        /**
+         * Criacao da Tarefa com base no id da tarefa(div)
+         * @param id
+         */
 		criarTarefa : function(id) {
 			//alert('oi');
 			jsPlumb.importDefaults({
@@ -259,8 +261,6 @@
                     allConnToDetach.pop(idConector);
                 }
             });
-
-
 	    }, //fim do método criarTarefa
 
         imprimir : function(escolha) {
@@ -277,6 +277,9 @@
             }
         },
 
+        /**
+         * Exibe a hierarquia em forma de árvore utilizando o jstree.
+         */
         exibirHierarquia : function() {
             if (arvore == null){
                 arvore = new Arvore();
@@ -286,16 +289,23 @@
             sbRoot = arvore.montarTreeView(arvore.root, sbRoot);
         },
 
+        /**
+         * Reposicionamento de objetos, após definição da hierarquia.
+         */
         reposicionarObjetos : function() {
             if (arvore == null){
                 arvore = new Arvore();
             }
 
             arvore.reposicionarObjetos();
+
+            //Force repaint of every connection
+            jsPlumb.repaintEverything();
         },
 
         /***
          * Faz a clonagem da tarefa com todos os seus respectivos endpoints.
+         *
          * @param idTarefaModelo
          * @param idTarget: É o nome da nova tarefa a ser clonada,
          */
@@ -323,7 +333,6 @@
             });
 
             jsPlumb.draggable(jsPlumb.getSelector(".window"));
-
 
             //COPIANDO OS ENDPOINTS do tipo SOURCE
             jsPlumb.selectEndpoints({source:$('#' + idTarefaModelo)}).each(function(endpoint) {
