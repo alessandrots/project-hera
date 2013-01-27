@@ -1,8 +1,9 @@
 ;(function() {
-	var allDivTarefas = [], e1, e2;
-        var allDivHierarquias = [];
-        //var self = this;
-        var arvore = null;
+	var allDivTarefas = [], allConnToDetach = [], e1, e2;
+    var allDivHierarquias = [];
+    var arvore = null;
+    var referenciaPosicao = null;
+
 
     // this is the paint style for the connecting lines..
     //CORES: http://shibolete.tripod.com/RGB.html
@@ -15,7 +16,7 @@
             outlineWidth:7
         },
 
-    // .. and this is the hover style.
+    // .. and this is the hover style.arvore
     connectorHoverStyle = {
             lineWidth:7,
             strokeStyle:"#2e2aF8"
@@ -44,7 +45,8 @@
             paintStyle:{ fillStyle:"#5959AB",radius:7 },//Azul Rich
             isSource:true,
             maxConnections:-1,
-            connector:[ "Flowchart", { stub:[40, 60], gap:10 } ],
+            //connector:[ "Flowchart", { stub:[40, 60], gap:10 } ],
+            connector:[ "StateMachine", { curviness:0 } ],
             connectorStyle:connectorPaintStyle,
             hoverPaintStyle:connectorHoverStyle,
             connectorHoverStyle:connectorHoverStyle,
@@ -80,13 +82,38 @@
             ]
     },
 
+
     //padrão de origem para II e TT
-    sourceIITTEndpoint = {
+    sourceIIEndpoint = {
         endpoint:"Dot",
         paintStyle:{ fillStyle:"#FF7F00",radius:7 },//Coral
         isSource:true,
         maxConnections:-1,
         connector:[ "StateMachine", { curviness:90 } ],
+        connectorStyle:connectorPaintStyle,
+        hoverPaintStyle:connectorHoverStyle,
+        connectorHoverStyle:connectorHoverStyle,
+        dragOptions:{},
+        parameters:{
+            "II_TT":1
+        },
+        overlays:[
+            [ "Label", {
+                location:[0.5, 1.5],
+                //label:"Drag",
+                cssClass:"endpointSourceLabel"
+            } ]
+        ]
+    },
+
+    //padrão de origem para II e TT
+    sourceTTEndpoint = {
+        endpoint:"Dot",
+        paintStyle:{ fillStyle:"#FF7F00",radius:7 },//Coral
+        isSource:true,
+        maxConnections:-1,
+        //connector:[ "StateMachine", { curviness:-90 } ],
+        connector:[ "StateMachine", { curviness:-90 } ],
         connectorStyle:connectorPaintStyle,
         hoverPaintStyle:connectorHoverStyle,
         connectorHoverStyle:connectorHoverStyle,
@@ -166,41 +193,23 @@
 			};//fim init
 
 			jsPlumb.draggable(jsPlumb.getSelector(".window"));
-		
-			/**
-			 Mudando a posição
-			 Havendo mais de uma tarefa, Pega a última tarefa, para reposicionar a mesma,
-			 mantendo o mesmo left e variando o top com base na altura mais um valor constante,
-			 a partir do último componente div.
-			*/
 
             /**
-            //TODO - Tratar o reposiconamento
+             Guardando as divs tarefas criadas para trabalhar a hierarquia.
+             */
+            if (referenciaPosicao == null){
+                referenciaPosicao = new ReferenciaPosicao();
+            }
+            referenciaPosicao.definirPosicaoCriacao(id);
+            allDivTarefas.push(id);
 
-			if (allDivTarefas.length > 0) {
-			  var idUltimaTarefaTmp = allDivTarefas[allDivTarefas.length-1];
-			  var coordenadas = $('#' + idUltimaTarefaTmp).offset();
-              var altura = $('#' + idUltimaTarefaTmp).height();
-                          
-			  
-              $('#' + id).offset(function(index, coord) {
-			      var newPosition =coordenadas.top + altura + 30;
-			      return {top: newPosition, left: coordenadas.left};
-			  });
-			} else {
-			   $('#' + id).offset(function(index, coord) {
-			      return {top: coord.top +20, left: coord.left + 25};
-			   });	
-			}
-            */
-			
-			//Criando pontos de origem II e TT (sourceIITTEndpoint)
-            jsPlumb.addEndpoint(id, { anchor:[0, 1, 0, 0] }, sourceIITTEndpoint);
-			jsPlumb.addEndpoint(id, { anchor:[1, 0, 0, 0] }, sourceIITTEndpoint);
-
-            //Criando pontos de target II e TT (sourceIITTEndpoint)
+            //Criando pontos de origem II e TT (sourceIITTEndpoint)
             jsPlumb.addEndpoint(id, { anchor:[0, 0, 0, 0] }, targetIITTEndpoint);
-			jsPlumb.addEndpoint(id, { anchor:[1, 1, 0, 0] }, targetIITTEndpoint);
+            jsPlumb.addEndpoint(id, { anchor:[1, 0, 0, 0] }, targetIITTEndpoint);
+
+            //Criando pontos de origem II e TT (sourceIITTEndpoint)
+            jsPlumb.addEndpoint(id, { anchor:[0, 1, 0, 0] }, sourceIIEndpoint);
+            jsPlumb.addEndpoint(id, { anchor:[1, 1, 0, 0] }, sourceTTEndpoint);
 
 			//Criando pontos de origem
 			jsPlumb.addEndpoint(id, { anchor:[0, 0.3, -1, 0] }, sourceEndpoint);
@@ -209,11 +218,6 @@
             //Criando pontos de destino
 			jsPlumb.addEndpoint(id, { anchor:[1, 0.3, -1, 0] }, sourceEndpoint);
             jsPlumb.addEndpoint(id, { anchor:[1, 0.6, -1, 0] }, targetEndpoint);
-
-			/**
-			 Guardando as divs tarefas criadas para trabalhar a hierarquia.
-			*/
-			allDivTarefas.push(id);
 
 			// listen for new connections; initialise them the same way we initialise the connections at startup.
 			jsPlumb.bind("jsPlumbConnection", function(connInfo, originalEvent) {
@@ -225,43 +229,39 @@
                 //console.log("connection " + connection.id + " is being dragged");
             });
 
+
             //Clicar na seta de conexão
             jsPlumb.bind("click", function(connection) {
-                console.log("id = " + connection.id
-                    +  " source = " + connection.endpoints[0].elementId
-                    +  " target = " + connection.endpoints[1].elementId
-                    +  " source x = " + connection.endpoints[0].anchor.x
-                    +  " source y = " + connection.endpoints[0].anchor.y
-                    +  " source dx = " + connection.endpoints[0].anchor.getOrientation(connection.endpoints[0])[0]
-                    +  " source dy = " + connection.endpoints[0].anchor.getOrientation(connection.endpoints[0])[1]
-                    +  "  "
-                    +  " target x = " + connection.endpoints[1].anchor.x
-                    +  " target y = " + connection.endpoints[1].anchor.y
-                    +  " target dx = " + connection.endpoints[1].anchor.getOrientation(connection.endpoints[1])[0]
-                    +  " target dy = " + connection.endpoints[1].anchor.getOrientation(connection.endpoints[1])[1]
-                );
+                var idConector = connection.sourceId + "_" + connection.targetId;
+
+                //guardando as tarefas que já foram questionadas ao usuário se deseja ser deletada
+                if ($.inArray(idConector, allConnToDetach) == -1){
+                    console.log("id = " + connection.id
+                        +  " source = " + connection.endpoints[0].elementId
+                        +  " target = " + connection.endpoints[1].elementId
+                        +  " source x = " + connection.endpoints[0].anchor.x
+                        +  " source y = " + connection.endpoints[0].anchor.y
+                        +  " source dx = " + connection.endpoints[0].anchor.getOrientation(connection.endpoints[0])[0]
+                        +  " source dy = " + connection.endpoints[0].anchor.getOrientation(connection.endpoints[0])[1]
+                        +  "  "
+                        +  " target x = " + connection.endpoints[1].anchor.x
+                        +  " target y = " + connection.endpoints[1].anchor.y
+                        +  " target dx = " + connection.endpoints[1].anchor.getOrientation(connection.endpoints[1])[0]
+                        +  " target dy = " + connection.endpoints[1].anchor.getOrientation(connection.endpoints[1])[1]
+                    );
+
+                    if (confirm("Vc quer apagar conexão - origem: " + connection.sourceId + " destino: " + connection.targetId + "?")) {
+                        jsPlumb.detach(connection);
+                    }
+                    //guardando a conexão
+                    allConnToDetach.push(idConector);
+                } else {
+                    allConnToDetach.pop(idConector);
+                }
             });
 
-            //
-            // listen for clicks on connections, and offer to delete connections on click.
-            //
-            /*
-            jsPlumb.bind("click", function(conn, originalEvent) {
-                if (confirm("Delete connection from " + conn.sourceId + " to " + conn.targetId + "?"))
-                    jsPlumb.detach(conn);
-            });
 
-            jsPlumb.bind("connectionDrag", function(connection) {
-                console.log("connection " + connection.id + " is being dragged");
-            });
-
-            jsPlumb.bind("connectionDragStop", function(connection) {
-                console.log("connection " + connection.id + " was dragged");
-            });
-            */
-
-			//TODO ver pagina 5 do tutorial para conexão depois
-	    },
+	    }, //fim do método criarTarefa
 
         imprimir : function(escolha) {
             if (arvore == null){
@@ -277,7 +277,6 @@
             }
         },
 
-
         exibirHierarquia : function() {
             if (arvore == null){
                 arvore = new Arvore();
@@ -285,6 +284,14 @@
 
             var sbRoot = new StringBuffer();
             sbRoot = arvore.montarTreeView(arvore.root, sbRoot);
+        },
+
+        reposicionarObjetos : function() {
+            if (arvore == null){
+                arvore = new Arvore();
+            }
+
+            arvore.reposicionarObjetos();
         },
 
         /***
@@ -505,28 +512,12 @@
                 endpoint:targetEndpoint
             });
             */
-        }
-                
-  
-        /**
-         * retornarProximoID - função de teste
-         *
-	     */
-//        retornarProximoID : function(proximoID) {
-//		          //alert(proximoID);
-//                  if (proximoID == 0){
-//                    proximoID = 1000
-//                  }
-//                  proximoID = proximoID +1;
-//                  return proximoID;
-//	    }
-
+        }//end of carregarConexoes
 
 	};
 })();
 
-//ALESSANDRO:
-//Fazendo a inicialização do objeto jsPlumbDemo - consegui retirar o demo-helper-jquery.js e demo-list.js
+//Fazendo a inicialização do objeto jsPlumbDemo
 jsPlumb.bind("ready", function() {
         alert('abrindo jshera2');
 	

@@ -131,11 +131,14 @@
 		       //pegando as coordenadas e mostrando na div de mensagem
 		       $('#' + nomeTarefa).mouseover(function(){
                     //TODO parou de funcionar depois que cria uma nova tarefa
-			        var posicao = $(this).position();
+			        var posicao = $('#' + nomeTarefa).offset();
 
                     $('#mensagem').show('slow', function(){
-                       $(this).css('background', 'red').text('left : ' + posicao.left + ' top : '
-                               + posicao.top + ' width : ' + $(this).width() + ' height : ' + $(this).height() );
+                       $(this).css('background', 'yellow').text(
+                               'left : ' + posicao.left
+                               + ' top : ' + posicao.top
+                               + ' width : ' + $('#' + nomeTarefa).width()
+                               + ' height : ' + $('#' + nomeTarefa).height() );
                     });
 
 		       });
@@ -179,6 +182,11 @@
         //Exibir hierarquia
         $('#exibirHierarquia').click(function(){
             jsPlumbDemo.exibirHierarquia();
+        });
+
+        //Organizar hierarquia
+        $('#organizarHierarquia').click(function(){
+            jsPlumbDemo.reposicionarObjetos();
         });
 
         //Botão Clonar Tarefa
@@ -277,6 +285,7 @@
                                 <b>Dura&ccedil;&atilde;o:</b> <input type="text" id="cad_duracao" name="cad_duracao"><br/>
                                 <button type="button" id="criarTarefa">Criar Tarefa</button>&nbsp;
                                 <button type="button" id="exibirHierarquia">Exibir Hierarquia</button>
+                                <button type="button" id="organizarHierarquia">Organizar Hierarquia</button>
                                 <br>
 
                                 <p id="mensagem"> </p><br/>

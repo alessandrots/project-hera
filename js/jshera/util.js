@@ -36,7 +36,9 @@ StringBuffer.prototype.toString = function()
 {
     return this.buffer.join("");
 }
+
 /******************************************/
+
 /**
  * retornarProximoID - função de teste
  *
