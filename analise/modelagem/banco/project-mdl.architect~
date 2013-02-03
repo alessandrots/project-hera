@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<architect-project version="1.0" appversion="1.0.6">
+ <project-name>project-mdl</project-name>
+ <print-settings numCopies="1" zoom="1.0" pageNumbersPrinted="true" orientation="1" paperWidth="612.0" paperHeight="792.0" leftBorder="50.0" rightBorder="50.0" topBorder="50.0" bottomBorder="50.0" />
+ <project-data-sources>
+  <data-source id="DS0">
+   <property key="Logical" value="Modelo de Dados" />
+  </data-source>
+  <data-source id="DS2">
+   <property key="Connection Type" value="PostgreSQL" />
+   <property key="Logical" value="CONN_PROJECT" />
+   <property key="JDBC URL" value="jdbc:postgresql://localhost:5432/dbTeste" />
+   <property key="UID" value="postgres" />
+   <property key="PWD" value="123456" />
+   <property key="ca.sqlpower.architect.etl.kettle.database" value="" />
+   <property key="ca.sqlpower.architect.etl.kettle.port" value="" />
+   <property key="ca.sqlpower.architect.etl.kettle.hostname" value="" />
+   <property key="ca.sqlpower.architect.etl.kettle.repos.login" value="" />
+   <property key="ca.sqlpower.architect.etl.kettle.repos.password" value="" />
+  </data-source>
+ </project-data-sources>
+ <source-databases>
+  <database id="DB0" populated="true" UUID="c23af4b9-ad6a-4a24-9cef-1fdd89a3d891" dbcs-ref="DS2" name="CONN_PROJECT" physicalName="CONN_PROJECT" >
+   <catalog id="CAT1" populated="true" UUID="91b833b1-9e2e-471d-b8b2-d27660f119a2" name="dbTeste" nativeTerm="database" physicalName="dbTeste" >
+    <schema id="SCH2" populated="true" UUID="7387d18b-e8c8-4e88-971d-e39f198bb019" name="information_schema" nativeTerm="schema" physicalName="information_schema" >
+    </schema>
+    <schema id="SCH3" populated="true" UUID="baacfb02-21bb-43b4-b0d1-df7421e1a516" name="pg_catalog" nativeTerm="schema" physicalName="pg_catalog" >
+    </schema>
+    <schema id="SCH4" populated="true" UUID="d491e9f9-70cf-4482-a8dc-0278e7afdf2c" name="pg_toast_temp_1" nativeTerm="schema" physicalName="pg_toast_temp_1" >
+    </schema>
+    <schema id="SCH5" populated="true" UUID="34462af8-8b03-4c6f-a76c-d3c52713d5ac" name="public" nativeTerm="schema" physicalName="public" >
+     <table id="TAB6" populated="true" UUID="363720df-78db-4db3-abc6-67217b762724" name="tb_estagiario" objectType="TABLE" physicalName="tb_estagiario" >
+      <remarks></remarks>
+      <folder id="FOLTAB61" populated="true" name="Columns" physicalName="Columns" type="1">
+       <column id="COL7" populated="true" UUID="26bf6c5a-e30f-4b90-8eb4-cedc93d0c786" autoIncrement="false" defaultValue="" name="icodigo" nullable="0" physicalName="icodigo" precision="10" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="int4" type="4" >
+        <remarks></remarks>
+       </column>
+       <column id="COL8" populated="true" UUID="0967960e-9c7d-4981-9af9-29a850ea2a8c" autoIncrement="false" defaultValue="" name="snome" nullable="0" physicalName="snome" precision="100" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" >
+        <remarks></remarks>
+       </column>
+       <column id="COL9" populated="true" UUID="13c4d709-84bb-498a-866d-1f534efa3230" autoIncrement="false" defaultValue="" name="cativo" nullable="0" physicalName="cativo" precision="1" referenceCount="1" scale="0" sourceDataTypeName="bpchar" type="1" >
+        <remarks></remarks>
+       </column>
+       </folder>
+       <folder id="FOLTAB63" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+       </folder>
+       <folder id="FOLTAB62" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+       </folder>
+       <folder id="FOLTAB64" populated="true" name="Indices" physicalName="Indices" type="4">
+       <index id="IDX10" populated="true" UUID="eadb94c7-6301-47f8-babf-3c1fbca60817" clustered="false" index-type="BTREE" name="tb_estagiario_pkey" physicalName="tb_estagiario_pkey" primaryKeyIndex="true" unique="true" >
+        <index-column id="IDC11" populated="true" UUID="b3c27c71-b60d-4e9d-a8ce-a8b5615743f4" ascendingOrDescending="UNSPECIFIED" column-ref="COL7" name="icodigo" physicalName="icodigo" />
+       </index>
+      </folder>
+     </table>
+    </schema>
+   </catalog>
+   <relationships>
+   </relationships>
+  </database>
+ </source-databases>
+ <target-database id="ppdb" dbcs-ref="DS0">
+  <table id="TAB13" populated="true" UUID="cefa5f5e-79d3-4e9f-8111-7a7d8480f251" name="TS_Usuario" objectType="TABLE" physicalName="TS_Usuario" >
+   <remarks>Tabela de Sistema.
+
+Tabela com o cadastro de todos os usuários. Provavelmente vai ter a possibilidade de um cadastro com um login específico ou com uma conta de email.
+A autenticação vai poder ser feita pelos dois meios.
+
+Um usuário pode criar vários projetos e pode ser mais de um tipo de participante(GP ou Recurso).
+
+
+</remarks>
+   <folder id="FOLTAB131" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX14" populated="true" UUID="04fe8e08-fbbb-4ead-8110-ef65172b7a42" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB15" populated="true" UUID="9b992736-4cb7-4e0a-bce4-3f5e8e49549c" name="TS_Perfil" objectType="TABLE" physicalName="TS_Perfil" >
+   <remarks>Tabela de Sistema.
+
+Tabela com os perfis de sistema:
+ 1) Administrador: vai ter acesso ao sistema para realizar tarefas administrativas, tipo retirar relatórios, acompanhar emails enviados, cadastrar novos deploys, cadastrar as novas funcionalidades de cada versão, ver erros gerados, ver solicitações de usuários, configurar parâmetros de sistema.
+
+2) Membro/Participante: são os usuários do sistema, que irão efetivamente criar e manipular os projetos. Este membro vai ter uma outra denominação no sistema:
+ - Gerente de Projeto
+ - Recurso
+
+ 3) Consulta: Perfil somente para navegar no sistema e ver algum projeto modelo.</remarks>
+   <folder id="FOLTAB151" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX16" populated="true" UUID="db3947df-b347-4461-9487-e10378423623" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB17" populated="true" UUID="bc06f498-7c3b-498d-b319-6181d1c27283" name="TN_Projeto" objectType="TABLE" physicalName="TN_Projeto" >
+   <remarks>Tabela de Negócio.
+Onde vão estar todos os projetos cadastrados.</remarks>
+   <folder id="FOLTAB171" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX18" populated="true" UUID="9f0bfd37-efeb-4992-a2d8-bea7476a9e65" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB19" populated="true" UUID="5b441773-a786-49cf-89e6-f4177acdb27c" name="TN_Eap" objectType="TABLE" physicalName="TN_Eap" >
+   <remarks>Tabela de Negócio.
+
+Cadastro de todas as EAPs de um projeto.</remarks>
+   <folder id="FOLTAB191" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX20" populated="true" UUID="6ca6e3dc-dffc-4ab8-90db-4f90c3dbafcb" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB21" populated="true" UUID="9d3d8a8d-b7bf-4133-a49c-10406e04590d" name="TN_Fase" objectType="TABLE" physicalName="TN_Fase" >
+   <remarks>Tabela de Negócio.
+Todas as fases definidas para uma EAP.</remarks>
+   <folder id="FOLTAB211" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX22" populated="true" UUID="20e73dc9-f9b4-4302-a251-7f92d27d8783" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB23" populated="true" UUID="104400d0-50e8-4129-85a6-d35a29226046" name="TN_Produto" objectType="TABLE" physicalName="TN_Produto" >
+   <remarks>Tabela de Negócio.
+Produtos associados a uma determinada fase.</remarks>
+   <folder id="FOLTAB231" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX24" populated="true" UUID="d74604d2-6071-4177-8714-0abff8624fb7" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB25" populated="true" UUID="7c719de2-b5d1-4cce-afba-86d01903870e" name="TN_Pacote_Trabalho" objectType="TABLE" physicalName="TN_Pacote_Trabalho" >
+   <remarks>Tabela de Negócio.
+Corresponde ao último nível de uma EAP, que é aonde serão construídas as tarefas e as suas dependências.</remarks>
+   <folder id="FOLTAB251" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX26" populated="true" UUID="aa46b670-aaa5-46c5-93d0-e473fb3a75b7" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB27" populated="true" UUID="073e91d8-d22d-4cd4-9f45-7dc24a8d7866" name="TF_Endpoint" objectType="TABLE" physicalName="TF_Endpoint" >
+   <remarks>corresponde a cada ponto de conexão de um container (elemento div)</remarks>
+   <folder id="FOLTAB271" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX28" populated="true" UUID="ddc089a2-67c2-490b-ae55-08622be4fbf6" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB29" populated="true" UUID="bf8c353f-7832-43c2-8c54-2a65489b940e" name="TN_Tarefa" objectType="TABLE" physicalName="TN_Tarefa" >
+   <remarks>Tabela de Negócio.
+São as tarefas que serão cadastradas pelos colaboradores e executadas pelos recursos.</remarks>
+   <folder id="FOLTAB291" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX30" populated="true" UUID="276e5d8e-3010-44ea-ae72-4eff9c8cb014" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB31" populated="true" UUID="35465c86-012d-49f5-9422-b489978090ef" name="TF_Container" objectType="TABLE" physicalName="TF_Container" >
+   <remarks>Corresponde ao elemento do tipo div (html) que corresponderá negocialmente à tarefa. Aqui é a representação no framework.
+
+Este componente tem pontos de conexão, conexões e layouts associados a eles.</remarks>
+   <folder id="FOLTAB311" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX32" populated="true" UUID="24386594-432f-4012-9e16-e35daf890149" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB33" populated="true" UUID="c3f5239c-0122-4d5c-b0f3-a4a9cd04f515" name="TF_Connection" objectType="TABLE" physicalName="TF_Connection" >
+   <remarks>Corresponde às conexões feitas entre endpoints dos container.</remarks>
+   <folder id="FOLTAB331" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX34" populated="true" UUID="26fd2de0-6f86-473f-913a-9490c21acb61" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB35" populated="true" UUID="30af6d8d-9809-4596-8f67-71278040619a" name="TN_Participante" objectType="TABLE" physicalName="TN_Participante" >
+   <remarks>Tabela de Negócio.
+
+Aqui são cadastrados os participantes dos projetos que estarão associados aos usuários do sistema.
+Os membros podem ser:
+ 1) Gerente de projeto
+ 2) Recurso</remarks>
+   <folder id="FOLTAB351" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX36" populated="true" UUID="e3717972-5350-425a-a194-94cae4439d5e" clustered="false" name="icodigo" physicalName="recurso" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB37" populated="true" UUID="39e8ad54-7ae3-4074-818e-9149a8c3ecf2" name="TF_Anchor" objectType="TABLE" physicalName="TF_Anchor" >
+   <remarks>Corresponde às ancoras definidas em cada container. Cada Endpoint está num anchor diferente (x, y, dx, dy).</remarks>
+   <folder id="FOLTAB371" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX38" populated="true" UUID="6a7146b4-90da-47e0-b3e0-8da6ffbeec56" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB39" populated="true" UUID="431edb93-8281-48e6-a65b-4b5902ebc4df" name="TF_Tipo_Endpoint" objectType="TABLE" physicalName="TF_Tipo_Endpoint" >
+   <remarks>Corresponde aos tipos de endpoint que vão ter no sistema.
+ - source (origem padrão Término - Início)
+ - target (destino padrão Término - Início)
+ - source/target II
+ - source/target TT
+ - source/target IT</remarks>
+   <folder id="FOLTAB391" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX40" populated="true" UUID="36c56179-e06c-4cc8-b2f1-0c8831ce8e58" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <relationships>
+   <relationship id="REL41" populated="true" UUID="0b53857d-1b74-4280-9864-9663683df8a6" deferrability="7" deleteRule="3" fk-table-ref="TAB15" fkCardinality="7" identifying="false" name="TS_Usuario_TS_Perfil_fk" physicalName="TS_Usuario_TS_Perfil_fk" pk-table-ref="TAB13" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL42" populated="true" UUID="0cdecadf-8ec2-458a-8b72-a033501c87f8" deferrability="7" deleteRule="3" fk-table-ref="TAB17" fkCardinality="7" identifying="true" name="TS_Usuario_TN_Projeto_fk" physicalName="TS_Usuario_TN_Projeto_fk" pk-table-ref="TAB13" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL43" populated="true" UUID="df5e1afa-d262-4b7c-ab8c-e5e68492bbd4" deferrability="7" deleteRule="3" fk-table-ref="TAB35" fkCardinality="7" identifying="true" name="TS_Usuario_TN_Participante_fk" physicalName="TS_Usuario_TN_Participante_fk" pk-table-ref="TAB13" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL44" populated="true" UUID="ea1990f0-0270-4cdb-ad0a-7ea0783a9839" deferrability="7" deleteRule="3" fk-table-ref="TAB19" fkCardinality="7" identifying="true" name="TN_Projeto_TN_Eap_fk" physicalName="TN_Projeto_TN_Eap_fk" pk-table-ref="TAB17" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL45" populated="true" UUID="859c2e62-8bac-4e35-9d19-f47334842203" deferrability="7" deleteRule="3" fk-table-ref="TAB21" fkCardinality="7" identifying="true" name="TN_Eap_TN_Fase_fk" physicalName="TN_Eap_TN_Fase_fk" pk-table-ref="TAB19" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL46" populated="true" UUID="3162b03b-1b43-4371-858c-79ef68a2ec3f" deferrability="7" deleteRule="3" fk-table-ref="TAB23" fkCardinality="7" identifying="true" name="TN_Fase_TN_Produto_fk" physicalName="TN_Fase_TN_Produto_fk" pk-table-ref="TAB21" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL47" populated="true" UUID="ac77cd79-eb36-4f64-b087-ec0aacdb19d7" deferrability="7" deleteRule="3" fk-table-ref="TAB25" fkCardinality="7" identifying="false" name="TN_Produto_TN_Pacote_Trabalho_fk" physicalName="TN_Produto_TN_Pacote_Trabalho_fk" pk-table-ref="TAB23" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL48" populated="true" UUID="ac21789e-76d4-4794-bca3-c52ea0853527" deferrability="7" deleteRule="3" fk-table-ref="TAB29" fkCardinality="6" identifying="true" name="TN_Pacote_Trabalho_TN_Tarefa_fk" physicalName="TN_Pacote_Trabalho_TN_Tarefa_fk" pk-table-ref="TAB25" pkCardinality="6" updateRule="3" >
+   </relationship>
+   <relationship id="REL49" populated="true" UUID="27f1a183-ffc2-4912-9428-f91245a04a3b" deferrability="7" deleteRule="3" fk-table-ref="TAB33" fkCardinality="7" identifying="true" name="TF_Endpoint_TF_Connection_fk" physicalName="TF_Endpoint_TF_Connection_fk" pk-table-ref="TAB27" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL50" populated="true" UUID="73276680-b25a-4869-903f-2c898ef655b4" deferrability="7" deleteRule="3" fk-table-ref="TAB37" fkCardinality="3" identifying="true" name="TF_Endpoint_TF_Anchor_fk" physicalName="TF_Endpoint_TF_Anchor_fk" pk-table-ref="TAB27" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL51" populated="true" UUID="26b840bd-8a8b-48f8-a6b9-60c0b9d92a8f" deferrability="7" deleteRule="3" fk-table-ref="TAB39" fkCardinality="3" identifying="true" name="TF_Endpoint_TF_Tipo_Endpoint_fk" physicalName="TF_Endpoint_TF_Tipo_Endpoint_fk" pk-table-ref="TAB27" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL52" populated="true" UUID="9222c8a5-249f-4598-9d08-42a6a6d09a37" deferrability="7" deleteRule="3" fk-table-ref="TAB31" fkCardinality="3" identifying="true" name="TN_Tarefa_TF_Container_fk" physicalName="TN_Tarefa_TF_Container_fk" pk-table-ref="TAB29" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL53" populated="true" UUID="19feea2e-0f3e-4048-906b-38de614b7993" deferrability="7" deleteRule="3" fk-table-ref="TAB35" fkCardinality="6" identifying="true" name="TN_Tarefa_TN_Recurso_fk" physicalName="TN_Tarefa_TN_Recurso_fk" pk-table-ref="TAB29" pkCardinality="6" updateRule="3" >
+   </relationship>
+   <relationship id="REL54" populated="true" UUID="bab95987-ee02-49ef-a085-dc15fcfd90a5" deferrability="7" deleteRule="3" fk-table-ref="TAB27" fkCardinality="7" identifying="true" name="TF_Container_TF_Endpoint_fk" physicalName="TF_Container_TF_Endpoint_fk" pk-table-ref="TAB31" pkCardinality="2" updateRule="3" >
+   </relationship>
+  </relationships>
+ </target-database>
+ <ddl-generator type="ca.sqlpower.architect.ddl.GenericDDLGenerator" allow-connection="true"> </ddl-generator>
+ <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
+ <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
+ <play-pen zoom="1.0" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+  <table-pane table-ref="TAB13" x="847" y="160" bgColor="0xfbdabb" fgColor="0x0000cc" rounded="true" dashed="false"/>
+  <table-pane table-ref="TAB15" x="843" y="73" bgColor="0xfbdabb" fgColor="0x0000cc" rounded="true" dashed="false"/>
+  <table-pane table-ref="TAB17" x="537" y="52" bgColor="0xc8dccc" fgColor="0xcc0000" rounded="true" dashed="false"/>
+  <table-pane table-ref="TAB19" x="383" y="92" bgColor="0xc8dccc" fgColor="0xcc0000" rounded="true" dashed="false"/>
+  <table-pane table-ref="TAB21" x="214" y="111" bgColor="0xc8dccc" fgColor="0xcc0000" rounded="true" dashed="false"/>
+  <table-pane table-ref="TAB23" x="39" y="188" bgColor="0xc8dccc" fgColor="0xcc0000" rounded="true" dashed="false"/>
+  <table-pane table-ref="TAB25" x="66" y="387" bgColor="0xc8dccc" fgColor="0xcc0000" rounded="true" dashed="false"/>
+  <table-pane table-ref="TAB27" x="445" y="515" bgColor="0xc8b7ea" fgColor="0x0000cc" rounded="true" dashed="false"/>
+  <table-pane table-ref="TAB29" x="514" y="249" bgColor="0xc8dccc" fgColor="0xcc0000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB31" x="591" y="444" bgColor="0xc8b7ea" fgColor="0x0000cc" rounded="true" dashed="false"/>
+  <table-pane table-ref="TAB33" x="759" y="547" bgColor="0xc8b7ea" fgColor="0x0000cc" rounded="true" dashed="false"/>
+  <table-pane table-ref="TAB35" x="824" y="356" bgColor="0xdfedce" fgColor="0xcc0000" rounded="true" dashed="false"/>
+  <table-pane table-ref="TAB37" x="271" y="597" bgColor="0xb9bbf6" fgColor="0x0000cc" rounded="true" dashed="false"/>
+  <table-pane table-ref="TAB39" x="530" y="652" bgColor="0xc8b7ea" fgColor="0x0000cc" rounded="true" dashed="false"/>
+  <table-link relationship-ref="REL41" pkConnection="0.5657894736842105" fkConnection="0.39655172413793105" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="72"/>
+  <table-link relationship-ref="REL44" pkConnection="0.0" fkConnection="1.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL45" pkConnection="0.0" fkConnection="1.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL46" pkConnection="0.0" fkConnection="1.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL47" pkConnection="0.7051282051282052" fkConnection="0.373134328358209" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL48" pkConnection="1.0" fkConnection="0.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL52" pkConnection="0.5588235294117647" fkConnection="0.4482758620689655" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL54" pkConnection="0.5287356321839081" fkConnection="0.4567901234567901" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL49" pkConnection="1.0" fkConnection="0.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL50" pkConnection="0.0" fkConnection="1.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL51" pkConnection="0.4444444444444444" fkConnection="0.5263157894736842" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL53" pkConnection="1.0" fkConnection="0.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL42" pkConnection="0.0" fkConnection="1.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL43" pkConnection="0.42105263157894735" fkConnection="0.5480769230769231" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+ </play-pen>
+ <critic-manager>
+  <critic-grouping platformType="Generic" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PrimaryKeyCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.RelationshipMappingTypeCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.EmptyRelationshipCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericSequenceNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetDefaultOnColumnWithNoDefaultCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetNullOnNonNullableColumnCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DuplicateNameCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="DB2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DB2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="H2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.H2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="HSQLDB" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.HSQLDBUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="MySQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLCommentCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="Oracle" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OraclePhysicalNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="PostgreSQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PostgreSQLReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerUnsupportedFeaturesCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2000" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2000UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2005" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2005UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+ </critic-manager>
+ <profiles topNCount="10">
+  <table-profile-result ref-id="TAB6" createStartTime="1359920261126" createEndTime="1359920261151" exception="false" rowCount="4" UUID="bb447107-0920-44c9-8968-609b4b5228b2">
+   <column-profile-result ref-id="COL7" createStartTime="1359920261140" createEndTime="1359920261143" exception="false" avgLength="0.0" minLength="0" maxLength="0" nullCount="0" distinctValueCount="4" UUID="4f0ed968-d768-45fc-a28b-b94fd54d581b">
+    <avgValue type="java.lang.String" value="2.5000000000000000"/>
+    <maxValue type="java.lang.String" value="4"/>
+    <minValue type="java.lang.String" value="1"/>
+    <topNvalue count="1" type="java.lang.String" value="2" percent="0.25" otherValues="false"/>
+    <topNvalue count="1" type="java.lang.String" value="4" percent="0.25" otherValues="false"/>
+    <topNvalue count="1" type="java.lang.String" value="1" percent="0.25" otherValues="false"/>
+    <topNvalue count="1" type="java.lang.String" value="3" percent="0.25" otherValues="false"/>
+   </column-profile-result>
+   <column-profile-result ref-id="COL8" createStartTime="1359920261143" createEndTime="1359920261146" exception="false" avgLength="16.0" minLength="13" maxLength="17" nullCount="0" distinctValueCount="4" UUID="18d6d7f5-f861-4296-9e28-cc57196212fe">
+    <maxValue type="java.lang.String" value="Samuel Santos"/>
+    <minValue type="java.lang.String" value="Alessandro Santos"/>
+    <topNvalue count="1" type="java.lang.String" value="João Victor Braga" percent="0.25" otherValues="false"/>
+    <topNvalue count="1" type="java.lang.String" value="Samuel Santos" percent="0.25" otherValues="false"/>
+    <topNvalue count="1" type="java.lang.String" value="Alessandro Santos" percent="0.25" otherValues="false"/>
+    <topNvalue count="1" type="java.lang.String" value="Ana Cláudia Braga" percent="0.25" otherValues="false"/>
+   </column-profile-result>
+   <column-profile-result ref-id="COL9" createStartTime="1359920261148" createEndTime="1359920261150" exception="false" avgLength="1.0" minLength="1" maxLength="1" nullCount="0" distinctValueCount="1" UUID="64532484-f0bf-4a02-930d-3fd98c76d4b8">
+    <maxValue type="java.lang.String" value="S"/>
+    <minValue type="java.lang.String" value="S"/>
+    <topNvalue count="4" type="java.lang.String" value="S" percent="1.0" otherValues="false"/>
+   </column-profile-result>
+  </table-profile-result>
+  </profiles>
+  <olap>
+  </olap>
+  <olap-gui>
+  </olap-gui>
+</architect-project>
