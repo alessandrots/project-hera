@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Agility Hello World</title>
+
+    <script src="../js/jquery/jquery-1.8.3.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/agility/agility.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<script type="text/javascript">
+    var arrayPerson = new Array();
+
+    var urlPrincipal  = 'http://localhost:8080/';
+    var contextPath   = 'engine/';
+    var url  = urlPrincipal + contextPath;
+
+
+    //JQUERY
+    $(document).ready(function() {
+        var person = $$({
+            model: {
+                codigo:'',
+                nome: '',
+                dataInicio: '',
+                dataFim: ''
+            },
+            view: {
+                format: '<br> <div>' +
+                        ' <input type="text" name="codigo" data-bind="codigo"/> <br>' +
+                        ' <input type="text" name="nome" data-bind="nome"/> <br>' +
+                        ' <input type="text" name="dataInicio" data-bind="dataInicio"/>  <br>' +
+                        ' <input type="text" name="dataFim" data-bind="dataFim"/>  <br>' +
+                        '</div>',
+                style: '& { color:green; font-style:italic; }'
+            }
+        });
+
+        //$$.document.append(person);
+
+        //Adicionando no array
+        jQuery('#novo').click(function(){
+            console.log('novo');
+            $$.document.append(person);
+        });
+
+        //Adicionando no array
+        jQuery('#add').click(function(){
+            console.log('add');
+            var collection = 'project/cadTarefas/add';
+
+            //https://groups.google.com/forum/?fromgroups=#!topic/agilityjs/Yc-sjnGoHsU
+            //posso usar type: 'POST', por enquanto tá acessando o service na servlet
+            //http://stackoverflow.com/questions/2496494/library-to-encode-decode-from-json-to-java-util-map
+            person.persist($$.adapter.restful,
+                {
+                    dataType: 'json',
+                    //collection:'project',
+                    collection:collection,
+                    id:'cadTarefasAdd',
+                    //baseUrl:'http://localhost:8080/engine/' //OK
+                    baseUrl:url
+                }
+            );
+            person.save();
+
+            /* */
+            $('#mensagem').show('slow', function(){
+                arrayPerson.push(person);
+                $(this).append(
+                        '<br> codigo : ' + person.model.get("codigo") +
+                        ' nome : ' + person.model.get("nome") +
+                        ' dataInicio : ' + person.model.get("dataInicio") +
+                        ' dataFim : ' + person.model.get("dataFim")
+                );
+            });
+
+        });
+
+
+        //Listar
+        jQuery('#listar').click(function(){
+            console.log('load');
+
+            var collection = 'project/cadTarefas/recuperarTodos';
+
+            var personLoad = $$({},
+                    {
+                        format: '<br> <div>' +
+                        ' <input type="text" name="codigo" data-bind="codigo"/> <br>' +
+                        ' <input type="text" name="nome" data-bind="nome"/> <br>' +
+                        ' <input type="text" name="dataInicio" data-bind="dataInicio"/>  <br>' +
+                        ' <input type="text" name="dataFim" data-bind="dataFim"/>  <br>' +
+                        '</div>',
+                        style: '& { color:green; font-style:italic; }'
+                    }
+            );
+
+            personLoad.persist($$.adapter.restful,
+                    {
+                        dataType: 'json',
+                        //collection:'people',
+                        collection:collection,
+                        id:'cadTarefasLoad',
+                        //baseUrl:'http://localhost:8080/engine/' //OK
+                        baseUrl:url
+                    }
+            );
+
+            // Container
+            var people = $$({}, '<div>People: <ul/></div>').persist();
+            $$.document.append(people);
+
+            people.gather(personLoad, 'append', 'ul');//FUNCIONOU - trazer do banco agora
+        });
+    });//ready
+
+
+
+</script>
+
+<!--
+<button type="button" id="novoCad">Criar Tarefa</button>&nbsp;
+-->
+<button type="button" id="novo"> Novo</button> &nbsp;
+<button type="button" id="add"> Adicione</button> &nbsp;
+<button type="button" id="listar"> Listagem</button>
+<br><br>
+<div id="mensagem"></div>
+</body>
+
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Agility Hello World</title>
+
+    <script src="../js/jquery/jquery-1.8.3.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/agility/agility.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<script type="text/javascript">
+    //var arrayPerson = new Array();
+
+    /*
+    var message = $$({txt:'Hello World'}, '<div data-bind="txt"/>');
+    $$.document.append(message);
+
+    // Create object from scratch:
+    var proto = $$({}, '<p data-bind="name" style="color:red"/>');
+    // Create object from prototype object:
+    var obj = $$(proto, {name:'Joe Doe'});
+    $$.document.append(obj);
+
+    // Two-way input binding (text) - na saída muda o nome
+    var obj2 = $$({name:'Joe Doe'}, '<p><input type="text" data-bind="name"/> You typed: <span data-bind="name"/></p>');
+    $$.document.append(obj2);
+
+    // Two-way input binding (search) - à medida que vai digitando vai escrevendo no span
+    var obj3 = $$({query:'Type of query'}, '<p><input type="search" data-bind="name"/> Instant model change: <span data-bind="name"/></p>');
+    $$.document.append(obj3);
+
+    // Bind model 'content' to element's HTML content, and model 'myStyle' to element's style attribute
+    var msg = $$({content:'Greetings!', myStyle:'color:green'}, '<p data-bind="content, style=myStyle"/>');
+    $$.document.append(msg);
+
+    // Two-way input binding (radio)
+    var objRadio = $$(
+            {opt:'opt-a'},
+            "<div> \
+                <input type='radio' name='test' value='opt-a' data-bind='opt'>a</input> \
+                <input type='radio' name='test' value='opt-b' data-bind='opt'>b</input> \
+                You selected: <span data-bind='opt'/> \
+             </div>"
+    );
+    $$.document.append(objRadio);
+
+    // Two-way input binding (checkbox)
+    var objCheckbox = $$(
+            {a:false, b:true},
+            "<div> \
+                <input type='checkbox' name='test' data-bind='a'/> checked: <span data-bind='a'/><br/> \
+                <input type='checkbox' name='test' data-bind='b'/> checked: <span data-bind='b'/><br/> \
+             </div>"
+    );
+    $$.document.append(objCheckbox);
+
+    // montando o objeto person
+    var person4 = $$({
+        model: {
+            name: 'João Victor',
+            dtNascimento: '12/12/2006',
+            dtAniversario: '12/12/2012'
+
+        },
+        view: {
+            format: '<div>' +
+                    ' <input type="text" name="name" data-bind="name"/> <br>' +
+                    ' <input type="text" name="name" data-bind="dtNascimento"/>  <br>' +
+                    ' <input type="text" name="name" data-bind="dtAniversario"/>  <br>' +
+                    '</div>',
+            style: '& { color:green; font-style:italic; }'
+        }
+    });
+    $$.document.append(person4);
+    alert(person4.model.get("name"));
+    */
+
+
+
+
+
+    //JQUERY
+    $(document).ready(function() {
+        //Mostrando e exibindo a janela
+        jQuery('#add').click(function(){
+            console.log('add');
+            //alert('add');
+            $('#mensagem').show('slow', function(){
+                $(this).css('background', 'red').text(
+                        'nome : ' + person.model.get("name") +
+                        ' dtNascimento : ' + person.model.get("dtNascimento") +
+                        ' dtAniversario : ' + person.model.get("dtAniversario")
+                );
+            });
+
+        });
+
+
+        /*
+        jQuery('#novoCad').click(function(){
+            console.log('novoCad');
+            //alert('novoCad');
+
+             person = $$({
+                 model: {
+                     name: '',
+                     dtNascimento: '',
+                     dtAniversario: ''
+                 },
+                 view: {
+                     format: '<br> <div>' +
+                     ' <input type="text" name="name" data-bind="name"/> <br>' +
+                     ' <input type="text" name="dtNascimento" data-bind="dtNascimento"/>  <br>' +
+                     ' <input type="text" name="dtAniversario" data-bind="dtAniversario"/>  <br>' +
+                     '</div>',
+                     style: '& { color:green; font-style:italic; }'
+                 }
+             });
+
+             $$.document.append(person);
+
+        });
+        */
+    });
+
+    var person;
+   function init() {
+       person = $$({
+           model: {
+               name: '',
+               dtNascimento: '',
+               dtAniversario: ''
+           },
+           view: {
+               format: '<br> <div>' +
+                       ' <input type="text" name="name" data-bind="name"/> <br>' +
+                       ' <input type="text" name="dtNascimento" data-bind="dtNascimento"/>  <br>' +
+                       ' <input type="text" name="dtAniversario" data-bind="dtAniversario"/>  <br>' +
+                       '</div>',
+               style: '& { color:green; font-style:italic; }'
+           }
+       });
+
+       $$.document.append(person);
+    }
+
+</script>
+
+<button type="button" id="novoCad">Criar Tarefa</button>&nbsp;
+<button type="button" id="add"> Adicione</button>
+<br><br>
+<div id="mensagem"></div>
+</body>
+
+</html>

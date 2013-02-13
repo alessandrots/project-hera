@@ -142,85 +142,100 @@ Corresponde ao último nível de uma EAP, que é aonde serão construídas as ta
    <remarks>Tabela de Negócio.
 São as tarefas que serão cadastradas pelos colaboradores e executadas pelos recursos.</remarks>
    <folder id="FOLTAB291" populated="true" name="Columns" physicalName="Columns" type="1">
-    <index id="IDX30" populated="true" UUID="276e5d8e-3010-44ea-ae72-4eff9c8cb014" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
+    <column id="COL30" populated="true" UUID="aedab7b0-c611-4170-a68c-114882906a49" autoIncrement="false" autoIncrementSequenceName="TN_Tarefa_data_inicio_seq" defaultValue="" name="data_inicio" nullable="0" physicalName="data_inicio" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="93" userDefinedTypeUUID="6497d8de-0e00-40d6-a42e-e2adca83be64" >
+     <remarks></remarks>
+    </column>
+    <column id="COL31" populated="true" UUID="4273cfc1-7917-4b26-998b-a16e0ea60789" autoIncrement="false" autoIncrementSequenceName="TN_Tarefa_data_termino_seq" defaultValue="" name="data_termino" nullable="0" physicalName="data_termino" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="93" userDefinedTypeUUID="6497d8de-0e00-40d6-a42e-e2adca83be64" >
+     <remarks></remarks>
+    </column>
+    <column id="COL32" populated="true" UUID="fce20dbe-a89d-4334-95d3-8d8ed8c96321" autoIncrement="false" autoIncrementSequenceName="TN_Tarefa_duracao_tarefa_seq" defaultValue="" name="duracao_tarefa" nullable="0" physicalName="duracao_tarefa" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB293" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB292" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB294" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX33" populated="true" UUID="276e5d8e-3010-44ea-ae72-4eff9c8cb014" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
     </index>
    </folder>
   </table>
-  <table id="TAB31" populated="true" UUID="35465c86-012d-49f5-9422-b489978090ef" name="TF_Container" objectType="TABLE" physicalName="TF_Container" >
+  <table id="TAB34" populated="true" UUID="35465c86-012d-49f5-9422-b489978090ef" name="TF_Container" objectType="TABLE" physicalName="TF_Container" >
    <remarks>Corresponde ao elemento do tipo div (html) que corresponderá negocialmente à tarefa. Aqui é a representação no framework.
 
 Este componente tem pontos de conexão, conexões e layouts associados a eles.</remarks>
-   <folder id="FOLTAB311" populated="true" name="Columns" physicalName="Columns" type="1">
-    <index id="IDX32" populated="true" UUID="24386594-432f-4012-9e16-e35daf890149" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
+   <folder id="FOLTAB341" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX35" populated="true" UUID="24386594-432f-4012-9e16-e35daf890149" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
     </index>
    </folder>
   </table>
-  <table id="TAB33" populated="true" UUID="c3f5239c-0122-4d5c-b0f3-a4a9cd04f515" name="TF_Connection" objectType="TABLE" physicalName="TF_Connection" >
+  <table id="TAB36" populated="true" UUID="c3f5239c-0122-4d5c-b0f3-a4a9cd04f515" name="TF_Connection" objectType="TABLE" physicalName="TF_Connection" >
    <remarks>Corresponde às conexões feitas entre endpoints dos container.</remarks>
-   <folder id="FOLTAB331" populated="true" name="Columns" physicalName="Columns" type="1">
-    <index id="IDX34" populated="true" UUID="26fd2de0-6f86-473f-913a-9490c21acb61" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
+   <folder id="FOLTAB361" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX37" populated="true" UUID="26fd2de0-6f86-473f-913a-9490c21acb61" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
     </index>
    </folder>
   </table>
-  <table id="TAB35" populated="true" UUID="30af6d8d-9809-4596-8f67-71278040619a" name="TN_Participante" objectType="TABLE" physicalName="TN_Participante" >
+  <table id="TAB38" populated="true" UUID="30af6d8d-9809-4596-8f67-71278040619a" name="TN_Participante" objectType="TABLE" physicalName="TN_Participante" >
    <remarks>Tabela de Negócio.
 
 Aqui são cadastrados os participantes dos projetos que estarão associados aos usuários do sistema.
 Os membros podem ser:
  1) Gerente de projeto
  2) Recurso</remarks>
-   <folder id="FOLTAB351" populated="true" name="Columns" physicalName="Columns" type="1">
-    <index id="IDX36" populated="true" UUID="e3717972-5350-425a-a194-94cae4439d5e" clustered="false" name="icodigo" physicalName="recurso" primaryKeyIndex="true" unique="false" >
+   <folder id="FOLTAB381" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX39" populated="true" UUID="e3717972-5350-425a-a194-94cae4439d5e" clustered="false" name="icodigo" physicalName="recurso" primaryKeyIndex="true" unique="false" >
     </index>
    </folder>
   </table>
-  <table id="TAB37" populated="true" UUID="39e8ad54-7ae3-4074-818e-9149a8c3ecf2" name="TF_Anchor" objectType="TABLE" physicalName="TF_Anchor" >
+  <table id="TAB40" populated="true" UUID="39e8ad54-7ae3-4074-818e-9149a8c3ecf2" name="TF_Anchor" objectType="TABLE" physicalName="TF_Anchor" >
    <remarks>Corresponde às ancoras definidas em cada container. Cada Endpoint está num anchor diferente (x, y, dx, dy).</remarks>
-   <folder id="FOLTAB371" populated="true" name="Columns" physicalName="Columns" type="1">
-    <index id="IDX38" populated="true" UUID="6a7146b4-90da-47e0-b3e0-8da6ffbeec56" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
+   <folder id="FOLTAB401" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX41" populated="true" UUID="6a7146b4-90da-47e0-b3e0-8da6ffbeec56" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
     </index>
    </folder>
   </table>
-  <table id="TAB39" populated="true" UUID="431edb93-8281-48e6-a65b-4b5902ebc4df" name="TF_Tipo_Endpoint" objectType="TABLE" physicalName="TF_Tipo_Endpoint" >
+  <table id="TAB42" populated="true" UUID="431edb93-8281-48e6-a65b-4b5902ebc4df" name="TF_Tipo_Endpoint" objectType="TABLE" physicalName="TF_Tipo_Endpoint" >
    <remarks>Corresponde aos tipos de endpoint que vão ter no sistema.
  - source (origem padrão Término - Início)
  - target (destino padrão Término - Início)
  - source/target II
  - source/target TT
  - source/target IT</remarks>
-   <folder id="FOLTAB391" populated="true" name="Columns" physicalName="Columns" type="1">
-    <index id="IDX40" populated="true" UUID="36c56179-e06c-4cc8-b2f1-0c8831ce8e58" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
+   <folder id="FOLTAB421" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX43" populated="true" UUID="36c56179-e06c-4cc8-b2f1-0c8831ce8e58" clustered="false" name="icodigo" physicalName="icodigo" primaryKeyIndex="true" unique="false" >
     </index>
    </folder>
   </table>
   <relationships>
-   <relationship id="REL41" populated="true" UUID="0b53857d-1b74-4280-9864-9663683df8a6" deferrability="7" deleteRule="3" fk-table-ref="TAB15" fkCardinality="7" identifying="false" name="TS_Usuario_TS_Perfil_fk" physicalName="TS_Usuario_TS_Perfil_fk" pk-table-ref="TAB13" pkCardinality="2" updateRule="3" >
+   <relationship id="REL44" populated="true" UUID="0b53857d-1b74-4280-9864-9663683df8a6" deferrability="7" deleteRule="3" fk-table-ref="TAB15" fkCardinality="7" identifying="false" name="TS_Usuario_TS_Perfil_fk" physicalName="TS_Usuario_TS_Perfil_fk" pk-table-ref="TAB13" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL42" populated="true" UUID="0cdecadf-8ec2-458a-8b72-a033501c87f8" deferrability="7" deleteRule="3" fk-table-ref="TAB17" fkCardinality="7" identifying="true" name="TS_Usuario_TN_Projeto_fk" physicalName="TS_Usuario_TN_Projeto_fk" pk-table-ref="TAB13" pkCardinality="2" updateRule="3" >
+   <relationship id="REL45" populated="true" UUID="0cdecadf-8ec2-458a-8b72-a033501c87f8" deferrability="7" deleteRule="3" fk-table-ref="TAB17" fkCardinality="7" identifying="true" name="TS_Usuario_TN_Projeto_fk" physicalName="TS_Usuario_TN_Projeto_fk" pk-table-ref="TAB13" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL43" populated="true" UUID="df5e1afa-d262-4b7c-ab8c-e5e68492bbd4" deferrability="7" deleteRule="3" fk-table-ref="TAB35" fkCardinality="7" identifying="true" name="TS_Usuario_TN_Participante_fk" physicalName="TS_Usuario_TN_Participante_fk" pk-table-ref="TAB13" pkCardinality="2" updateRule="3" >
+   <relationship id="REL46" populated="true" UUID="df5e1afa-d262-4b7c-ab8c-e5e68492bbd4" deferrability="7" deleteRule="3" fk-table-ref="TAB38" fkCardinality="7" identifying="true" name="TS_Usuario_TN_Participante_fk" physicalName="TS_Usuario_TN_Participante_fk" pk-table-ref="TAB13" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL44" populated="true" UUID="ea1990f0-0270-4cdb-ad0a-7ea0783a9839" deferrability="7" deleteRule="3" fk-table-ref="TAB19" fkCardinality="7" identifying="true" name="TN_Projeto_TN_Eap_fk" physicalName="TN_Projeto_TN_Eap_fk" pk-table-ref="TAB17" pkCardinality="2" updateRule="3" >
+   <relationship id="REL47" populated="true" UUID="ea1990f0-0270-4cdb-ad0a-7ea0783a9839" deferrability="7" deleteRule="3" fk-table-ref="TAB19" fkCardinality="7" identifying="true" name="TN_Projeto_TN_Eap_fk" physicalName="TN_Projeto_TN_Eap_fk" pk-table-ref="TAB17" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL45" populated="true" UUID="859c2e62-8bac-4e35-9d19-f47334842203" deferrability="7" deleteRule="3" fk-table-ref="TAB21" fkCardinality="7" identifying="true" name="TN_Eap_TN_Fase_fk" physicalName="TN_Eap_TN_Fase_fk" pk-table-ref="TAB19" pkCardinality="2" updateRule="3" >
+   <relationship id="REL48" populated="true" UUID="859c2e62-8bac-4e35-9d19-f47334842203" deferrability="7" deleteRule="3" fk-table-ref="TAB21" fkCardinality="7" identifying="true" name="TN_Eap_TN_Fase_fk" physicalName="TN_Eap_TN_Fase_fk" pk-table-ref="TAB19" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL46" populated="true" UUID="3162b03b-1b43-4371-858c-79ef68a2ec3f" deferrability="7" deleteRule="3" fk-table-ref="TAB23" fkCardinality="7" identifying="true" name="TN_Fase_TN_Produto_fk" physicalName="TN_Fase_TN_Produto_fk" pk-table-ref="TAB21" pkCardinality="2" updateRule="3" >
+   <relationship id="REL49" populated="true" UUID="3162b03b-1b43-4371-858c-79ef68a2ec3f" deferrability="7" deleteRule="3" fk-table-ref="TAB23" fkCardinality="7" identifying="true" name="TN_Fase_TN_Produto_fk" physicalName="TN_Fase_TN_Produto_fk" pk-table-ref="TAB21" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL47" populated="true" UUID="ac77cd79-eb36-4f64-b087-ec0aacdb19d7" deferrability="7" deleteRule="3" fk-table-ref="TAB25" fkCardinality="7" identifying="false" name="TN_Produto_TN_Pacote_Trabalho_fk" physicalName="TN_Produto_TN_Pacote_Trabalho_fk" pk-table-ref="TAB23" pkCardinality="2" updateRule="3" >
+   <relationship id="REL50" populated="true" UUID="ac77cd79-eb36-4f64-b087-ec0aacdb19d7" deferrability="7" deleteRule="3" fk-table-ref="TAB25" fkCardinality="7" identifying="false" name="TN_Produto_TN_Pacote_Trabalho_fk" physicalName="TN_Produto_TN_Pacote_Trabalho_fk" pk-table-ref="TAB23" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL48" populated="true" UUID="ac21789e-76d4-4794-bca3-c52ea0853527" deferrability="7" deleteRule="3" fk-table-ref="TAB29" fkCardinality="6" identifying="true" name="TN_Pacote_Trabalho_TN_Tarefa_fk" physicalName="TN_Pacote_Trabalho_TN_Tarefa_fk" pk-table-ref="TAB25" pkCardinality="6" updateRule="3" >
+   <relationship id="REL51" populated="true" UUID="ac21789e-76d4-4794-bca3-c52ea0853527" deferrability="7" deleteRule="3" fk-table-ref="TAB29" fkCardinality="6" identifying="true" name="TN_Pacote_Trabalho_TN_Tarefa_fk" physicalName="TN_Pacote_Trabalho_TN_Tarefa_fk" pk-table-ref="TAB25" pkCardinality="6" updateRule="3" >
    </relationship>
-   <relationship id="REL49" populated="true" UUID="27f1a183-ffc2-4912-9428-f91245a04a3b" deferrability="7" deleteRule="3" fk-table-ref="TAB33" fkCardinality="7" identifying="true" name="TF_Endpoint_TF_Connection_fk" physicalName="TF_Endpoint_TF_Connection_fk" pk-table-ref="TAB27" pkCardinality="2" updateRule="3" >
+   <relationship id="REL52" populated="true" UUID="27f1a183-ffc2-4912-9428-f91245a04a3b" deferrability="7" deleteRule="3" fk-table-ref="TAB36" fkCardinality="7" identifying="true" name="TF_Endpoint_TF_Connection_fk" physicalName="TF_Endpoint_TF_Connection_fk" pk-table-ref="TAB27" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL50" populated="true" UUID="73276680-b25a-4869-903f-2c898ef655b4" deferrability="7" deleteRule="3" fk-table-ref="TAB37" fkCardinality="3" identifying="true" name="TF_Endpoint_TF_Anchor_fk" physicalName="TF_Endpoint_TF_Anchor_fk" pk-table-ref="TAB27" pkCardinality="3" updateRule="3" >
+   <relationship id="REL53" populated="true" UUID="73276680-b25a-4869-903f-2c898ef655b4" deferrability="7" deleteRule="3" fk-table-ref="TAB40" fkCardinality="3" identifying="true" name="TF_Endpoint_TF_Anchor_fk" physicalName="TF_Endpoint_TF_Anchor_fk" pk-table-ref="TAB27" pkCardinality="3" updateRule="3" >
    </relationship>
-   <relationship id="REL51" populated="true" UUID="26b840bd-8a8b-48f8-a6b9-60c0b9d92a8f" deferrability="7" deleteRule="3" fk-table-ref="TAB39" fkCardinality="3" identifying="true" name="TF_Endpoint_TF_Tipo_Endpoint_fk" physicalName="TF_Endpoint_TF_Tipo_Endpoint_fk" pk-table-ref="TAB27" pkCardinality="2" updateRule="3" >
+   <relationship id="REL54" populated="true" UUID="26b840bd-8a8b-48f8-a6b9-60c0b9d92a8f" deferrability="7" deleteRule="3" fk-table-ref="TAB42" fkCardinality="3" identifying="true" name="TF_Endpoint_TF_Tipo_Endpoint_fk" physicalName="TF_Endpoint_TF_Tipo_Endpoint_fk" pk-table-ref="TAB27" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL52" populated="true" UUID="9222c8a5-249f-4598-9d08-42a6a6d09a37" deferrability="7" deleteRule="3" fk-table-ref="TAB31" fkCardinality="3" identifying="true" name="TN_Tarefa_TF_Container_fk" physicalName="TN_Tarefa_TF_Container_fk" pk-table-ref="TAB29" pkCardinality="2" updateRule="3" >
+   <relationship id="REL55" populated="true" UUID="9222c8a5-249f-4598-9d08-42a6a6d09a37" deferrability="7" deleteRule="3" fk-table-ref="TAB34" fkCardinality="3" identifying="true" name="TN_Tarefa_TF_Container_fk" physicalName="TN_Tarefa_TF_Container_fk" pk-table-ref="TAB29" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL53" populated="true" UUID="19feea2e-0f3e-4048-906b-38de614b7993" deferrability="7" deleteRule="3" fk-table-ref="TAB35" fkCardinality="6" identifying="true" name="TN_Tarefa_TN_Recurso_fk" physicalName="TN_Tarefa_TN_Recurso_fk" pk-table-ref="TAB29" pkCardinality="6" updateRule="3" >
+   <relationship id="REL56" populated="true" UUID="19feea2e-0f3e-4048-906b-38de614b7993" deferrability="7" deleteRule="3" fk-table-ref="TAB38" fkCardinality="6" identifying="true" name="TN_Tarefa_TN_Recurso_fk" physicalName="TN_Tarefa_TN_Recurso_fk" pk-table-ref="TAB29" pkCardinality="6" updateRule="3" >
    </relationship>
-   <relationship id="REL54" populated="true" UUID="bab95987-ee02-49ef-a085-dc15fcfd90a5" deferrability="7" deleteRule="3" fk-table-ref="TAB27" fkCardinality="7" identifying="true" name="TF_Container_TF_Endpoint_fk" physicalName="TF_Container_TF_Endpoint_fk" pk-table-ref="TAB31" pkCardinality="2" updateRule="3" >
+   <relationship id="REL57" populated="true" UUID="bab95987-ee02-49ef-a085-dc15fcfd90a5" deferrability="7" deleteRule="3" fk-table-ref="TAB27" fkCardinality="7" identifying="true" name="TF_Container_TF_Endpoint_fk" physicalName="TF_Container_TF_Endpoint_fk" pk-table-ref="TAB34" pkCardinality="2" updateRule="3" >
    </relationship>
   </relationships>
  </target-database>
@@ -237,25 +252,25 @@ Os membros podem ser:
   <table-pane table-ref="TAB25" x="66" y="387" bgColor="0xc8dccc" fgColor="0xcc0000" rounded="true" dashed="false"/>
   <table-pane table-ref="TAB27" x="445" y="515" bgColor="0xc8b7ea" fgColor="0x0000cc" rounded="true" dashed="false"/>
   <table-pane table-ref="TAB29" x="514" y="249" bgColor="0xc8dccc" fgColor="0xcc0000" rounded="false" dashed="false"/>
-  <table-pane table-ref="TAB31" x="591" y="444" bgColor="0xc8b7ea" fgColor="0x0000cc" rounded="true" dashed="false"/>
-  <table-pane table-ref="TAB33" x="759" y="547" bgColor="0xc8b7ea" fgColor="0x0000cc" rounded="true" dashed="false"/>
-  <table-pane table-ref="TAB35" x="824" y="356" bgColor="0xdfedce" fgColor="0xcc0000" rounded="true" dashed="false"/>
-  <table-pane table-ref="TAB37" x="271" y="597" bgColor="0xb9bbf6" fgColor="0x0000cc" rounded="true" dashed="false"/>
-  <table-pane table-ref="TAB39" x="530" y="652" bgColor="0xc8b7ea" fgColor="0x0000cc" rounded="true" dashed="false"/>
-  <table-link relationship-ref="REL41" pkConnection="0.5657894736842105" fkConnection="0.39655172413793105" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="72"/>
-  <table-link relationship-ref="REL44" pkConnection="0.0" fkConnection="1.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-pane table-ref="TAB34" x="591" y="444" bgColor="0xc8b7ea" fgColor="0x0000cc" rounded="true" dashed="false"/>
+  <table-pane table-ref="TAB36" x="759" y="547" bgColor="0xc8b7ea" fgColor="0x0000cc" rounded="true" dashed="false"/>
+  <table-pane table-ref="TAB38" x="824" y="356" bgColor="0xdfedce" fgColor="0xcc0000" rounded="true" dashed="false"/>
+  <table-pane table-ref="TAB40" x="271" y="597" bgColor="0xb9bbf6" fgColor="0x0000cc" rounded="true" dashed="false"/>
+  <table-pane table-ref="TAB42" x="530" y="652" bgColor="0xc8b7ea" fgColor="0x0000cc" rounded="true" dashed="false"/>
+  <table-link relationship-ref="REL44" pkConnection="0.5657894736842105" fkConnection="0.39655172413793105" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="72"/>
+  <table-link relationship-ref="REL47" pkConnection="0.0" fkConnection="1.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL48" pkConnection="0.0" fkConnection="1.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL49" pkConnection="0.0" fkConnection="1.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL50" pkConnection="0.7051282051282052" fkConnection="0.373134328358209" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL51" pkConnection="1.0" fkConnection="0.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL55" pkConnection="0.5588235294117647" fkConnection="0.4482758620689655" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL57" pkConnection="0.5287356321839081" fkConnection="0.4567901234567901" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL52" pkConnection="1.0" fkConnection="0.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL53" pkConnection="0.0" fkConnection="1.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL54" pkConnection="0.4444444444444444" fkConnection="0.5263157894736842" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL56" pkConnection="1.0" fkConnection="0.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
   <table-link relationship-ref="REL45" pkConnection="0.0" fkConnection="1.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
-  <table-link relationship-ref="REL46" pkConnection="0.0" fkConnection="1.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
-  <table-link relationship-ref="REL47" pkConnection="0.7051282051282052" fkConnection="0.373134328358209" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
-  <table-link relationship-ref="REL48" pkConnection="1.0" fkConnection="0.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
-  <table-link relationship-ref="REL52" pkConnection="0.5588235294117647" fkConnection="0.4482758620689655" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
-  <table-link relationship-ref="REL54" pkConnection="0.5287356321839081" fkConnection="0.4567901234567901" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
-  <table-link relationship-ref="REL49" pkConnection="1.0" fkConnection="0.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
-  <table-link relationship-ref="REL50" pkConnection="0.0" fkConnection="1.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
-  <table-link relationship-ref="REL51" pkConnection="0.4444444444444444" fkConnection="0.5263157894736842" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
-  <table-link relationship-ref="REL53" pkConnection="1.0" fkConnection="0.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
-  <table-link relationship-ref="REL42" pkConnection="0.0" fkConnection="1.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
-  <table-link relationship-ref="REL43" pkConnection="0.42105263157894735" fkConnection="0.5480769230769231" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL46" pkConnection="0.42105263157894735" fkConnection="0.5480769230769231" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
  </play-pen>
  <critic-manager>
   <critic-grouping platformType="Generic" enabled="true">

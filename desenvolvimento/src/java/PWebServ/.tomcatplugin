@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tomcatProjectProperties>
+    <rootDir>webapp</rootDir>
+    <exportSource>false</exportSource>
+    <reloadable>true</reloadable>
+    <redirectLogger>true</redirectLogger>
+    <updateXml>true</updateXml>
+    <warLocation></warLocation>
+    <extraInfo></extraInfo>
+    <webPath>/engine</webPath>
+    <webClassPathEntries>
+        <webClassPathEntry>/PWebServ/bin</webClassPathEntry>
+        <webClassPathEntry>/PWebServ/webapp/WEB-INF/lib/gson-2.2.2-javadoc.jar</webClassPathEntry>
+        <webClassPathEntry>/PWebServ/webapp/WEB-INF/lib/gson-2.2.2.jar</webClassPathEntry>
+        <webClassPathEntry>/PWebServ/webapp/WEB-INF/lib/mysql-connector-java-5.0.8.zip</webClassPathEntry>
+        <webClassPathEntry>/PWebServ/webapp/WEB-INF/lib/postgresql-8.4-703.jdbc3.jar</webClassPathEntry>
+    </webClassPathEntries>
+</tomcatProjectProperties>
