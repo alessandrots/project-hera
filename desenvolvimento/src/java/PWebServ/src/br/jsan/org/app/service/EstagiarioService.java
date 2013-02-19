@@ -1,6 +1,7 @@
 package br.jsan.org.app.service;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.util.List;
 
 import br.jsan.org.app.dao.EstagiarioDao;
@@ -30,5 +31,11 @@ public class EstagiarioService extends ServiceImpl {
 	public void criarListaDeParametrosParaExecucao(String acao) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Type getTypeToken() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

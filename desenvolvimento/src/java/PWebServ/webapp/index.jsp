@@ -11,7 +11,7 @@
 <h1>Test Servlet</h1>
 <br />
 <%String path_= request.getContextPath(); %>
-<form action="<%=path_%>/Engine">
+<form action="<%=path_%>/project">
   	<input type="hidden" name="acao" value="cons">
   	<input type="submit" name="Enviar">
 </form>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+    <title>Blog</title>
+    <meta charset="UTF-8" />
+    <script src="../js/jquery/jquery-1.8.3.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/backbone/underscore.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/backbone/backbone.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/backbone/mustache.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="../js/mvc/PostModel.js"></script>
+    <script src="../js/mvc/PostView.js"></script>
+</head>
+<body>
+<h1>Blog</h1>
+<a href="testeBack.html" id="add-button">Adicionar Post</a>
+
+<script type="text/template" id="post-template">
+    <p>
+        <a href="#" id="remove-button">Remover este Post</a>
+    </p>
+    <h2>{{title}}</h2>
+    <p>{{text}}</p>
+</script>
+<script>
+    var postView = new PostView();
+</script>
+</body>
+</html>

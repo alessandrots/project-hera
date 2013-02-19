@@ -8,7 +8,6 @@ import java.util.List;
 import br.jsan.org.app.presenter.IPresenter;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 public abstract class ServiceImpl<T> implements IService {
 	
@@ -21,6 +20,8 @@ public abstract class ServiceImpl<T> implements IService {
 	private IPresenter presenter;
 	
 	public abstract void criarListaDeParametrosParaExecucao(String acao);
+	
+	public abstract Type getTypeToken();
 	
 	@Override
 	public void execute(String acao) {
@@ -45,9 +46,9 @@ public abstract class ServiceImpl<T> implements IService {
 		Gson gson 	  = new Gson();
 		IPresenter t  = null;
 		Type typeObj  = null;
-		
-		//TODO - trabalhar esta solução. Utilizar spring
-		typeObj = new TypeToken<T>() {}.getType();
+
+		//carregando o Token na classe filha
+		typeObj = getTypeToken();
 		
 		t = gson.fromJson(dadosRequisicao, typeObj);
 		
@@ -64,8 +65,18 @@ public abstract class ServiceImpl<T> implements IService {
 		try {
 			loop:for (Method method : this.listaMetodosNegociaisInstancia) {
 				if (method.getName().equalsIgnoreCase(acao)){
-					this.methodToExecute = method;
-					break loop;
+					//verificando se tem parâmetros
+					if (method.getParameterTypes() != null && method.getParameterTypes().length > 0) {
+						if (getParametros().length == method.getParameterTypes().length) {
+							this.methodToExecute = method;
+							break loop;
+						}
+					} else {
+						if (getParametros() == null) {							
+							this.methodToExecute = method;
+							break loop;
+						}
+					}
 				}
 			}
 		

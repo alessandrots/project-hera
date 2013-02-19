@@ -2,14 +2,10 @@ package br.jsan.org.core.server;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import br.jsan.org.app.service.EstagiarioService;
-import br.jsan.org.core.EngineJson;
 
 public class EngineServlet extends HttpServlet {
 
@@ -20,14 +16,20 @@ public class EngineServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		if ("cons".equals(req.getParameter("acao"))){
-			EstagiarioService service = new EstagiarioService();
-			String listaJson = EngineJson.getInstancia().serializarLista(service.recuperarTodos());
-			req.setAttribute("listaJson", listaJson);
-		}
+		System.out.println("PathInfo 		= " + req.getPathInfo());
+		System.out.println("ServletPath 	= " + req.getServletPath());
+		System.out.println("QueryString 	= " + req.getQueryString());
+		System.out.println("getRequestURI 	= " + req.getRequestURI());
+		System.out.println("getRequestURL 	= " + req.getRequestURL().toString());
 		
-		RequestDispatcher reqd = req.getRequestDispatcher("/pages/resultado.jsp");
-		reqd.forward(req, resp);
+//		if ("cons".equals(req.getParameter("acao"))){
+//			EstagiarioService service = new EstagiarioService();
+//			String listaJson = EngineJson.getInstancia().serializarLista(service.recuperarTodos());
+//			req.setAttribute("listaJson", listaJson);
+//		}
+//		
+//		RequestDispatcher reqd = req.getRequestDispatcher("/pages/resultado.jsp");
+//		reqd.forward(req, resp);
 	}
 	
 	@Override

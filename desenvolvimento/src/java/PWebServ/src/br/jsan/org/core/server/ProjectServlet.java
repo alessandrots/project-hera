@@ -30,6 +30,11 @@ public class ProjectServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 3954779776778587702L;
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
+	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,22 +45,23 @@ public class ProjectServlet extends HttpServlet {
 		System.out.println("getRequestURL 	= " + req.getRequestURL().toString());
 		
 		try {
+			exibirParametros(req);
+			
 			if (req.getPathInfo() != null) {
 				//retirando a primeira barra
-				String pathURL 		 	 = req.getPathInfo().substring(1);
+				String pathURL 		= req.getPathInfo().substring(1);				
+				String servFunc[] 	= pathURL.split("/");
 				
-				String servFunc[] 		 = pathURL.split("/");
+				//TODO tratamentos
+				if (servFunc.length != 2 ){
+					throw new RuntimeException("Impossível carregar e executar o serviço e/ou a funcionalidade.");
+				}
 				
 				//classe de serviço
 				String defServico 		 = servFunc[0];
 				
 				//método negocial
 				String defFuncionalidade = servFunc[1];
-				
-				//TODO tratamentos
-				if (servFunc.length != 2 ){
-					throw new RuntimeException("Impossível carregar e executar o serviço e/ou a funcionalidade.");
-				}
 				
 				//TODO - spring
 				IService servico = carregarServico(defServico);
@@ -73,8 +79,8 @@ public class ProjectServlet extends HttpServlet {
 		}
 		
 		//TODO - definir a página de retorno, tratamento de exceção
-		RequestDispatcher reqd = req.getRequestDispatcher("/pages/resultado.jsp");
-		reqd.forward(req, resp);
+		//RequestDispatcher reqd = req.getRequestDispatcher("/pages/resultado.jsp");
+		//reqd.forward(req, resp);
 	}
 	
 	/**
@@ -169,11 +175,20 @@ public class ProjectServlet extends HttpServlet {
 		}
 		
 		return jSonGerado;
-	}
-	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doPost(req, resp);
 	}	
+	
+	private void exibirParametros(HttpServletRequest req) {	
+		Map requestParams = req.getParameterMap();
+		
+		if (requestParams != null && requestParams.size() > 0){
+			System.out.println(requestParams.keySet() + " = " + requestParams);
+			Iterator<String> ite = requestParams.keySet().iterator();
+			
+			while (ite.hasNext()) {
+				String type = ite.next();
+				System.out.println(" map - param = " + type + " value = " + req.getParameter(type));	
+			}
+		}
+	}
 
 }

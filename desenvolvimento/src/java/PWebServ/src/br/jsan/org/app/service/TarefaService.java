@@ -1,11 +1,14 @@
 package br.jsan.org.app.service;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Type;
 import java.util.List;
 
 import br.jsan.org.app.dao.TarefaDao;
 import br.jsan.org.app.domain.Tarefa;
 import br.jsan.org.app.presenter.TarefaPresenter;
+
+import com.google.gson.reflect.TypeToken;
 
 public class TarefaService extends ServiceImpl<TarefaPresenter> {
 	//TODO - via spring 
@@ -37,6 +40,18 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 			e.printStackTrace();
 		}
 	}
+	
+	@ClasseNegocial(negocial=true)
+	public void add() {
+		System.out.println(" >>>>> add ... ");
+	}
+	
+	@ClasseNegocial(negocial=true)
+	public void add(TarefaPresenter presenter) {
+		if (presenter != null){
+			System.out.println(" >>>>> add ... " + presenter.getCodigo());
+		}
+	}
 
 	
 	@ClasseNegocial(negocial=true)
@@ -60,6 +75,11 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 			
 			setParametros(parametrosMetodo);
 		}
+	}
+
+	@Override
+	public Type getTypeToken() {
+		return new TypeToken<TarefaPresenter>() {}.getType();
 	}
 	
 }
