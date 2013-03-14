@@ -11,4 +11,8 @@ public interface IService {
 	public void setJSon(String json);
 	
 	public String getJSon();
+	
+	public String getResposta();
+	
+	public void setResposta(String resposta);
 }

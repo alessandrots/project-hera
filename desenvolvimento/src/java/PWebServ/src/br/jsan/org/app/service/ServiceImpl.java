@@ -18,6 +18,7 @@ public abstract class ServiceImpl<T> implements IService {
 	private Method[] listaMetodosInstancia;
 	private List<Method> listaMetodosNegociaisInstancia;
 	private IPresenter presenter;
+	private String resposta;
 	
 	public abstract void criarListaDeParametrosParaExecucao(String acao);
 	
@@ -32,7 +33,7 @@ public abstract class ServiceImpl<T> implements IService {
 		criarListaDeParametrosParaExecucao(acao);
 		
 		//gera a lista dos métodos que são realmente de negócio
-		gerarListaMetodosNegociaisInstanciaFilha();
+		gerarListaMetodosNegociaisInstanciaFilha();		
 	}	
 	
 	/**
@@ -176,6 +177,16 @@ public abstract class ServiceImpl<T> implements IService {
 	 */
 	public IPresenter getPresenter() {
 		return presenter;
+	}
+	
+	@Override
+	public String getResposta() {
+		return this.resposta;
+	}
+
+	@Override
+	public void setResposta(String resposta) {
+		this.resposta = resposta;
 	}
 	
 	

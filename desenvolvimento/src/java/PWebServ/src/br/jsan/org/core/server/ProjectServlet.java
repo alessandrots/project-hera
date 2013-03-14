@@ -1,13 +1,13 @@
 package br.jsan.org.core.server;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -45,7 +45,7 @@ public class ProjectServlet extends HttpServlet {
 		System.out.println("getRequestURL 	= " + req.getRequestURL().toString());
 		
 		try {
-			exibirParametros(req);
+//			exibirParametros(req);
 			
 			if (req.getPathInfo() != null) {
 				//retirando a primeira barra
@@ -72,7 +72,7 @@ public class ProjectServlet extends HttpServlet {
 				
 				//TODO - o serviço vai executar sempre o método execute e dentro dele vai executar
 				//a funcionalidade passada como segundo parâmetro
-				executarFuncionalidade(servico, defFuncionalidade, jsonDados);
+				executarFuncionalidade(servico, defFuncionalidade, jsonDados, resp);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -116,10 +116,11 @@ public class ProjectServlet extends HttpServlet {
 	 * TODO tem que ver o tratamento de exceção
 	 * 
 	 * @param servico
+	 * @param resp TODO
 	 * @param objPresenter
 	 * @param funcionalidade
 	 */
-	private void executarFuncionalidade(IService servico, String defFuncionalidade, String dados) {		
+	private void executarFuncionalidade(IService servico, String defFuncionalidade, String dados, HttpServletResponse resp) {		
 		//Setando os parâmetros de filtro ou para persistência
 		servico.setJSon(dados);
 		
@@ -130,6 +131,8 @@ public class ProjectServlet extends HttpServlet {
 			
 			//Chamando o método execute, passando o parâmetro acao(que é o método a ser chamado)
 			method.invoke(servico, new Object[]{defFuncionalidade});
+			
+			enviarResposta(resp, servico.getResposta());
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
@@ -189,6 +192,21 @@ public class ProjectServlet extends HttpServlet {
 				System.out.println(" map - param = " + type + " value = " + req.getParameter(type));	
 			}
 		}
+	}
+	
+	private void enviarResposta(HttpServletResponse resp, String jsonObject) {
+		PrintWriter out = null;
+		
+		try {
+			out = resp.getWriter();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(jsonObject);
+		
+		out.print(jsonObject);
+		out.flush();
 	}
 
 }
