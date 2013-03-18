@@ -6,16 +6,20 @@
  * To change this template use File | Settings | File Templates.
  */
 var urlPrincipal  = 'http://localhost:8080/';
-var contextPath   = 'newproject/project/cadTarefas/recuperarListaTeste';
+var contextPath   = 'newproject/project/cadTarefas/add';
 var url_           = urlPrincipal + contextPath;
 
 var PostModel = Backbone.Model.extend({
     urlRoot: url_,
 
-    defaults: {
-        title: '',
-        text: ''
+    defaults : function(){
+        return {
+            //some
+            title: [],
+            text: []
+        }
     },
+
     validate: function(attrs) {
         console.log('validate...');
 

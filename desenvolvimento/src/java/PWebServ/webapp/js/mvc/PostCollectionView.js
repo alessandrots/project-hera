@@ -1,11 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: alessandrots
- * Date: 13/03/13
- * Time: 18:37
- * To change this template use File | Settings | File Templates.
- */
-
 var PostCollectionView = Backbone.View.extend({
     initialize: function(){
         this.collection.on('add', this.addOne, this);
@@ -14,7 +6,14 @@ var PostCollectionView = Backbone.View.extend({
 
     addOne: function(modelItem){
         var postView = new PostView({model: modelItem});
-        this.$el.append(postView.render().el);
+
+        //var meuhtml = postView.render().$el.html();
+
+        console.log('my html come from view = ' + postView.render().$el.html());
+
+        this.$el.append(postView.render().$el.html());
+
+        //return this;
     },
 
     addAll: function(){

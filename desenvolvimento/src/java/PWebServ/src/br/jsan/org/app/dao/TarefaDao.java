@@ -35,7 +35,7 @@ public class TarefaDao extends DaoImpl {
 				tarefa.setCodigo(rs.getInt("iCodigo"));
 				tarefa.setNome(rs.getString("snome"));
 				tarefa.setDataInicio(rs.getTimestamp("dataInicio"));
-				tarefa.setDataFim(rs.getTimestamp("dataFim"));
+				tarefa.setDataEntrega(rs.getTimestamp("dataFim"));
 				
 				lista.add(tarefa);
 			}

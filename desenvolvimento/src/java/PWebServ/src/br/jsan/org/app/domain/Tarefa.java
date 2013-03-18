@@ -12,7 +12,8 @@ public class Tarefa implements Domain {
 	private Integer codigo;
 	private String nome;
 	private Timestamp dataInicio;
-	private Timestamp dataFim;
+	private Timestamp dataEntrega;
+	private Timestamp dataTermino;
 	
 	/**
 	 * @return the codigo
@@ -53,15 +54,28 @@ public class Tarefa implements Domain {
 	/**
 	 * @return the dataFim
 	 */
-	public Timestamp getDataFim() {
-		return dataFim;
+	public Timestamp getDataEntrega() {
+		return dataEntrega;
 	}
 	/**
 	 * @param dataFim the dataFim to set
 	 */
-	public void setDataFim(Timestamp dataFim) {
-		this.dataFim = dataFim;
+	public void setDataEntrega(Timestamp dataFim) {
+		this.dataEntrega = dataFim;
 	}
+	/**
+	 * @return the dataTermino
+	 */
+	public Timestamp getDataTermino() {
+		return dataTermino;
+	}
+	/**
+	 * @param dataTermino the dataTermino to set
+	 */
+	public void setDataTermino(Timestamp dataTermino) {
+		this.dataTermino = dataTermino;
+	}
+	
 	
 	
 }

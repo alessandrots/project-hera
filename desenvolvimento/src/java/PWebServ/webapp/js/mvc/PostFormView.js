@@ -37,6 +37,8 @@ var PostFormView = Backbone.View.extend({
         //tem q tentar recuperar as informações - tem q mudar o valor para this.model.on("change:title",... TODO
         console.log('render --> title = '+ (this.titleInput[0]).value + ' text = ' + (this.textInput[0]).value);
 
+        console.log('this.el = ' + this.el);
+
         $('body').append(this.el);
     },
 
@@ -68,7 +70,8 @@ var PostFormView = Backbone.View.extend({
     },
 
     goToIndex: function() {
-        console.log('chamaria o model novamente via PostView.js');
-        window.location = 'http://localhost:8080/newproject/pages/index2.html';
+        //console.log('chamaria o model novamente via PostView.js');
+        console.log('chamaria o model novamente via PostCollection.js');
+        window.location = 'http://localhost:8080/newproject/pages/testeBackColl.html';
     }
 });

@@ -98,6 +98,7 @@ public class ProjectServlet extends HttpServlet {
 	private IService carregarServico(String path) {
 		IService servico = null;
 		
+		//TODO atualização via Spring - pensar como fazer.
 		if (path != null && path.contains("cadTarefas")){
 			servico = new TarefaService();
 		}

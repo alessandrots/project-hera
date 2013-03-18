@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+//http://stackoverflow.com/questions/8844345/creating-a-backbone-view-for-a-collection
+//http://stackoverflow.com/questions/11574756/bind-a-collection-to-a-model-in-backbone
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Backbone COLLECTION</title>
+
+    <script src="../js/jquery/jquery-1.8.3.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/backbone/underscore.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/backbone/backbone.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="../js/mvc/PostModel.js"></script>
+    <script src="../js/mvc/PostView.js"></script>
+    <script src="../js/mvc/PostCollectionView.js"></script>
+    <script src="../js/mvc/PostCollection.js"></script>
+    
+    <script>
+        $(document).ready(function() {            
+            var postList = new PostList();
+            var postCollectionView = new PostCollectionView({collection:postList});
+            postList.fetch();
+    });
+
+    </script>
+</head>
+
+<body>
+
+<script type="text/template" id="post-template">
+    <p>
+        <a href="#" id="remove-button">Remover este Post</a>
+    </p>
+    <h2><%=title%></h2>
+    <p><%=text%></p>
+</script>
+
+</body>
+</html>
