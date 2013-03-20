@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -45,7 +46,7 @@ public class ProjectServlet extends HttpServlet {
 		System.out.println("getRequestURL 	= " + req.getRequestURL().toString());
 		
 		try {
-//			exibirParametros(req);
+			exibirParametros(req);
 			
 			if (req.getPathInfo() != null) {
 				//retirando a primeira barra
@@ -192,6 +193,12 @@ public class ProjectServlet extends HttpServlet {
 				String type = ite.next();
 				System.out.println(" map - param = " + type + " value = " + req.getParameter(type));	
 			}
+		}
+		
+		Enumeration enums = req.getParameterNames();
+		while (enums.hasMoreElements()) {
+			String param = (String)enums.nextElement();
+			System.out.println(" param = " + param + " value = " + req.getParameter(param));
 		}
 	}
 	

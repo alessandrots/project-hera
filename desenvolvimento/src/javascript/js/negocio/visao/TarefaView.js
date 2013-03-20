@@ -7,6 +7,10 @@
  */
 var TarefaView = Backbone.View.extend({
 
+    tagName: 'form',
+
+    className: 'page-form',
+
     id: 'post-form',
 
     attributes: {
@@ -41,9 +45,10 @@ var TarefaView = Backbone.View.extend({
 
         this.nomeInput          = this.$el.find('#cad_nome');
         this.dataInicioInput    = this.$el.find('#cad_data_inicio');
-        this.duracaoInput       = this.$el.find('#cad_duracao');
         this.dataEntregaInput   = this.$el.find('#cad_data_entrega');
         this.dataTerminoInput   = this.$el.find('#cad_data_termino');
+        this.idWindowTarefa     = this.$el.find('#id_window_tarefa');
+        this.duracaoInput       = this.$el.find('#cad_duracao');
 
         console.log('this.el = ' + this.el);
 
@@ -55,28 +60,55 @@ var TarefaView = Backbone.View.extend({
 
         var nomeInput          = this.nomeInput.val();
         var dataInicioInput    = this.dataInicioInput.val();
-        var duracaoInput       = this.duracaoInput.val();
         var dataEntregaInput   = this.dataEntregaInput.val();
         var dataTerminoInput   = this.dataTerminoInput.val();
+        var duracaoInput       = this.duracaoInput.val();
+        var idWindowTarefa     = this.idWindowTarefa.val();
 
-        this.model.set({
-            nomeInput: nomeInput,
-            dataInicioInput: dataInicioInput,
-            duracaoInput: duracaoInput,
-            dataEntregaInput: dataEntregaInput,
-            dataTerminoInput: dataTerminoInput
-        });
+        var details= {
+            nome: nomeInput,
+            dataInicio: dataInicioInput,
+            duracao: duracaoInput,
+            dataEntrega: dataEntregaInput,
+            dataTermino: dataTerminoInput,
+            idWinTarefa: idWindowTarefa
+        };
+
+        this.model.set(details);
+
+        var that = this.model;
+
+        /* */
+        //this.model.set(details);
 
         if (this.model.isValid()) {
             console.log('savePost --> ' +
-                ' nomeInput        = '  + this.model.get('nomeInput') +
-                ' dataInicioInput  = '  + this.model.get('dataInicioInput') +
-                ' duracaoInput     = '  + this.model.get('duracaoInput') +
-                ' dataEntregaInput = '  + this.model.get('dataEntregaInput') +
-                ' dataTerminoInput = '  + this.model.get('dataTerminoInput')
+                ' nomeInput        = '  + this.model.get('nome') +
+                ' dataInicioInput  = '  + this.model.get('dataInicio') +
+                ' dataEntregaInput = '  + this.model.get('dataEntrega') +
+                ' dataTerminoInput = '  + this.model.get('dataTermino') +
+                ' duracaoInput     = '  + this.model.get('duracao') +
+                ' idWinTarefa      = '  + this.model.get('idWinTarefa')
             );
 
-            this.model.save();
+            //params.contentType = 'application/json';
+            //params.data = JSON.stringify(model.toJSON());
+            //console.log('data = ' + params.data);
+
+            //TODO - fazer o onsucess depois: http://stackoverflow.com/questions/7473057/save-on-existing-model-causes-post-instead-of-put
+            //http://www.jamesyu.org/2011/01/27/cloudedit-a-backbone-js-tutorial-by-example/
+            //http://localhost:8080/newproject/
+            //http://www.json.org/js.html
+            //http://backbonejs.org/#Model-save
+            //http://backbonejs.org/#Model-url
+            //http://documentcloud.github.com/backbone/docs/backbone.html
+
+            //this.model.save();
+            this.model.save(details, {
+                success: function (that) {
+                    console.log('this.model = ' + that.toJSON());
+                }
+            });
         }
     },
 
@@ -88,7 +120,7 @@ var TarefaView = Backbone.View.extend({
     goToIndex: function() {
         //TODO tem que enviar para o index.html novamente
         //console.log('chamaria o model novamente via PostView.js');
-        console.log('chamaria o model novamente via PostCollection.js');
+        console.log('decide o que deve ser feito aqui!!!!');
         //window.location = 'http://localhost:8080/newproject/pages/testeBackColl.html';
     }
 })

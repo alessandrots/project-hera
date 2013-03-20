@@ -148,22 +148,11 @@
                     });
 
 		       });
-			
-		       $('#' + nomeTarefa).mouseout(function(){
-                   //$('#mensagem').text('');
-                   /*
-                   $('#mensagem').hide(2000, function(){
-                       $(this).text('');
-                   });
-                   */
-               });
+
 
               //Clique na tarefa para adicionar o nome no input
                $('#' + nomeTarefa).click(function(){
-                    //alert('ja cliquei');
-                   $('#mensagem').hide('fast');
-                   $('#tarefaSelecionada').val(nomeTarefa);
-                   //$('#sltOrigem').addOption(nomeTarefa, nomeTarefa, false);
+                   $('#id_window_tarefa').val(nomeTarefa);
                });
 			
 		     //Criando a tarefa
@@ -200,7 +189,6 @@
             //Verificando se uma tarefa foi selecionada
             if ($('#tarefaSelecionada').val() != '') {
                 contaJanela = retornarProximoID(contaJanela);
-                //console.log('contaJanela = ' + contaJanela);
 
                 var nomeTarefaNova = 'window_' + contaJanela;
                 console.log('nomeTarefaNova = ' + nomeTarefaNova);
@@ -284,24 +272,20 @@
                     <h3><a href="#">Cadastro</a></h3>
                     <div>
                         <p>
-                            <form>
                             <li id="liCadastro">
                                 <script type="text/template" id="post-form">
-                                    <h2>Adicionar Post</h2>
-                                    <p><label>Nome: <input type="text" id="cad_nome" name="cad_nome"></label></p>
-                                    <p><label>Data In&iacute;cio: <input type="text" id="cad_data_inicio" name="cad_data_inicio"></label></p>
-                                    <p><label>Dura&ccedil;&atilde;o: <input type="text" id="cad_duracao" name="cad_duracao"></label></p>
-                                    <p><label>Data de Entrega: <input type="text" id="cad_data_entrega" name="cad_data_entrega"></label></p>
-                                    <p><label>Data de T&eacute;rmino: <input type="text" id="cad_data_termino" name="cad_data_termino"></label></p>
-
+                                    <h2>Dados da Tarefa</h2>
+                                    <p><label>Nome: <input type="text" id="cad_nome" name="cad_nome" size="50"></label></p>
+                                    <p><label>Data In&iacute;cio: <input type="text" id="cad_data_inicio" name="cad_data_inicio" size="10"></label></p>
+                                    <p><label>Dura&ccedil;&atilde;o: <input type="text" id="cad_duracao" name="cad_duracao" size="3"></label></p>
+                                    <p><label>Data de Entrega: <input type="text" id="cad_data_entrega" name="cad_data_entrega" size="10"></label></p>
+                                    <p><label>Data de T&eacute;rmino: <input type="text" id="cad_data_termino" name="cad_data_termino" size="10"></label></p>
+                                    <p><label>ID Janela: <input type="text" id="id_window_tarefa" name="id_window_tarefa" size="20"></label></p>
                                     <p><input type="submit" value="Salvar" /></p>
-
-                                    <input type="submit" value="Salvar" />
                                 </script>
 
                                 <p id="mensagem"> </p><br/>
                             </li>
-                            </form>
                         </p>
                     </div>
 

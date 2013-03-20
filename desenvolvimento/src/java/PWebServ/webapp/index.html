@@ -49,10 +49,9 @@
         <script type="text/javascript" src="js/jshera/flowchartConnectors.js"></script>
         <script type="text/javascript" src="js/jshera/core.js"></script>
         <script type="text/javascript" src="js/jshera/util.js"></script>
-
+        <script type="text/javascript" src="js/backbone/backbone.js"></script>
         <script type="text/javascript" src="js/backbone/underscore.js"></script>
         <script type="text/javascript" src="js/backbone/mustache.js"></script>
-        <script type="text/javascript" src="js/backbone/backbone.js"></script>
         <script type="text/javascript" src="js/negocio/modelo/TarefaModel.js"></script>
         <script type="text/javascript" src="js/negocio/visao/TarefaView.js"></script>
 
@@ -263,7 +262,7 @@
         });//fim clonarTarefa
 
 
-        //Backbone.js
+        //
         var tarefaView = new TarefaView();
 
 	});
@@ -278,6 +277,8 @@
 				   <!-- desenho dos componentes - workspace do usuário -->
 			</div>
 
+
+
             <!--<div id="cadastro" class="redim ui-widget-content ui-corner-all">-->
             <div id="cadastro">
                 <div class="acordeao">
@@ -285,7 +286,17 @@
                     <div>
                         <p>
                             <form>
-                            <li id="liCadastro">
+                            <li>
+                                <!--
+                                <b>Nome:</b> <input type="text" id="cad_nome" name="cad_nome"><br/>
+                                <b>Data de In&iacute;cio:</b> <input type="text" id="cad_data_inicio" name="cad_data_inicio"><br/>
+                                <b>Dura&ccedil;&atilde;o:</b> <input type="text" id="cad_duracao" name="cad_duracao"><br/>
+                                <button type="button" id="criarTarefa">Criar Tarefa</button>&nbsp;
+                                <button type="button" id="exibirHierarquia">Exibir Hierarquia</button>
+                                <button type="button" id="organizarHierarquia">Organizar Hierarquia</button>
+                                <br>
+                                -->
+
                                 <script type="text/template" id="post-form">
                                     <h2>Adicionar Post</h2>
                                     <p><label>Nome: <input type="text" id="cad_nome" name="cad_nome"></label></p>
@@ -293,10 +304,10 @@
                                     <p><label>Dura&ccedil;&atilde;o: <input type="text" id="cad_duracao" name="cad_duracao"></label></p>
                                     <p><label>Data de Entrega: <input type="text" id="cad_data_entrega" name="cad_data_entrega"></label></p>
                                     <p><label>Data de T&eacute;rmino: <input type="text" id="cad_data_termino" name="cad_data_termino"></label></p>
-
                                     <p><input type="submit" value="Salvar" /></p>
-
+                                    <button type="button" id="criarTarefa">Criar Tarefa</button>&nbsp;
                                     <input type="submit" value="Salvar" />
+
                                 </script>
 
                                 <p id="mensagem"> </p><br/>
@@ -376,11 +387,11 @@
                     </ul>
                     <div id="geral">
                         <p>
-                            <button type="button" id="criarTarefa">Criar Tarefa</button>&nbsp;
                             <button type="button" id="minimizar">Esconder</button>
                             <button type="button" id="imprimir">Imprimir Hierarquia das Tarefas</button>
                             <button type="button" id="imprimir2">Imprimir das Tarefas ja guardadas</button>
                             <br>
+
                         </p>
                     </div>
 

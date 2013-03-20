@@ -5,9 +5,9 @@
  * Time: 17:23
  * To change this template use File | Settings | File Templates.
  */
-var serverName  = 'http://localhost:8080/';
-var context_path   = 'newproject/project/cadTarefas/add';
-var url_           = serverName + context_path;
+var urlPrincipal  = 'http://localhost:8080/';
+var contextPath   = 'newproject/project/cadTarefas/add';
+var url_           = urlPrincipal + contextPath;
 
 var TarefaModel = Backbone.Model.extend({
     urlRoot: url_,
@@ -27,7 +27,6 @@ var TarefaModel = Backbone.Model.extend({
         console.log('validate...');
 
         /*
-        //TODO validar
         if (attrs.title == '') {
             console.log('O título é obrigatório');
             return 'O título é obrigatório';

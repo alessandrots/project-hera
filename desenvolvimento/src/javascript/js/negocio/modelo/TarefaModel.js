@@ -14,11 +14,13 @@ var TarefaModel = Backbone.Model.extend({
 
     defaults : function(){
         return {
-            codigo: [],
-            nome: [],
-            dataInicio: [],
-            dataEntrega: [],
-            duracao: []
+            codigo: '',
+            nome: '',
+            dataInicio: '',
+            dataEntrega: '',
+            dataTermino: '',
+            duracao: '',
+            idWinTarefa:''
 
         }
     },
@@ -26,22 +28,10 @@ var TarefaModel = Backbone.Model.extend({
     validate: function(attrs) {
         console.log('validate...');
 
-        /*
-        //TODO validar
-        if (attrs.title == '') {
-            console.log('O título é obrigatório');
-            return 'O título é obrigatório';
-        } else {
-            console.log('titulo');
+        if (attrs.nome == '') {
+            console.log('O nome é obrigatório');
+            return 'O nome é obrigatório';
         }
-
-        if (attrs.text == '') {
-            console.log('O texto é obrigatório');
-            return 'O texto é obrigatório'
-        } else {
-            console.log('texto');
-        }
-        */
 
     }
 })

@@ -8,12 +8,10 @@
 var TarefaView = Backbone.View.extend({
 
     id: 'post-form',
-
     attributes: {
         action: 'posts',
         method: 'POST'
     },
-
     events: {
         "submit" : "savePost"
     },
@@ -22,7 +20,7 @@ var TarefaView = Backbone.View.extend({
         _.bindAll(this, 'render', 'savePost', 'goToIndex');
 
         this.template = $('#post-form').html();
-        this.model = new TarefaModel();
+        this.model = new PostModel();
 
         this.model.on("error", this.showError);
         this.model.on("sync", this.goToIndex);
@@ -31,13 +29,12 @@ var TarefaView = Backbone.View.extend({
 
     /**
      * Entrou na hora que o link foi clicado: <a href="testeBack.html" id="add-button">Adicionar Post</a>
-     * Funcionou com Mustache.js.
      */
     render: function() {
-        var rendered = Mustache.to_html(this.template);
-        console.log(rendered);
+        this.template = _.template($('#post-form').html());
+        console.log(this.template);
 
-        this.$el.html(rendered);
+        this.$el.html(this.template);
 
         this.nomeInput          = this.$el.find('#cad_nome');
         this.dataInicioInput    = this.$el.find('#cad_data_inicio');
@@ -45,9 +42,7 @@ var TarefaView = Backbone.View.extend({
         this.dataEntregaInput   = this.$el.find('#cad_data_entrega');
         this.dataTerminoInput   = this.$el.find('#cad_data_termino');
 
-        console.log('this.el = ' + this.el);
-
-        $('#liCadastro').append(this.el);
+        $('body').append(this.el);
     },
 
     savePost: function(e) {
@@ -60,11 +55,8 @@ var TarefaView = Backbone.View.extend({
         var dataTerminoInput   = this.dataTerminoInput.val();
 
         this.model.set({
-            nomeInput: nomeInput,
-            dataInicioInput: dataInicioInput,
-            duracaoInput: duracaoInput,
-            dataEntregaInput: dataEntregaInput,
-            dataTerminoInput: dataTerminoInput
+            title: title,
+            text: text
         });
 
         if (this.model.isValid()) {
@@ -75,7 +67,6 @@ var TarefaView = Backbone.View.extend({
                 ' dataEntregaInput = '  + this.model.get('dataEntregaInput') +
                 ' dataTerminoInput = '  + this.model.get('dataTerminoInput')
             );
-
             this.model.save();
         }
     },
@@ -86,9 +77,8 @@ var TarefaView = Backbone.View.extend({
     },
 
     goToIndex: function() {
-        //TODO tem que enviar para o index.html novamente
         //console.log('chamaria o model novamente via PostView.js');
         console.log('chamaria o model novamente via PostCollection.js');
-        //window.location = 'http://localhost:8080/newproject/pages/testeBackColl.html';
+        window.location = 'http://localhost:8080/newproject/pages/testeBackColl.html';
     }
 })
