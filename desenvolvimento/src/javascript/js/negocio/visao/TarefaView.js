@@ -7,16 +7,18 @@
  */
 var TarefaView = Backbone.View.extend({
 
-    tagName: 'form',
 
+    tagName: 'form',
+    /*
     className: 'page-form',
 
     id: 'post-form',
 
     attributes: {
         action: 'posts',
-        method: 'POST'
+        method: 'PUT'
     },
+   */
 
     events: {
         "submit" : "savePost"
@@ -26,6 +28,19 @@ var TarefaView = Backbone.View.extend({
         _.bindAll(this, 'render', 'savePost', 'goToIndex');
 
         this.template = $('#post-form').html();
+
+        //http://net.tutsplus.com/tutorials/javascript-ajax/build-a-contacts-manager-using-backbone-js-part-5/
+        /*
+
+         If you're working with a legacy web server that can't handle requests encoded as application/json, setting Backbone.emulateJSON = true;
+         will cause the JSON to be serialized under a model parameter, and the request to be made with a application/x-www-form-urlencoded mime type,
+         as if from an HTML form.
+
+         Aí printou
+         */
+        //Backbone.emulateHTTP = true;
+        Backbone.emulateJSON = true;
+
         this.model = new TarefaModel();
 
         this.model.on("error", this.showError);
@@ -76,26 +91,22 @@ var TarefaView = Backbone.View.extend({
 
         this.model.set(details);
 
+        console.log('savePost --> ' +
+            ' nomeInput        = '  + this.model.get('nome') +
+            ' dataInicioInput  = '  + this.model.get('dataInicio') +
+            ' dataEntregaInput = '  + this.model.get('dataEntrega') +
+            ' dataTerminoInput = '  + this.model.get('dataTermino') +
+            ' duracaoInput     = '  + this.model.get('duracao') +
+            ' idWinTarefa      = '  + this.model.get('idWinTarefa')
+        );
+
         var that = this.model;
 
-        /* */
-        //this.model.set(details);
-
         if (this.model.isValid()) {
-            console.log('savePost --> ' +
-                ' nomeInput        = '  + this.model.get('nome') +
-                ' dataInicioInput  = '  + this.model.get('dataInicio') +
-                ' dataEntregaInput = '  + this.model.get('dataEntrega') +
-                ' dataTerminoInput = '  + this.model.get('dataTermino') +
-                ' duracaoInput     = '  + this.model.get('duracao') +
-                ' idWinTarefa      = '  + this.model.get('idWinTarefa')
-            );
-
             //params.contentType = 'application/json';
             //params.data = JSON.stringify(model.toJSON());
             //console.log('data = ' + params.data);
 
-            //TODO - fazer o onsucess depois: http://stackoverflow.com/questions/7473057/save-on-existing-model-causes-post-instead-of-put
             //http://www.jamesyu.org/2011/01/27/cloudedit-a-backbone-js-tutorial-by-example/
             //http://localhost:8080/newproject/
             //http://www.json.org/js.html
@@ -104,10 +115,16 @@ var TarefaView = Backbone.View.extend({
             //http://documentcloud.github.com/backbone/docs/backbone.html
 
             //this.model.save();
+
             this.model.save(details, {
                 success: function (that) {
-                    console.log('this.model = ' + that.toJSON());
+                    console.log('sucesso... this.model = ' + that.toJSON());
+                },
+
+                error: function (that) {
+                    console.log('erro!');
                 }
+
             });
         }
     },

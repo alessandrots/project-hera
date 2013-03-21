@@ -36,14 +36,14 @@ public class ProjectServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
-
+	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("PathInfo 		= " + req.getPathInfo());
-		System.out.println("ServletPath 	= " + req.getServletPath());
-		System.out.println("QueryString 	= " + req.getQueryString());
-		System.out.println("getRequestURI 	= " + req.getRequestURI());
-		System.out.println("getRequestURL 	= " + req.getRequestURL().toString());
+//		System.out.println("PathInfo 		= " + req.getPathInfo());
+//		System.out.println("ServletPath 	= " + req.getServletPath());
+//		System.out.println("QueryString 	= " + req.getQueryString());
+//		System.out.println("getRequestURI 	= " + req.getRequestURI());
+//		System.out.println("getRequestURL 	= " + req.getRequestURL().toString());
 		
 		try {
 			exibirParametros(req);
@@ -165,12 +165,12 @@ public class ProjectServlet extends HttpServlet {
 		Map<String, String> mpAtributos = new HashMap<String, String>();
 		
 		if (requestParams != null && requestParams.size() > 0){
-			System.out.println(requestParams.keySet() + " = " + requestParams);
+//			System.out.println(requestParams.keySet() + " = " + requestParams);
 			Iterator<String> ite = requestParams.keySet().iterator();
 			
 			while (ite.hasNext()) {
 				String type = ite.next();
-				System.out.println(" map - param = " + type + " value = " + req.getParameter(type));	
+//				System.out.println(" map - param = " + type + " value = " + req.getParameter(type));	
 				mpAtributos.put(type, req.getParameter(type));
 			}
 			
@@ -182,7 +182,20 @@ public class ProjectServlet extends HttpServlet {
 		return jSonGerado;
 	}	
 	
-	private void exibirParametros(HttpServletRequest req) {	
+	private void exibirParametros(HttpServletRequest req) {
+//		Enumeration enumsHeader = req.getHeaderNames();
+//		
+//		while (enumsHeader.hasMoreElements()) {
+//			String param = (String)enumsHeader.nextElement();
+//			System.out.println(" param = " + param + " value = " + req.getParameter(param));
+//		}
+//		
+//		Enumeration enumsAttribute = req.getAttributeNames();
+//		while (enumsAttribute.hasMoreElements()) {
+//			String param = (String)enumsAttribute.nextElement();
+//			System.out.println(" param = " + param + " value = " + req.getParameter(param));
+//		}
+		
 		Map requestParams = req.getParameterMap();
 		
 		if (requestParams != null && requestParams.size() > 0){
@@ -195,11 +208,11 @@ public class ProjectServlet extends HttpServlet {
 			}
 		}
 		
-		Enumeration enums = req.getParameterNames();
-		while (enums.hasMoreElements()) {
-			String param = (String)enums.nextElement();
-			System.out.println(" param = " + param + " value = " + req.getParameter(param));
-		}
+//		Enumeration enums = req.getParameterNames();
+//		while (enums.hasMoreElements()) {
+//			String param = (String)enums.nextElement();
+//			System.out.println(" param = " + param + " value = " + req.getParameter(param));
+//		}
 	}
 	
 	private void enviarResposta(HttpServletResponse resp, String jsonObject) {
