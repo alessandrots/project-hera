@@ -49,9 +49,10 @@
         <script type="text/javascript" src="js/jshera/flowchartConnectors.js"></script>
         <script type="text/javascript" src="js/jshera/core.js"></script>
         <script type="text/javascript" src="js/jshera/util.js"></script>
-        <script type="text/javascript" src="js/backbone/backbone.js"></script>
+
         <script type="text/javascript" src="js/backbone/underscore.js"></script>
         <script type="text/javascript" src="js/backbone/mustache.js"></script>
+        <script type="text/javascript" src="js/backbone/backbone.js"></script>
         <script type="text/javascript" src="js/negocio/modelo/TarefaModel.js"></script>
         <script type="text/javascript" src="js/negocio/visao/TarefaView.js"></script>
 
@@ -147,22 +148,11 @@
                     });
 
 		       });
-			
-		       $('#' + nomeTarefa).mouseout(function(){
-                   //$('#mensagem').text('');
-                   /*
-                   $('#mensagem').hide(2000, function(){
-                       $(this).text('');
-                   });
-                   */
-               });
+
 
               //Clique na tarefa para adicionar o nome no input
                $('#' + nomeTarefa).click(function(){
-                    //alert('ja cliquei');
-                   $('#mensagem').hide('fast');
-                   $('#tarefaSelecionada').val(nomeTarefa);
-                   //$('#sltOrigem').addOption(nomeTarefa, nomeTarefa, false);
+                   $('#id_window_tarefa').val(nomeTarefa);
                });
 			
 		     //Criando a tarefa
@@ -199,7 +189,6 @@
             //Verificando se uma tarefa foi selecionada
             if ($('#tarefaSelecionada').val() != '') {
                 contaJanela = retornarProximoID(contaJanela);
-                //console.log('contaJanela = ' + contaJanela);
 
                 var nomeTarefaNova = 'window_' + contaJanela;
                 console.log('nomeTarefaNova = ' + nomeTarefaNova);
@@ -262,7 +251,13 @@
         });//fim clonarTarefa
 
 
-        //
+        //Botão Clonar Tarefa
+        $('#showAllConn').click(function(){
+            jsPlumbDemo.showAllConexoes();
+
+        });
+
+        //Backbone.js
         var tarefaView = new TarefaView();
 
 	});
@@ -277,42 +272,26 @@
 				   <!-- desenho dos componentes - workspace do usuário -->
 			</div>
 
-
-
             <!--<div id="cadastro" class="redim ui-widget-content ui-corner-all">-->
             <div id="cadastro">
                 <div class="acordeao">
                     <h3><a href="#">Cadastro</a></h3>
                     <div>
                         <p>
-                            <form>
-                            <li>
-                                <!--
-                                <b>Nome:</b> <input type="text" id="cad_nome" name="cad_nome"><br/>
-                                <b>Data de In&iacute;cio:</b> <input type="text" id="cad_data_inicio" name="cad_data_inicio"><br/>
-                                <b>Dura&ccedil;&atilde;o:</b> <input type="text" id="cad_duracao" name="cad_duracao"><br/>
-                                <button type="button" id="criarTarefa">Criar Tarefa</button>&nbsp;
-                                <button type="button" id="exibirHierarquia">Exibir Hierarquia</button>
-                                <button type="button" id="organizarHierarquia">Organizar Hierarquia</button>
-                                <br>
-                                -->
-
+                            <li id="liCadastro">
                                 <script type="text/template" id="post-form">
-                                    <h2>Adicionar Post</h2>
-                                    <p><label>Nome: <input type="text" id="cad_nome" name="cad_nome"></label></p>
-                                    <p><label>Data In&iacute;cio: <input type="text" id="cad_data_inicio" name="cad_data_inicio"></label></p>
-                                    <p><label>Dura&ccedil;&atilde;o: <input type="text" id="cad_duracao" name="cad_duracao"></label></p>
-                                    <p><label>Data de Entrega: <input type="text" id="cad_data_entrega" name="cad_data_entrega"></label></p>
-                                    <p><label>Data de T&eacute;rmino: <input type="text" id="cad_data_termino" name="cad_data_termino"></label></p>
+                                    <h2>Dados da Tarefa</h2>
+                                    <p><label>Nome: <input type="text" id="cad_nome" name="cad_nome" size="50"></label></p>
+                                    <p><label>Data In&iacute;cio: <input type="text" id="cad_data_inicio" name="cad_data_inicio" size="10"></label></p>
+                                    <p><label>Dura&ccedil;&atilde;o: <input type="text" id="cad_duracao" name="cad_duracao" size="3"></label></p>
+                                    <p><label>Data de Entrega: <input type="text" id="cad_data_entrega" name="cad_data_entrega" size="10"></label></p>
+                                    <p><label>Data de T&eacute;rmino: <input type="text" id="cad_data_termino" name="cad_data_termino" size="10"></label></p>
+                                    <p><label>ID Janela: <input type="text" id="id_window_tarefa" name="id_window_tarefa" size="20"></label></p>
                                     <p><input type="submit" value="Salvar" /></p>
-                                    <button type="button" id="criarTarefa">Criar Tarefa</button>&nbsp;
-                                    <input type="submit" value="Salvar" />
-
                                 </script>
 
                                 <p id="mensagem"> </p><br/>
                             </li>
-                            </form>
                         </p>
                     </div>
 
@@ -365,11 +344,19 @@
                     <div>
                         <p>
                             <ul>
+                            <!--
                             <li><a href="?p=1.1.3.2">Acoustic Drums</a></li>
                             <li><a href="?p=1.1.3.3">Electronic Drums</a></li>
                             <li><a href="?p=1.1.3.4">Cymbals</a></li>
                             <li><a href="?p=1.1.3.5">Hardware</a></li>
                             <li><a href="?p=1.1.3.6">Accessories</a></li>
+                            -->
+                                <li><button type="button" id="criarTarefa">Criar Tarefa</button></li>
+                                <li><button type="button" id="showAllConn">Mostrar Todas Connections</button></li>
+                                <li><button type="button" id="minimizar">Esconder</button></li>
+                                <li><button type="button" id="imprimir">Imprimir Hierarquia das Tarefas</button></li>
+                                <li><button type="button" id="imprimir2">Imprimir das Tarefas ja guardadas</button></li>
+
                             </ul>
                         </p>
                     </div>
@@ -386,13 +373,17 @@
                         <li><a href="#aba-4">Aba-4</a></li>
                     </ul>
                     <div id="geral">
+                        <!--
                         <p>
+                            <button type="button" id="criarTarefa">Criar Tarefa</button>&nbsp;
+                            <button type="button" id="showAllConn">Mostrar Todas Connections</button>&nbsp;
                             <button type="button" id="minimizar">Esconder</button>
                             <button type="button" id="imprimir">Imprimir Hierarquia das Tarefas</button>
                             <button type="button" id="imprimir2">Imprimir das Tarefas ja guardadas</button>
                             <br>
-
                         </p>
+                        -->
+                        <p>funcionalidades...</p>
                     </div>
 
                     <div id="hierarquia">

@@ -5,20 +5,22 @@
  * Time: 17:23
  * To change this template use File | Settings | File Templates.
  */
-var urlPrincipal  = 'http://localhost:8080/';
-var contextPath   = 'newproject/project/cadTarefas/add';
-var url_           = urlPrincipal + contextPath;
+var serverName  = 'http://localhost:8080/';
+var context_path   = 'newproject/project/cadTarefas/add';
+var url_           = serverName + context_path;
 
 var TarefaModel = Backbone.Model.extend({
     urlRoot: url_,
 
     defaults : function(){
         return {
-            codigo: [],
-            nome: [],
-            dataInicio: [],
-            dataEntrega: [],
-            duracao: []
+            codigo: '',
+            nome: '',
+            dataInicio: '',
+            dataEntrega: '',
+            dataTermino: '',
+            duracao: '',
+            idWinTarefa:''
 
         }
     },
@@ -26,21 +28,10 @@ var TarefaModel = Backbone.Model.extend({
     validate: function(attrs) {
         console.log('validate...');
 
-        /*
-        if (attrs.title == '') {
-            console.log('O título é obrigatório');
-            return 'O título é obrigatório';
-        } else {
-            console.log('titulo');
+        if (attrs.nome == '') {
+            console.log('O nome é obrigatório');
+            return 'O nome é obrigatório';
         }
-
-        if (attrs.text == '') {
-            console.log('O texto é obrigatório');
-            return 'O texto é obrigatório'
-        } else {
-            console.log('texto');
-        }
-        */
 
     }
 })

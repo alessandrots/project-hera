@@ -9,7 +9,8 @@ var PostView = Backbone.View.extend({
 
         this.template = _.template($('#post-template').html());
 
-        this.model = new PostModel();
+
+        //this.model = new PostModel();
 
         this.model.on("change", this.render, this);
         this.model.on("destroy", this.refresh);
@@ -19,6 +20,7 @@ var PostView = Backbone.View.extend({
         console.log('PostView - render ');//ok
 
         var template = this.$el.html(this.template(this.model.toJSON()));
+        //this.$el.html(this.template(this.model.toJSON()));
 
         return this;
     },

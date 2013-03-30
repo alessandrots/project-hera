@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/gson-2.2.2.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/json_simple-1.1.jar"/>
 	<classpathentry kind="var" path="TOMCAT_HOME/lib/servlet-api.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/jsp-api.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -39,11 +39,11 @@ public class ProjectServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		System.out.println("PathInfo 		= " + req.getPathInfo());
-//		System.out.println("ServletPath 	= " + req.getServletPath());
-//		System.out.println("QueryString 	= " + req.getQueryString());
-//		System.out.println("getRequestURI 	= " + req.getRequestURI());
-//		System.out.println("getRequestURL 	= " + req.getRequestURL().toString());
+		System.out.println("PathInfo 		= " + req.getPathInfo());
+		System.out.println("ServletPath 	= " + req.getServletPath());
+		System.out.println("QueryString 	= " + req.getQueryString());
+		System.out.println("getRequestURI 	= " + req.getRequestURI());
+		System.out.println("getRequestURL 	= " + req.getRequestURL().toString());
 		
 		try {
 			exibirParametros(req);
@@ -54,7 +54,7 @@ public class ProjectServlet extends HttpServlet {
 				String servFunc[] 	= pathURL.split("/");
 				
 				//TODO tratamentos
-				if (servFunc.length != 2 ){
+				if (servFunc.length < 2 ){
 					throw new RuntimeException("Impossível carregar e executar o serviço e/ou a funcionalidade.");
 				}
 				

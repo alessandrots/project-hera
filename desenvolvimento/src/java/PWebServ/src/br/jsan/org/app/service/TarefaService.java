@@ -99,6 +99,45 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 		
 		return listaModel;
 	}
+	
+	@ClasseNegocial(negocial=true)
+	public List<TesteModel> recuperarListaTeste2() {
+		List<TesteModel> listaModel = new ArrayList<TesteModel>();
+		
+		int cont = 0;
+		
+		for (int i = 0; i < 3; i++) {
+			TesteModel model = new TesteModel();			
+			cont = i + 1;
+			model.setTitle("Alessandro_" + cont);
+			model.setText("AnaClaudia_" + cont);
+			listaModel.add(model);
+		}
+		
+		return listaModel;
+	}
+	
+	@ClasseNegocial(negocial=true)
+	public List<TesteModel> recuperarListaTeste2(TarefaPresenter param) {
+		List<TesteModel> listaModel = new ArrayList<TesteModel>();
+		System.out.println("executando o método com parâmetro");
+		
+		int cont = 0;
+		
+		for (int i = 0; i < 3; i++) {
+			TesteModel model = new TesteModel();			
+			cont = i + 1;			
+			model.setTitle("Alessandro_" + cont);
+			model.setText("AnaClaudia_" + cont);
+			
+			if (param!= null && param.getNome().equals("Alessandro_" + cont)) {
+				listaModel.add(model);
+			}
+			
+		}
+		
+		return listaModel;
+	}
 
 	@Override
 	public void criarListaDeParametrosParaExecucao(String acao) {

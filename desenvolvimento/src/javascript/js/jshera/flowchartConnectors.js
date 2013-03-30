@@ -391,6 +391,42 @@
         },
 
 
+        showAllConexoes : function() {
+            var connectionList = jsPlumb.getConnections();
+
+            //Endpoints
+            var endConnSource = null;
+            var endConnTarget = null;
+
+            for (var j = 0; j < connectionList.length; j++) {
+                console.log(" *** NOVA CONEXÃO *** ");
+                console.log(
+                       " conexoes id = " +  connectionList[j].id
+                    +  " sourceId = " + connectionList[j].sourceId
+                    +  " targetId = " + connectionList[j].targetId);
+
+                console.log(
+                       " source x = " +  connectionList[j].endpoints[0].anchor.x
+                    +  " source y = " + connectionList[j].endpoints[0].anchor.y
+                    +  " source dx = " + connectionList[j].endpoints[0].anchor.getOrientation(connectionList[j].endpoints[0])[0]
+                    +  " source dy = " + connectionList[j].endpoints[0].anchor.getOrientation(connectionList[j].endpoints[0])[1]);
+
+                console.log(
+                       " target x = " +  connectionList[j].endpoints[1].anchor.x
+                    +  " target y = " + connectionList[j].endpoints[1].anchor.y
+                    +  " target dx = " + connectionList[j].endpoints[1].anchor.getOrientation(connectionList[j].endpoints[1])[0]
+                    +  " target dy = " + connectionList[j].endpoints[1].anchor.getOrientation(connectionList[j].endpoints[1])[1]
+                );
+
+                //Endpoint de ORIGEM pertencene a conexao recuperada
+                endConnSource = connectionList[j].endpoints[0];
+
+                //Endpoint de DESTINO pertencene a conexao recuperada
+                endConnTarget = connectionList[j].endpoints[1];
+            }
+        },
+
+
         /**
          * Recupera as conexões existentes de dois componentes (idSource e idTarget - divs) já em tela.
          *
