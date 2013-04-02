@@ -40,10 +40,13 @@ var TarefaView = Backbone.View.extend({
          */
         //Backbone.emulateHTTP = true;
         Backbone.emulateJSON = true;
+        this.contaJanela = 0;
+        this.nomeTarefa  = '';
 
         this.model = new TarefaModel();
 
         this.model.on("error", this.showError);
+        //this.model.on("error", this.model.showErrors);
         this.model.on("sync", this.goToIndex);
         this.render();
     },
@@ -54,7 +57,7 @@ var TarefaView = Backbone.View.extend({
      */
     render: function() {
         var rendered = Mustache.to_html(this.template);
-        console.log(rendered);
+        //console.log(rendered);
 
         this.$el.html(rendered);
 
@@ -62,7 +65,7 @@ var TarefaView = Backbone.View.extend({
         this.dataInicioInput    = this.$el.find('#cad_data_inicio');
         this.dataEntregaInput   = this.$el.find('#cad_data_entrega');
         this.dataTerminoInput   = this.$el.find('#cad_data_termino');
-        this.idWindowTarefa     = this.$el.find('#id_window_tarefa');
+        //this.idWindowTarefa     = this.$el.find('#id_window_tarefa');
         this.duracaoInput       = this.$el.find('#cad_duracao');
 
         console.log('this.el = ' + this.el);
@@ -73,12 +76,16 @@ var TarefaView = Backbone.View.extend({
     savePost: function(e) {
         e.preventDefault();//isto é importante
 
+        //Definindo o nome da Janela
+        this.contaJanela = retornarProximoID(this.contaJanela);
+        this.nomeTarefa  = 'window_' + this.contaJanela;
+
         var nomeInput          = this.nomeInput.val();
         var dataInicioInput    = this.dataInicioInput.val();
         var dataEntregaInput   = this.dataEntregaInput.val();
         var dataTerminoInput   = this.dataTerminoInput.val();
         var duracaoInput       = this.duracaoInput.val();
-        var idWindowTarefa     = this.idWindowTarefa.val();
+        var idWindowTarefa     = this.nomeTarefa;//this.idWindowTarefa.val();
 
         var details= {
             nome: nomeInput,
@@ -89,6 +96,7 @@ var TarefaView = Backbone.View.extend({
             idWinTarefa: idWindowTarefa
         };
 
+        //setando os atributos no model específico.
         this.model.set(details);
 
         console.log('savePost --> ' +
@@ -102,7 +110,7 @@ var TarefaView = Backbone.View.extend({
 
         var that = this.model;
 
-        if (this.model.isValid()) {
+        //if (this.model.isValid()) {
             //params.contentType = 'application/json';
             //params.data = JSON.stringify(model.toJSON());
             //console.log('data = ' + params.data);
@@ -114,19 +122,22 @@ var TarefaView = Backbone.View.extend({
             //http://backbonejs.org/#Model-url
             //http://documentcloud.github.com/backbone/docs/backbone.html
 
-            //this.model.save();
-
+        this.model.save();
+            /*
             this.model.save(details, {
-                success: function (that) {
-                    console.log('sucesso... this.model = ' + that.toJSON());
+                success: function () {
+                    console.log('sucesso... this.model = ');
                 },
 
-                error: function (that) {
-                    console.log('erro!');
+                error: function (model, errors) {
+                    console.log('erro = ');
+                    that.showErrors(errors);
                 }
 
             });
-        }
+            */
+
+        //}
     },
 
     showError:function(model, error) {
@@ -139,5 +150,17 @@ var TarefaView = Backbone.View.extend({
         //console.log('chamaria o model novamente via PostView.js');
         console.log('decide o que deve ser feito aqui!!!!');
         //window.location = 'http://localhost:8080/newproject/pages/testeBackColl.html';
+    },
+
+    criarJanelaPlumb: function() {
+        //this.contaJanela = retornarProximoID(this.contaJanela);
+
+        //var nomeTarefa = 'window_' + this.contaJanela;
+
+        //alert(nomeTarefa);
+        $('<div class="window" id="' + this.nomeTarefa + '"><strong>' + this.contaJanela + '</strong></div>').prependTo('#render');
+
+        //Criando a tarefa
+        jsPlumbDemo.criarTarefa(nomeTarefa);
     }
 })

@@ -18,6 +18,8 @@ import com.google.gson.reflect.TypeToken;
 public class TarefaService extends ServiceImpl<TarefaPresenter> {
 	//TODO - via spring 
 	private TarefaDao tarefaDao;
+	
+	private List<TarefaPresenter> lista;
 
 	public TarefaService() {
 		tarefaDao = new TarefaDao();
@@ -46,11 +48,8 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 				if (Collection.class.isAssignableFrom(objeto.getClass())) {
 					String jsonRetorno = EngineJson.getInstancia().serializarColecao((List)objeto);
 					setResposta(jsonRetorno);
-//					System.out.println(" resposta = " + getResposta());
 				}
 			}
-			
-			
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
@@ -67,9 +66,18 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 	
 	@ClasseNegocial(negocial=true)
 	public void add(TarefaPresenter presenter) {
-		if (presenter != null){
-			System.out.println(" >>>>> add ... " + presenter.getCodigo());
+		if (presenter != null && presenter.getIdWinTarefa() != null){
+			System.out.println(" >>>>> add ... codigo 		= " + presenter.getCodigo());
+			System.out.println(" >>>>> add ... nome   		= " + presenter.getNome());
+			System.out.println(" >>>>> add ... idWinTarefa 	= " + presenter.getIdWinTarefa());
+			
+			//listagem para guardar em memória. TODO			
+			if (this.lista == null){
+				this.lista = new ArrayList<TarefaPresenter>();
+			}
+			this.lista.add(presenter);
 		}
+		
 	}
 	
 	@ClasseNegocial(negocial=true)
@@ -137,6 +145,11 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 		}
 		
 		return listaModel;
+	}
+	
+	@ClasseNegocial(negocial=true)
+	public List<TarefaPresenter> recuperarTodasTarefas() {
+		return this.lista;
 	}
 
 	@Override

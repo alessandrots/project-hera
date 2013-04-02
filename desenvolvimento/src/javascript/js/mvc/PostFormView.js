@@ -71,7 +71,7 @@ var PostFormView = Backbone.View.extend({
 
     goToIndex: function() {
         //console.log('chamaria o model novamente via PostView.js');
-        console.log('chamaria o model novamente via PostCollection.js');
+        console.log('chamaria o model novamente via TarefaList.js');
         window.location = 'http://localhost:8080/newproject/pages/testeBackColl.html';
     }
 });

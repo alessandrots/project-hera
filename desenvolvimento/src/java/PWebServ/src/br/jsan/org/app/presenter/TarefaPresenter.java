@@ -8,21 +8,24 @@ public class TarefaPresenter extends PresenterImpl {
 	 */
 	private static final long serialVersionUID = 3050449973665933675L;
 	
-	private Integer codigo;
+	private String codigo;
 	private String nome;
+	private String duracao;
 	private String dataInicio;
-	private String dataFim;
+	private String dataEntrega;
+	private String dataTermino;
+	private String idWinTarefa;
 	
 	/**
 	 * @return the codigo
 	 */
-	public Integer getCodigo() {
+	public String getCodigo() {
 		return codigo;
 	}
 	/**
 	 * @param codigo the codigo to set
 	 */
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
 	/**
@@ -38,6 +41,18 @@ public class TarefaPresenter extends PresenterImpl {
 		this.nome = nome;
 	}
 	/**
+	 * @return the duracao
+	 */
+	public String getDuracao() {
+		return duracao;
+	}
+	/**
+	 * @param duracao the duracao to set
+	 */
+	public void setDuracao(String duracao) {
+		this.duracao = duracao;
+	}
+	/**
 	 * @return the dataInicio
 	 */
 	public String getDataInicio() {
@@ -50,16 +65,41 @@ public class TarefaPresenter extends PresenterImpl {
 		this.dataInicio = dataInicio;
 	}
 	/**
-	 * @return the dataFim
+	 * @return the dataEntrega
 	 */
-	public String getDataFim() {
-		return dataFim;
+	public String getDataEntrega() {
+		return dataEntrega;
 	}
 	/**
-	 * @param dataFim the dataFim to set
+	 * @param dataEntrega the dataEntrega to set
 	 */
-	public void setDataFim(String dataFim) {
-		this.dataFim = dataFim;
-	} 
+	public void setDataEntrega(String dataEntrega) {		
+		this.dataEntrega = dataEntrega;
+	}
+	/**
+	 * @return the dataTermino
+	 */
+	public String getDataTermino() {
+		return dataTermino;
+	}
+	/**
+	 * @param dataTermino the dataTermino to set
+	 */
+	public void setDataTermino(String dataTermino) {
+		this.dataTermino = dataTermino;
+	}
+	/**
+	 * @return the idWinTarefa
+	 */
+	public String getIdWinTarefa() {
+		return idWinTarefa;
+	}
+	/**
+	 * @param idWinTarefa the idWinTarefa to set
+	 */
+	public void setIdWinTarefa(String idWinTarefa) {
+		this.idWinTarefa = idWinTarefa;
+	}
+	
 	 
 }

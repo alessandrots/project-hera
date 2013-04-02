@@ -8,7 +8,8 @@
 var AppRouter = Backbone.Router.extend({
     routes: {
         "": "index",
-        "findByName/:id": "findByName"
+        "findByName/:id": "findByName",
+        "findAll": "findAll"
     },
 
     /**
@@ -16,8 +17,8 @@ var AppRouter = Backbone.Router.extend({
      */
     initialize: function(){
         console.log('router => initialize');
-        this.tarefaList = new TarefaList();//options.tarefaList;
-        this.tarefaList.url = '/newproject/project/cadTarefas/recuperarListaTeste2';
+        this.tarefaList = new TarefaModel();
+        this.tarefaList.url = 'project/cadTarefas/recuperarTodasTarefas';
     },
 
     /**
@@ -46,25 +47,18 @@ var AppRouter = Backbone.Router.extend({
      */
     findByName: function(id){
         console.log('router => findByName');
-        var tarefaList2 = new TarefaList();
-        tarefaList2.url = '/newproject/project/cadTarefas/recuperarListaTeste2';
+        var tarefaList2 = new TarefaModel();
+        tarefaList2.url = 'project/cadTarefas/recuperarListaTeste2';
         this.tarefaCollectionView = new TarefaCollectionView({collection: tarefaList2});
         tarefaList2.fetch({data: {nome: id}});
+    },
+
+    findAll: function(){
+        console.log('router => findAll');
+        var tarefaList2 = new TarefaModel();
+        tarefaList2.url = 'project/cadTarefas/recuperarTodasTarefas';
+        this.tarefaCollectionView = new TarefaCollectionView({collection: tarefaList2});
+        tarefaList2.fetch();
     }
 
-    /*
-     loadRestfulData:function (pageUrl) {
-     //Set the content pane to a loading screen
-     $('#content-pane').text('loading data...');
-     //Load the data in using jQuerys ajax call
-     $.ajax({
-     url:pageUrl,
-     dataType:'jsonp',
-     success:function (data) {
-     //Once we receive the data, set it to the content pane.
-     $('#content-pane').text(data);
-     }
-     });
-     }
-     */
 });

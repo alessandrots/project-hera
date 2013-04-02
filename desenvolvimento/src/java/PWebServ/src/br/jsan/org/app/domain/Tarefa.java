@@ -11,6 +11,7 @@ public class Tarefa implements Domain {
 	
 	private Integer codigo;
 	private String nome;
+	private Integer duracao;
 	private Timestamp dataInicio;
 	private Timestamp dataEntrega;
 	private Timestamp dataTermino;
@@ -47,6 +48,9 @@ public class Tarefa implements Domain {
 	}
 	/**
 	 * @param dataInicio the dataInicio to set
+	
+	
+	
 	 */
 	public void setDataInicio(Timestamp dataInicio) {
 		this.dataInicio = dataInicio;
@@ -75,7 +79,17 @@ public class Tarefa implements Domain {
 	public void setDataTermino(Timestamp dataTermino) {
 		this.dataTermino = dataTermino;
 	}
-	
-	
+	/**
+	 * @return the duracao
+	 */
+	public Integer getDuracao() {
+		return duracao;
+	}
+	/**
+	 * @param duracao the duracao to set
+	 */
+	public void setDuracao(Integer duracao) {
+		this.duracao = duracao;
+	}	
 	
 }

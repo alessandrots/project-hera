@@ -46,7 +46,7 @@ public class ProjectServlet extends HttpServlet {
 		System.out.println("getRequestURL 	= " + req.getRequestURL().toString());
 		
 		try {
-			exibirParametros(req);
+//			exibirParametros(req);
 			
 			if (req.getPathInfo() != null) {
 				//retirando a primeira barra
@@ -150,7 +150,12 @@ public class ProjectServlet extends HttpServlet {
 	
 	
 	/**
-	 * Gera uma String no formato JSon a partir dos dados que vem da requisição.
+	 * Gera uma String no formato JSon a partir dos dados que vem da requisição:
+	 * 	http://stackoverflow.com/questions/2496494/library-to-encode-decode-from-json-to-java-util-map
+	 * 	http://stackoverflow.com/questions/9598707/gson-throwing-expected-begin-object-but-was-begin-array
+	 * 
+	 * Pq recebo um model:
+	 * http://net.tutsplus.com/tutorials/javascript-ajax/build-a-contacts-manager-using-backbone-js-part-5/
 	 * 
 	 * @param req
 	 * @return String
@@ -165,37 +170,27 @@ public class ProjectServlet extends HttpServlet {
 		Map<String, String> mpAtributos = new HashMap<String, String>();
 		
 		if (requestParams != null && requestParams.size() > 0){
-//			System.out.println(requestParams.keySet() + " = " + requestParams);
 			Iterator<String> ite = requestParams.keySet().iterator();
 			
 			while (ite.hasNext()) {
 				String type = ite.next();
-//				System.out.println(" map - param = " + type + " value = " + req.getParameter(type));	
-				mpAtributos.put(type, req.getParameter(type));
+				
+				if (!type.equalsIgnoreCase("model")){					
+					mpAtributos.put(type, req.getParameter(type));
+				} else{
+					jSonGerado = req.getParameter(type);
+				}
 			}
 			
-			//http://stackoverflow.com/questions/2496494/library-to-encode-decode-from-json-to-java-util-map
-			//http://stackoverflow.com/questions/9598707/gson-throwing-expected-begin-object-but-was-begin-array
-			jSonGerado = JSONValue.toJSONString(mpAtributos);			
+			if (jSonGerado == null){
+				jSonGerado = JSONValue.toJSONString(mpAtributos);			
+			}
 		}
 		
 		return jSonGerado;
 	}	
 	
 	private void exibirParametros(HttpServletRequest req) {
-//		Enumeration enumsHeader = req.getHeaderNames();
-//		
-//		while (enumsHeader.hasMoreElements()) {
-//			String param = (String)enumsHeader.nextElement();
-//			System.out.println(" param = " + param + " value = " + req.getParameter(param));
-//		}
-//		
-//		Enumeration enumsAttribute = req.getAttributeNames();
-//		while (enumsAttribute.hasMoreElements()) {
-//			String param = (String)enumsAttribute.nextElement();
-//			System.out.println(" param = " + param + " value = " + req.getParameter(param));
-//		}
-		
 		Map requestParams = req.getParameterMap();
 		
 		if (requestParams != null && requestParams.size() > 0){
