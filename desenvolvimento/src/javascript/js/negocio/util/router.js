@@ -9,6 +9,7 @@ var AppRouter = Backbone.Router.extend({
     routes: {
         "": "index",
         "findByName/:id": "findByName",
+        "findByWinTarefa/:id" : "findByWinTarefa",
         "findAll": "findAll"
     },
 
@@ -17,8 +18,8 @@ var AppRouter = Backbone.Router.extend({
      */
     initialize: function(){
         console.log('router => initialize');
-        this.tarefaList = new TarefaModel();
-        this.tarefaList.url = 'project/cadTarefas/recuperarTodasTarefas';
+        this.tarefaList = new TarefaList();
+        this.tarefaList.url = '/newproject/project/cadTarefas/recuperarTodasTarefas';
     },
 
     /**
@@ -35,6 +36,7 @@ var AppRouter = Backbone.Router.extend({
     index: function(){
         console.log('router => index');
         this.tarefaCollectionView = new TarefaCollectionView({collection: this.tarefaList});
+        console.log('router => index - url = ', this.tarefaList.url);
         this.tarefaList.fetch();
     },
 
@@ -47,15 +49,28 @@ var AppRouter = Backbone.Router.extend({
      */
     findByName: function(id){
         console.log('router => findByName');
-        var tarefaList2 = new TarefaModel();
-        tarefaList2.url = 'project/cadTarefas/recuperarListaTeste2';
+        var tarefaList2 = new TarefaList();
+        tarefaList2.url = 'project/cadTarefas/recuperarTarefaPorNome';
         this.tarefaCollectionView = new TarefaCollectionView({collection: tarefaList2});
         tarefaList2.fetch({data: {nome: id}});
     },
 
+    findByWinTarefa: function(id){
+        console.log('router => findByWinTarefa');
+//        var tarefaList2 = new TarefaList();
+//        tarefaList2.url = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
+//        this.tarefaCollectionView = new TarefaCollectionView({collection: tarefaList2});
+//        tarefaList2.fetch({data: {idWinTarefa: id}});
+
+        this.tarefaList = new TarefaList();
+        this.tarefaList.url = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
+        this.tarefaCollectionView = new TarefaCollectionView({collection: this.tarefaList});
+        this.tarefaList.fetch({data: {idWinTarefa: id}});
+    },
+
     findAll: function(){
         console.log('router => findAll');
-        var tarefaList2 = new TarefaModel();
+        var tarefaList2 = new TarefaList();
         tarefaList2.url = 'project/cadTarefas/recuperarTodasTarefas';
         this.tarefaCollectionView = new TarefaCollectionView({collection: tarefaList2});
         tarefaList2.fetch();

@@ -1,5 +1,5 @@
 var TarefaCollectionView = Backbone.View.extend({
-    el: ('body'), //TODO mudar o el
+    el: ('#geral'), //TODO mudar o el
 
     /*
     //associando o evento ao botão com id #remove-button:
@@ -13,7 +13,7 @@ var TarefaCollectionView = Backbone.View.extend({
     //FUNCIONOU TROUXE A LISTA
     initialize: function(){
         //this.template = _.template($('#post-template').html());
-        this.template = $('#post-template').html();
+        this.template = $('#tarefa-template').html();
         this.collection.on('add', this.addOne, this);
         this.collection.on('reset', this.addAll, this);
         this.collection.on('#remove-button', this.removeBtn, this);
@@ -38,9 +38,7 @@ var TarefaCollectionView = Backbone.View.extend({
     removeBtn: function() {
         var postList = new PostList();
         postList.url = '/newproject/project/cadTarefas/recuperarListaTeste2';
-
         var postCollectionView = new PostCollectionView({collection:postList});
-
         console.log('testando o remove 2 NOVO... = ', this.href);
 
         //myparam= "Alessandro_1";//TODO retirar- Com o parâmetro vindo FUNCIONA!!! Atualizou o HTML

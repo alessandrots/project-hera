@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +31,14 @@ public class ProjectServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 3954779776778587702L;
+	
+	private Map<String, IService> mapaServicos;
+	
+	@Override
+	public void init(ServletConfig config) throws ServletException {	
+		super.init(config);		
+		mapaServicos = new HashMap<String, IService>();		
+	}
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -77,9 +85,8 @@ public class ProjectServlet extends HttpServlet {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
-		//TODO - definir a página de retorno, tratamento de exceção
+			//TODO - definir a página de retorno, tratamento de exceção
+		}		
 		//RequestDispatcher reqd = req.getRequestDispatcher("/pages/resultado.jsp");
 		//reqd.forward(req, resp);
 	}
@@ -89,7 +96,7 @@ public class ProjectServlet extends HttpServlet {
 	 * TODO - spring
 	 *  - carregar o service específico, de acordo com a primeira parte do path
 	 *  	cadTarefas(servico)/add(funcionalidade)
-	 *  	cadTarefas/load
+	 *  	cadTarefas/load	// TODO Auto-generated method stub
 	 *  
 	 *  - neste caso vai gerar o serviço associado ao cadTarefas
 	 *   
@@ -100,8 +107,11 @@ public class ProjectServlet extends HttpServlet {
 		IService servico = null;
 		
 		//TODO atualização via Spring - pensar como fazer.
-		if (path != null && path.contains("cadTarefas")){
+		if (mapaServicos.containsKey(path)){
+			servico = mapaServicos.get("cadTarefas");
+		} else if (path != null && path.contains("cadTarefas")){
 			servico = new TarefaService();
+			mapaServicos.put("cadTarefas", servico);
 		}
 		
 		return servico;

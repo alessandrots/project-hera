@@ -55,6 +55,9 @@
         <script type="text/javascript" src="js/backbone/backbone.js"></script>
         <script type="text/javascript" src="js/negocio/modelo/TarefaModel.js"></script>
         <script type="text/javascript" src="js/negocio/visao/TarefaView.js"></script>
+        <script type="text/javascript" src="js/negocio/colecao/TarefaCollectionView.js"></script>
+        <script type="text/javascript" src="js/negocio/colecao/TarefaList.js"></script>
+        <script type="text/javascript" src="js/negocio/util/router.js"></script>
 
 <script type="text/javascript">
 //<![CDATA[
@@ -251,11 +254,53 @@
         });//fim clonarTarefa
 
 
-        //Botão Clonar Tarefa
+        //Botão Clonar Tarefa - IMPORTANTE
         $('#showAllConn').click(function(){
             jsPlumbDemo.showAllConexoes();
 
         });
+
+        //COMPONENTES BACKBONE
+        var appRouter = new AppRouter();
+        appRouter.start();
+        Backbone.emulateHTTP = true;
+        Backbone.emulateJSON = true;
+
+        $('#getTarefas').click(function(){
+            //OK - traz o dado filtrado
+            //appRouter.findByWinTarefa('window_1002');
+
+
+
+            myModel = new TarefaModel();
+            myModel.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
+
+            /*
+            myModel.fetch({data: {idWinTarefa: 'window_1003'}}, {
+                        success: function(data) {
+                            console.log(JSON.stringify(data));
+                        }
+             });
+             */
+
+
+            myModel.fetch({data: {idWinTarefa: 'window_1002'}}).done(function () {
+                //console.log('myModel = ', myModel.toJSON());
+                console.log(JSON.stringify(myModel.toJSON(), '', '  '));
+                var contact = JSON.parse(JSON.stringify(myModel.toJSON(), '', '  '));
+                //console.log('nome = ', contact[0].nome);
+                console.log('codigo = ', contact[0].codigo);
+                console.log('nome = ', contact[0].nome);
+                console.log('duracao = ', contact[0].duracao);
+                console.log('dataInicio = ', contact[0].dataInicio);
+                console.log('dataEntrega = ', contact[0].dataEntrega);
+                console.log('dataTermino = ', contact[0].dataTermino);
+                console.log('idWinTarefa = ', contact[0].idWinTarefa);
+
+            });
+
+
+        });//end of #getTarefas
 
         //Backbone.js
         var tarefaView = new TarefaView();
@@ -366,9 +411,8 @@
                         <li><a href="#aba-3">Aba-3</a></li>
                         <li><a href="#aba-4">Aba-4</a></li>
                     </ul>
+                    <!-- posso colocar aqui alguma listagem de tarefas com base em algum clique de botão chamado da div Outras -->
                     <div id="geral">
-                        <p>funcionalidades...</p>
-                        <!-- posso colocar aqui alguma listagem de tarefas com base em algum clique de botão chamado da div Outras -->
                     </div>
 
                     <div id="hierarquia">
@@ -387,5 +431,19 @@
             </section>
 
 		</div>
+
+        <script type="text/template" id="tarefa-template">
+            <table border="1" bordercolor="red" cellpadding="1" cellspacing="1">
+                <tr>
+                    <td>{{codigo}}</td>
+                    <td>{{nome}}</td>
+                    <td>{{dataInicio}}</td>
+                    <td>{{dataEntrega}}</td>
+                    <td>{{dataTermino}}</td>
+                    <td>{{duracao}}</td>
+                    <td>{{idWinTarefa}}</td>
+                </tr>
+            </table>
+        </script>
 	</body>
 </html>

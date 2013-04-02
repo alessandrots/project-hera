@@ -27,7 +27,7 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 
 	@Override
 	public void execute(String acao) {
-		try {
+		try {			
 			//set a classe presenter
 			setClasse(TarefaPresenter.class);
 			
@@ -126,7 +126,7 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 	}
 	
 	@ClasseNegocial(negocial=true)
-	public List<TesteModel> recuperarListaTeste2(TarefaPresenter param) {
+	public List<TesteModel> recuperarListaTeste2(TarefaPresenter pPresenter) {
 		List<TesteModel> listaModel = new ArrayList<TesteModel>();
 		System.out.println("executando o método com parâmetro");
 		
@@ -138,7 +138,7 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 			model.setTitle("Alessandro_" + cont);
 			model.setText("AnaClaudia_" + cont);
 			
-			if (param!= null && param.getNome().equals("Alessandro_" + cont)) {
+			if (pPresenter!= null && pPresenter.getNome().equals("Alessandro_" + cont)) {
 				listaModel.add(model);
 			}
 			
@@ -149,7 +149,54 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 	
 	@ClasseNegocial(negocial=true)
 	public List<TarefaPresenter> recuperarTodasTarefas() {
-		return this.lista;
+		List<TarefaPresenter> listaRetorno = null;
+		
+		listaRetorno = this.lista;
+		
+		return listaRetorno;
+	}
+	
+	@ClasseNegocial(negocial=true)
+	public List<TarefaPresenter> recuperarTarefaPorNome(TarefaPresenter pPresenter) {
+		List<TarefaPresenter> listaRetorno = null;
+		
+		if (pPresenter != null){
+			if (this.lista != null && this.lista.size() > 0) {
+				listaRetorno = new ArrayList<TarefaPresenter>();
+				
+				for (TarefaPresenter tarefaPresenter : this.lista) {
+					if (pPresenter.getNome().equalsIgnoreCase(tarefaPresenter.getNome())) {
+						listaRetorno.add(tarefaPresenter);
+					}
+				}
+			}
+		} else {
+			listaRetorno = this.lista;
+		}
+		
+		return listaRetorno;
+	}
+	
+	
+	@ClasseNegocial(negocial=true)
+	public List<TarefaPresenter> recuperarTarefaPorWinTarefa(TarefaPresenter pPresenter) {
+		List<TarefaPresenter> listaRetorno = null;
+		
+		if (pPresenter != null){
+			if (this.lista != null && this.lista.size() > 0) {
+				listaRetorno = new ArrayList<TarefaPresenter>();
+				
+				for (TarefaPresenter tarefaPresenter : this.lista) {
+					if (pPresenter.getIdWinTarefa().equalsIgnoreCase(tarefaPresenter.getIdWinTarefa())) {
+						listaRetorno.add(tarefaPresenter);
+					}
+				}
+			}
+		} else {
+			listaRetorno = this.lista;
+		}
+		
+		return listaRetorno;
 	}
 
 	@Override

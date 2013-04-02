@@ -141,7 +141,7 @@ var TarefaView = Backbone.View.extend({
     },
 
     showError:function(model, error) {
-        console.log('showError');
+        console.log('showError');add
         console.log(error.responseText);
     },
 
@@ -149,7 +149,7 @@ var TarefaView = Backbone.View.extend({
         //TODO tem que enviar para o index.html novamente
         //console.log('chamaria o model novamente via PostView.js');
         console.log('decide o que deve ser feito aqui!!!!');
-        //window.location = 'http://localhost:8080/newproject/pages/testeBackColl.html';
+        this.criarJanelaPlumb();
     },
 
     criarJanelaPlumb: function() {
@@ -160,7 +160,16 @@ var TarefaView = Backbone.View.extend({
         //alert(nomeTarefa);
         $('<div class="window" id="' + this.nomeTarefa + '"><strong>' + this.contaJanela + '</strong></div>').prependTo('#render');
 
+        var tarefaCurrent = this.nomeTarefa;
+
+        //Clique na tarefa para adicionar o nome no input
+        $('#' + this.nomeTarefa).click(function(){
+            //$('#id_window_tarefa').val(this.nomeTarefa);
+            console.log('tarefa criada e clicada = ', tarefaCurrent);
+
+        });
+
         //Criando a tarefa
-        jsPlumbDemo.criarTarefa(nomeTarefa);
+        jsPlumbDemo.criarTarefa(this.nomeTarefa);
     }
 })

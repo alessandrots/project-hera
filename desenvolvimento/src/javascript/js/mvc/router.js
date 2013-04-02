@@ -1,10 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: alessandrots
- * Date: 30/03/13
- * Time: 19:14
- * To change this template use File | Settings | File Templates.
- */
 var AppRouter = Backbone.Router.extend({
     routes: {
         "": "index",
@@ -16,8 +9,8 @@ var AppRouter = Backbone.Router.extend({
      */
     initialize: function(){
         console.log('router => initialize');
-        this.tarefaList = new TarefaList();//options.tarefaList;
-        this.tarefaList.url = '/newproject/project/cadTarefas/recuperarListaTeste2';
+        this.postList = new PostList();//options.postList;
+        this.postList.url = '/newproject/project/cadTarefas/recuperarListaTeste2';
     },
 
     /**
@@ -33,23 +26,23 @@ var AppRouter = Backbone.Router.extend({
      */
     index: function(){
         console.log('router => index');
-        this.tarefaCollectionView = new TarefaCollectionView({collection: this.tarefaList});
-        this.tarefaList.fetch();
+        this.postCollectionView = new PostCollectionView({collection: this.postList});
+        this.postList.fetch();
     },
 
     /**
      * Faz uma pesquisa filtrando pelo campo específico.
-     * Aí cria um tarefaList específico para ele fazer a pesquisa na url em questão e
+     * Aí cria um postList específico para ele fazer a pesquisa na url em questão e
      * adicionar na url da classe.
      *
      * @param id
      */
     findByName: function(id){
         console.log('router => findByName');
-        var tarefaList2 = new TarefaList();
-        tarefaList2.url = '/newproject/project/cadTarefas/recuperarListaTeste2';
-        this.tarefaCollectionView = new TarefaCollectionView({collection: tarefaList2});
-        tarefaList2.fetch({data: {nome: id}});
+        var postList2 = new PostList();
+        postList2.url = '/newproject/project/cadTarefas/recuperarListaTeste2';
+        this.postCollectionView = new PostCollectionView({collection: postList2});
+        postList2.fetch({data: {nome: id}});
     }
 
     /*

@@ -26,6 +26,9 @@ public abstract class ServiceImpl<T> implements IService {
 	
 	@Override
 	public void execute(String acao) {
+		//Limpar o último parâmetro de pesquisa/inserção/atualização
+		this.parametrosExecucao = null;
+		
 		//Cria o objeto Presenter relacionado com a classe Servico e de acordo com o JSon passado.
 		this.presenter = criarPresenterDeAcordoComUrl(getJSon());
 		

@@ -1,5 +1,4 @@
 var TarefaList = Backbone.Collection.extend({
-    url: '/newproject/project/cadTarefas/recuperarListaTeste',
-	
+    url: 'project/cadTarefas/recuperarListaTeste',
 	model: TarefaModel
 });
