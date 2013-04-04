@@ -255,9 +255,31 @@
 
 
         //Botão Clonar Tarefa - IMPORTANTE
-        $('#showAllConn').click(function(){
-            jsPlumbDemo.showAllConexoes();
+        $('#showAllConn').click(function() {
+            radioConn  = $('input[name=cbxConnection]:checked').val();
+            tarefaConn = $('#nomeTarefaDiv').val();
 
+            //console.log('escolha do radio = ', radioConn);
+            //console.log('escolha do nome da tarefa = ', tarefaConn);
+
+            if ( radioConn != 2 && (tarefaConn == null || tarefaConn == undefined  || tarefaConn == '')) {
+                console.log(' Informe nome da tarefa obrigatoriamente para pesquisar source ou target ');
+            } else if ( radioConn != 2){
+                jsPlumbDemo.showAllConexoes(radioConn, tarefaConn);
+            } else {
+                jsPlumbDemo.showAllConexoes(radioConn, null);
+            }
+
+            //jsPlumbDemo.showAllConexoes();
+        });
+
+
+        $('#showConnPai').click(function() {
+           var tarefasPai =  jsPlumbDemo.descobrirTarefaPai();
+
+            for (var j = 0; j < tarefasPai.length; j++) {
+                console.log('tarefa PAI = ', tarefasPai[j]);
+            }
         });
 
         //COMPONENTES BACKBONE
@@ -266,39 +288,107 @@
         Backbone.emulateHTTP = true;
         Backbone.emulateJSON = true;
 
-        $('#getTarefas').click(function(){
+        $('#getTarefa').click(function(){
             //OK - traz o dado filtrado
             //appRouter.findByWinTarefa('window_1002');
-
-
 
             myModel = new TarefaModel();
             myModel.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
 
-            /*
-            myModel.fetch({data: {idWinTarefa: 'window_1003'}}, {
-                        success: function(data) {
-                            console.log(JSON.stringify(data));
-                        }
-             });
-             */
-
-
+            //Aqui busca os dados filtrado pelo param idWinTarefa com o valor window_1002,
+            //é retornado o formato JSON e chamo o stringify para ver os dados num formato legível
+            //por fim faço um parse do JSON para poder recuperar os valores nos atributos
             myModel.fetch({data: {idWinTarefa: 'window_1002'}}).done(function () {
                 //console.log('myModel = ', myModel.toJSON());
                 console.log(JSON.stringify(myModel.toJSON(), '', '  '));
                 var contact = JSON.parse(JSON.stringify(myModel.toJSON(), '', '  '));
-                //console.log('nome = ', contact[0].nome);
-                console.log('codigo = ', contact[0].codigo);
-                console.log('nome = ', contact[0].nome);
-                console.log('duracao = ', contact[0].duracao);
-                console.log('dataInicio = ', contact[0].dataInicio);
-                console.log('dataEntrega = ', contact[0].dataEntrega);
-                console.log('dataTermino = ', contact[0].dataTermino);
-                console.log('idWinTarefa = ', contact[0].idWinTarefa);
 
+                if (contact != undefined && contact[0] != undefined) {
+                    console.log('codigo = ',        contact[0].codigo);
+                    console.log('nome = ',          contact[0].nome);
+                    console.log('duracao = ',       contact[0].duracao);
+                    console.log('dataInicio = ',    contact[0].dataInicio);
+                    console.log('dataEntrega = ',   contact[0].dataEntrega);
+                    console.log('dataTermino = ',   contact[0].dataTermino);
+                    console.log('idWinTarefa = ',   contact[0].idWinTarefa);
+                } else {
+                    console.log('Nenhum resultado foi encontrado com a pesquisa feita.');
+                }
             });
 
+        });//end of #getTarefas
+
+        //faz a busca de várias tarefas para um mesmo parâmetro
+        //mas tem que fazer o tratamento no JAVA, o %2C é a vírgula
+        // (http://stackoverflow.com/questions/6182356/what-is-2c-in-a-url)
+        $('#getTarefas').click(function(){
+            //OK - traz o dado filtrado
+            //appRouter.findByWinTarefa('window_1002');
+
+            myModel = new TarefaModel();
+            myModel.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
+
+            //Aqui busca os dados filtrado pelo param idWinTarefa com o valor window_1002,
+            //é retornado o formato JSON e chamo o stringify para ver os dados num formato legível
+            //por fim faço um parse do JSON para poder recuperar os valores nos atributos
+            myModel.fetch({data: {idWinTarefa: 'window_1001%2Cwindow_1002'}}).done(function () {
+                //console.log('myModel = ', myModel.toJSON());
+                console.log(JSON.stringify(myModel.toJSON(), '', '  '));
+                var contact = JSON.parse(JSON.stringify(myModel.toJSON(), '', '  '));
+
+                if (contact != undefined && contact[0] != undefined) {
+                    console.log('codigo = ',        contact[0].codigo);
+                    console.log('nome = ',          contact[0].nome);
+                    console.log('duracao = ',       contact[0].duracao);
+                    console.log('dataInicio = ',    contact[0].dataInicio);
+                    console.log('dataEntrega = ',   contact[0].dataEntrega);
+                    console.log('dataTermino = ',   contact[0].dataTermino);
+                    console.log('idWinTarefa = ',   contact[0].idWinTarefa);
+                } else {
+                    console.log('Nenhum resultado foi encontrado com a pesquisa feita.');
+                }
+            });
+
+        });//end of #getTarefas
+
+
+        $('#getTarefas2').click(function(){
+            //OK - traz o dado filtrado
+            //appRouter.findByWinTarefa('window_1002');
+
+            myModel = new TarefaModel();
+            myModel.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
+
+            var search_params = {
+                'key1': 'value1',
+                'idWinTarefa': 'window_1001%2Cwindow_1002',
+                'key2': 'value2',
+                'key3': 'value3',
+                'keyN': 'valueN'
+             };
+
+            //Aqui busca os dados filtrado por VÁRIOS PARÂMETROS,
+            //No server(java) vai gerar o seguinte JSON:
+            //{"key3":"value3","key2":"value2","key1":"value1","idWinTarefa":"window_1001%2Cwindow_1002","keyN":"valueN"}
+            //http://stackoverflow.com/questions/12315973/fetch-backbone-collection-with-search-parameters
+            myModel.fetch({data: $.param(search_params)}).done(function () {
+                //console.log('myModel = ', myModel.toJSON());
+                console.log(JSON.stringify(myModel.toJSON(), '', '  '));
+                var contact = JSON.parse(JSON.stringify(myModel.toJSON(), '', '  '));
+
+                if (contact != undefined && contact[0] != undefined) {
+                    console.log('codigo = ',        contact[0].codigo);
+                    console.log('nome = ',          contact[0].nome);
+                    console.log('duracao = ',       contact[0].duracao);
+                    console.log('dataInicio = ',    contact[0].dataInicio);
+                    console.log('dataEntrega = ',   contact[0].dataEntrega);
+                    console.log('dataTermino = ',   contact[0].dataTermino);
+                    console.log('idWinTarefa = ',   contact[0].idWinTarefa);
+                } else {
+                    console.log('Nenhum resultado foi encontrado com a pesquisa feita.');
+                }
+
+            });
 
         });//end of #getTarefas
 
@@ -390,8 +480,22 @@
                         <p>
                             <ul>
                                 <li><button type="button" id="criarTarefa">Criar Tarefa</button></li>
+                                <li><button type="button" id="getTarefa">Recuperar Tarefa</button></li>
                                 <li><button type="button" id="getTarefas">Recuperar Tarefas</button></li>
-                                <li><button type="button" id="showAllConn">Mostrar Todas Connections</button></li>
+                                <li><button type="button" id="getTarefas2">Recuperar Tarefas com Varios Params</button></li>
+                                <li>
+                                    <fieldset title="Novos Componentes">
+                                        <legend>Novos Componentes:</legend>
+                                            <input type="radio" name="cbxConnection" value="0" alt="Mostrar conexoes só do Source">Source
+                                            <input type="radio" name="cbxConnection" value="1" alt="Mostrar conexoes só do Target">Target
+                                            <input type="radio" name="cbxConnection" value="2" alt="Mostrar todas conexoes">Todas
+                                        <br>
+                                            <input type="text" id="nomeTarefaDiv" name="nomeTarefaDiv"><br/>
+                                            <button type="button" id="showAllConn">Mostrar Todas Connections</button><br>
+                                    </fieldset><br>
+
+                                </li>
+                                <li><button type="button" id="showConnPai">Mostrar Tarefa Pai</button></li>
                                 <li><button type="button" id="minimizar">Esconder</button></li>
                                 <li><button type="button" id="imprimir">Imprimir Hierarquia das Tarefas</button></li>
                                 <li><button type="button" id="imprimir2">Imprimir das Tarefas ja guardadas</button></li>

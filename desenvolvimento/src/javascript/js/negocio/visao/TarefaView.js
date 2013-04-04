@@ -110,34 +110,29 @@ var TarefaView = Backbone.View.extend({
 
         var that = this.model;
 
-        //if (this.model.isValid()) {
-            //params.contentType = 'application/json';
-            //params.data = JSON.stringify(model.toJSON());
-            //console.log('data = ' + params.data);
 
-            //http://www.jamesyu.org/2011/01/27/cloudedit-a-backbone-js-tutorial-by-example/
-            //http://localhost:8080/newproject/
-            //http://www.json.org/js.html
-            //http://backbonejs.org/#Model-save
-            //http://backbonejs.org/#Model-url
-            //http://documentcloud.github.com/backbone/docs/backbone.html
+
+        //http://www.jamesyu.org/2011/01/27/cloudedit-a-backbone-js-tutorial-by-example/
+        //http://localhost:8080/newproject/
+        //http://www.json.org/js.html
+        //http://backbonejs.org/#Model-save
+        //http://backbonejs.org/#Model-url
+        //http://documentcloud.github.com/backbone/docs/backbone.html
 
         this.model.save();
-            /*
-            this.model.save(details, {
-                success: function () {
-                    console.log('sucesso... this.model = ');
-                },
+        /*
+        this.model.save(details, {
+            success: function () {
+                console.log('sucesso... this.model = ');
+            },
 
-                error: function (model, errors) {
-                    console.log('erro = ');
-                    that.showErrors(errors);
-                }
+            error: function (model, errors) {
+                console.log('erro = ');
+                that.showErrors(errors);
+            }
 
-            });
-            */
-
-        //}
+        });
+        */
     },
 
     showError:function(model, error) {

@@ -23,6 +23,7 @@ var AppRouter = Backbone.Router.extend({
 
     /**
      * Carrega toda a lista do servidor e apresenta no body do browser
+     * Na primeira vez que entrar não vai trazer nada.
      */
     index: function(){
         console.log('router => index');

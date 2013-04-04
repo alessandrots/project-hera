@@ -1,6 +1,6 @@
 ;(function() {
 	var allDivTarefas = [], allConnToDetach = [], e1, e2;
-    var allDivHierarquias = [];
+    var allDivHierarquias = [], allTarefasConectadas = [], tarefasPai= [];
     var arvore = null;
     var referenciaPosicao = null;
 
@@ -52,7 +52,7 @@
             connectorHoverStyle:connectorHoverStyle,
             dragOptions:{},
             parameters:{
-                "II_TT":0
+                "II_TT":0 //0 define conexão TI
             },
             overlays:[
                 [ "Label", {
@@ -95,7 +95,7 @@
         connectorHoverStyle:connectorHoverStyle,
         dragOptions:{},
         parameters:{
-            "II_TT":1
+            "II_TT":1 //1 define conexão II
         },
         overlays:[
             [ "Label", {
@@ -119,7 +119,7 @@
         connectorHoverStyle:connectorHoverStyle,
         dragOptions:{},
         parameters:{
-            "II_TT":1
+            "II_TT":2 //2 define conexão TT
         },
         overlays:[
             [ "Label", {
@@ -132,7 +132,6 @@
 	
 
 	window.jsPlumbDemo = {
-
 
         /**
          * Criacao da Tarefa com base no id da tarefa(div)
@@ -170,9 +169,8 @@
 				//guardando as tarefas que foram conectadas				
 				if ($.inArray(idConector, allDivHierarquias) == -1){
 					allDivHierarquias.push(idConector)	;
-					//alert ('connection.sourceId = ' + connection.sourceId + ' - connection.targetId = ' + connection.targetId);
-					//connection.getOverlay("label").setLabel(connection.sourceId.substring(6) + "-" + connection.targetId.substring(6));
-
+					console.log ('connection.sourceId = ' + connection.sourceId
+                        + ' - connection.targetId = ' + connection.targetId);
 
                     if (arvore == null){
                         arvore = new Arvore();
@@ -230,7 +228,6 @@
             jsPlumb.bind("connectionDrag", function(connection) {
                 //console.log("connection " + connection.id + " is being dragged");
             });
-
 
             //Clicar na seta de conexão
             jsPlumb.bind("click", function(connection) {
@@ -391,32 +388,97 @@
         },
 
 
-        showAllConexoes : function() {
+        showAllConexoes : function(tipoEndpoint, nomeEndpoint) {
+            //var connectionList = jsPlumb.getConnections();
+            //var c = jsPlumb.getConnections({source:"mySourceElement"});
+            var connectionList = null;
+
+            console.log('escolha do radio = ', tipoEndpoint);
+            console.log('escolha do nome da tarefa = ', nomeEndpoint);
+
+            if (tipoEndpoint == 0) {
+                console.log('0');
+                connectionList = jsPlumb.getConnections({source:nomeEndpoint});
+            } else if (tipoEndpoint == 1) {
+                console.log('1');
+                connectionList = jsPlumb.getConnections({target:nomeEndpoint});
+            } else {
+                console.log('2');
+                connectionList = jsPlumb.getConnections();
+            }
+
+            //Endpoints
+            var endConnSource = null;
+            var endConnTarget = null;
+
+            if (connectionList != null && connectionList.length >0){
+                console.log(' connectionList = ' + connectionList);
+
+                for (var j = 0; j < connectionList.length; j++) {
+                    console.log(" *** NOVA CONEXÃO *** ");
+                    console.log(
+                        " conexoes id = " +  connectionList[j].id
+                            +  " sourceId = " + connectionList[j].sourceId
+                            +  " targetId = " + connectionList[j].targetId);
+
+                    console.log(
+                        " source x = " +  connectionList[j].endpoints[0].anchor.x
+                            +  " source y = " + connectionList[j].endpoints[0].anchor.y
+                            +  " source dx = " + connectionList[j].endpoints[0].anchor.getOrientation(connectionList[j].endpoints[0])[0]
+                            +  " source dy = " + connectionList[j].endpoints[0].anchor.getOrientation(connectionList[j].endpoints[0])[1]
+                            +  " source II_TT = " + connectionList[j].endpoints[0].getParameter("II_TT")
+                    );
+
+                    console.log(
+                        " target x = " +  connectionList[j].endpoints[1].anchor.x
+                            +  " target y = " + connectionList[j].endpoints[1].anchor.y
+                            +  " target dx = " + connectionList[j].endpoints[1].anchor.getOrientation(connectionList[j].endpoints[1])[0]
+                            +  " target dy = " + connectionList[j].endpoints[1].anchor.getOrientation(connectionList[j].endpoints[1])[1]
+                            +  " target II_TT = " + connectionList[j].endpoints[1].getParameter("II_TT")
+                    );
+
+                    //Endpoint de ORIGEM pertencene a conexao recuperada
+                    endConnSource = connectionList[j].endpoints[0];
+
+                    //Endpoint de DESTINO pertencene a conexao recuperada
+                    endConnTarget = connectionList[j].endpoints[1];
+                }
+            } else {
+                console.log(" NÃO TEM CONEXÃO NENHUMA. ");
+            }
+
+
+        },
+
+        /**
+         * Recupera todas as conexões existentes no modelo, guarda o nome das conexões num array.
+         * Estas conexões vão servir para, em outro método, descobrir qual é(quais são) a(s) tarefas PAI,
+         * ou seja aquelas que somente são origem.
+         */
+        recuperarTodasConexoes : function() {
             var connectionList = jsPlumb.getConnections();
 
             //Endpoints
             var endConnSource = null;
             var endConnTarget = null;
 
+            allTarefasConectadas = new Array();
+
             for (var j = 0; j < connectionList.length; j++) {
+                /*
                 console.log(" *** NOVA CONEXÃO *** ");
-                console.log(
-                       " conexoes id = " +  connectionList[j].id
-                    +  " sourceId = " + connectionList[j].sourceId
-                    +  " targetId = " + connectionList[j].targetId);
+                console.log(" conexoes id = " +  connectionList[j].id
+                        +  " sourceId = " + connectionList[j].sourceId
+                        +  " targetId = " + connectionList[j].targetId);
+                 */
 
-                console.log(
-                       " source x = " +  connectionList[j].endpoints[0].anchor.x
-                    +  " source y = " + connectionList[j].endpoints[0].anchor.y
-                    +  " source dx = " + connectionList[j].endpoints[0].anchor.getOrientation(connectionList[j].endpoints[0])[0]
-                    +  " source dy = " + connectionList[j].endpoints[0].anchor.getOrientation(connectionList[j].endpoints[0])[1]);
+                if ($.inArray(connectionList[j].sourceId, allTarefasConectadas) == -1) {
+                    allTarefasConectadas.push(connectionList[j].sourceId)
+                }
 
-                console.log(
-                       " target x = " +  connectionList[j].endpoints[1].anchor.x
-                    +  " target y = " + connectionList[j].endpoints[1].anchor.y
-                    +  " target dx = " + connectionList[j].endpoints[1].anchor.getOrientation(connectionList[j].endpoints[1])[0]
-                    +  " target dy = " + connectionList[j].endpoints[1].anchor.getOrientation(connectionList[j].endpoints[1])[1]
-                );
+                if ($.inArray(connectionList[j].targetId, allTarefasConectadas) == -1) {
+                    allTarefasConectadas.push(connectionList[j].targetId)
+                }
 
                 //Endpoint de ORIGEM pertencene a conexao recuperada
                 endConnSource = connectionList[j].endpoints[0];
@@ -424,6 +486,32 @@
                 //Endpoint de DESTINO pertencene a conexao recuperada
                 endConnTarget = connectionList[j].endpoints[1];
             }
+
+            console.log(" *** TOTAL CONEXões encontradas = *** ", allTarefasConectadas.length);
+        },
+
+        /**
+         * Função responsável por descobrir quais tarefas são PAI, ou seja somente são endpoint do tipo SOURCE.
+         *
+         * Não tem nenhuma connection bind chegando como destinho nela.
+         */
+        descobrirTarefaPai : function() {
+            var connectionList = null;
+
+            //recupera todas as conexões
+            this.recuperarTodasConexoes();
+
+            tarefasPai = new Array();
+
+            //verifica qual tarefa não é target de ninguém
+            for (var j = 0; j < allTarefasConectadas.length; j++) {
+                connectionList = jsPlumb.getConnections({target:allTarefasConectadas[j]});
+                if (connectionList != null && connectionList.length == 0){
+                    tarefasPai.push(allTarefasConectadas[j]);
+                }
+            }
+
+            return tarefasPai;
         },
 
 
