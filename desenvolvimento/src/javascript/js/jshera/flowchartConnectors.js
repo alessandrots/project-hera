@@ -1,6 +1,6 @@
 ;(function() {
 	var allDivTarefas = [], allConnToDetach = [], e1, e2;
-    var allDivHierarquias = [], allTarefasConectadas = [], tarefasPai= [];
+    var allDivHierarquias = [], allTarefasConectadas = []; //, tarefasPai= [];
     var arvore = null;
     var referenciaPosicao = null;
 
@@ -165,6 +165,15 @@
 			var init = function(connection) {
                  //id das janelas conectadas
                  var idConector = connection.sourceId + "_" + connection.targetId;
+
+                 console.log(" source = " + connection.sourceId +
+                             " target = " + connection.targetId +
+                             " II_TT  = " + connection.endpoints[0].getParameter("II_TT"));
+
+
+                 jsPlumbDemo.sincronizarNoServer(connection.sourceId,
+                                                 connection.targetId,
+                                                 connection.endpoints[0].getParameter("II_TT"));
 
 				//guardando as tarefas que foram conectadas				
 				if ($.inArray(idConector, allDivHierarquias) == -1){
@@ -501,7 +510,7 @@
             //recupera todas as conexões
             this.recuperarTodasConexoes();
 
-            tarefasPai = new Array();
+            var tarefasPai = new Array();
 
             //verifica qual tarefa não é target de ninguém
             for (var j = 0; j < allTarefasConectadas.length; j++) {
@@ -512,6 +521,105 @@
             }
 
             return tarefasPai;
+        },
+
+        /**
+         * Aqui é para fazer a sincronização automática de todo o modelo.
+         * @param tarefasRaiz
+         */
+        proverSincronizacao : function(tarefasRaiz) {
+            var connectionListTarget = null;
+            var novaTarefaRaiz = [];
+
+            if (tarefasRaiz != null && tarefasRaiz.length > 0) {
+                for (var j = 0; j < tarefasRaiz.length; j++) {
+                    console.log('proverSincronizacao >> tarefa PAI = ', tarefasRaiz[j]);
+
+                    //Recupera todas as conexões na qual ela é origem
+                    connectionListTarget = jsPlumb.getConnections({source:tarefasRaiz[j]});
+
+                    console.log('tamanho lista de targets = ',connectionListTarget.length);
+
+                    //se houver conexões de destino então elas serão percorridas
+                    if (connectionListTarget != null && connectionListTarget.length > 0){
+                        for (var k = 0; k < connectionListTarget.length; k++) {
+                            //vai chamar a sincronização que é a implementação da regra no server.
+                            /*
+                            this.sincronizarNoServer(connectionListTarget[k].sourceId,
+                                                     connectionListTarget[k].targetId,
+                                                     connectionListTarget[k].endpoints[0].getParameter("II_TT")
+                            );
+
+                             //                            novaTarefaRaiz = new Array();
+                             //                            novaTarefaRaiz.push(connectionListTarget[k].targetId);
+                             //                            this.proverSincronizacao(novaTarefaRaiz);
+
+                            */
+                            myModel = new TarefaModel();
+                            myModel.urlRoot = 'project/cadTarefas/sincronizarTarefas';
+
+                            var search_params = {
+                                'source': connectionListTarget[k].sourceId,
+                                'target': connectionListTarget[k].targetId,
+                                'tipoRelacionamentoLogico': connectionListTarget[k].endpoints[0].getParameter("II_TT")
+                            };
+
+                            var myTarget = connectionListTarget[k].targetId;
+
+                            //enviando VÁRIOS PARÂMETROS,
+                            myModel.fetch({data: $.param(search_params)}, {
+                                success: function() {
+                                    console.log('funcionou!!!');
+                                },
+                                error: function() {
+                                    console.log('se deu mal!!!');
+                                }
+                             }
+                            ).done(function () {
+                                /*
+                                    Aqui processa sincronamente
+                                 */
+                                novaTarefaRaiz = new Array();
+                                novaTarefaRaiz.push(myTarget);
+                                jsPlumbDemo.proverSincronizacao(novaTarefaRaiz);
+                            });
+
+
+                        }
+                    } else {
+                        return;
+                    }
+                }
+            } else {
+                return;
+            }
+        },
+
+        /**
+         * Aqui faz a sincronização no momento em que há um bind entre duas tarefas (divs)
+         *
+         * @param sourceId
+         * @param targetId
+         * @param tipoRelacionamentoLogico
+         */
+        sincronizarNoServer : function(sourceId, targetId, tipoRelacionamentoLogico) {
+//            Backbone.emulateJSON = true;
+            myModel = new TarefaModel();
+            myModel.urlRoot = 'project/cadTarefas/sincronizarTarefas';
+
+            console.log(' >>> sincronizarNoServer.');
+
+            var search_params = {
+                'source': sourceId,
+                'target': targetId,
+                'tipoRelacionamentoLogico': tipoRelacionamentoLogico
+            };
+
+            //enviando VÁRIOS PARÂMETROS,
+            myModel.fetch({data: $.param(search_params)}).done(function () {
+                /* */
+                console.log(' retorno... ');
+            });
         },
 
 

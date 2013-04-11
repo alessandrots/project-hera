@@ -56,6 +56,13 @@ function retornarProximoID(proximoID) {
     return proximoID;
 }
 
+/**
+ * Obtém a variable via get.
+ *
+ * @param variable
+ * @param tipoPesquisa
+ * @returns {string}
+ */
 function getQueryVariable(variable, tipoPesquisa) {
     var query = window.location.search.substring(1);
     console.log('window.location = ', window.location);

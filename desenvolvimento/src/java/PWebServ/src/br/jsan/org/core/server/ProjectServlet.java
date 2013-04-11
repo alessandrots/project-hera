@@ -185,7 +185,8 @@ public class ProjectServlet extends HttpServlet {
 			while (ite.hasNext()) {
 				String type = ite.next();
 				
-				if (!type.equalsIgnoreCase("model")){					
+				if (!type.equalsIgnoreCase("model")){
+					//TODO - tratar qdo vier vários valores por um parâmetro com %2C
 					mpAtributos.put(type, req.getParameter(type));
 				} else{
 					jSonGerado = req.getParameter(type);
@@ -212,12 +213,6 @@ public class ProjectServlet extends HttpServlet {
 				System.out.println(" map - param = " + type + " value = " + req.getParameter(type));	
 			}
 		}
-		
-//		Enumeration enums = req.getParameterNames();
-//		while (enums.hasMoreElements()) {
-//			String param = (String)enums.nextElement();
-//			System.out.println(" param = " + param + " value = " + req.getParameter(param));
-//		}
 	}
 	
 	private void enviarResposta(HttpServletResponse resp, String jsonObject) {

@@ -16,26 +16,11 @@
   <description>
      Test Servlet
   </description>
-
-  <!--
-  <servlet>
-    <servlet-name>engine</servlet-name>
-    <servlet-class>br.jsan.org.core.server.EngineServlet</servlet-class>
-  </servlet>
-  -->
   
   <servlet>
     <servlet-name>project</servlet-name>
     <servlet-class>br.jsan.org.core.server.ProjectServlet</servlet-class>
   </servlet>
-
-  <!-- Define the Manager Servlet Mapping -->
-  <!--
-  <servlet-mapping>
-    	<servlet-name>engine</servlet-name>
-        <url-pattern>/engine/*</url-pattern>
-  </servlet-mapping>
-  -->
   
   <servlet-mapping>
     	<servlet-name>project</servlet-name>

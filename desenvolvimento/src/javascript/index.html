@@ -156,6 +156,31 @@
               //Clique na tarefa para adicionar o nome no input
                $('#' + nomeTarefa).click(function(){
                    $('#id_window_tarefa').val(nomeTarefa);
+
+                   myModel = new TarefaModel();
+                   myModel.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
+
+                   //Aqui busca os dados filtrado pelo param idWinTarefa com o valor window_1002,
+                   //é retornado o formato JSON e chamo o stringify para ver os dados num formato legível
+                   //por fim faço um parse do JSON para poder recuperar os valores nos atributos
+                   myModel.fetch({data: {idWinTarefa: nomeTarefa}}).done(function () {
+                       //console.log('myModel = ', myModel.toJSON());
+                       console.log(JSON.stringify(myModel.toJSON(), '', '  '));
+                       var contact = JSON.parse(JSON.stringify(myModel.toJSON(), '', '  '));
+
+                       if (contact != undefined && contact[0] != undefined) {
+                           console.log('codigo = ',        contact[0].codigo);
+                           console.log('nome = ',          contact[0].nome);
+                           console.log('duracao = ',       contact[0].duracao);
+                           console.log('dataInicio = ',    contact[0].dataInicio);
+                           console.log('dataEntrega = ',   contact[0].dataEntrega);
+                           console.log('dataTermino = ',   contact[0].dataTermino);
+                           console.log('idWinTarefa = ',   contact[0].idWinTarefa);
+                       } else {
+                           console.log('Nenhum resultado foi encontrado com a pesquisa feita.');
+                       }
+                   });
+
                });
 			
 		     //Criando a tarefa
@@ -282,6 +307,14 @@
             }
         });
 
+
+        //sincronizacao
+        $('#sincronizacao').click(function() {
+            var tarefasPai =  jsPlumbDemo.descobrirTarefaPai();
+
+            jsPlumbDemo.proverSincronizacao(tarefasPai);
+        });
+
         //COMPONENTES BACKBONE
         var appRouter = new AppRouter();
         appRouter.start();
@@ -392,6 +425,8 @@
 
         });//end of #getTarefas
 
+
+
         //Backbone.js
         var tarefaView = new TarefaView();
 
@@ -496,7 +531,8 @@
 
                                 </li>
                                 <li><button type="button" id="showConnPai">Mostrar Tarefa Pai</button></li>
-                                <li><button type="button" id="minimizar">Esconder</button></li>
+                                <li><button type="button" id="sincronizacao">Sicroniza&ccedil;&atilde;o</button></li>
+                                <!-- <li><button type="button" id="minimizar">Esconder</button></li> -->
                                 <li><button type="button" id="imprimir">Imprimir Hierarquia das Tarefas</button></li>
                                 <li><button type="button" id="imprimir2">Imprimir das Tarefas ja guardadas</button></li>
 

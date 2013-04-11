@@ -162,6 +162,30 @@ var TarefaView = Backbone.View.extend({
             //$('#id_window_tarefa').val(this.nomeTarefa);
             console.log('tarefa criada e clicada = ', tarefaCurrent);
 
+            myModel = new TarefaModel();
+            myModel.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
+
+            //Aqui busca os dados filtrado pelo param idWinTarefa com o valor window_1002,
+            //é retornado o formato JSON e chamo o stringify para ver os dados num formato legível
+            //por fim faço um parse do JSON para poder recuperar os valores nos atributos
+            myModel.fetch({data: {idWinTarefa: tarefaCurrent}}).done(function () {
+                //console.log('myModel = ', myModel.toJSON());
+                console.log(JSON.stringify(myModel.toJSON(), '', '  '));
+                var contact = JSON.parse(JSON.stringify(myModel.toJSON(), '', '  '));
+
+                if (contact != undefined && contact[0] != undefined) {
+                    console.log('codigo = ',        contact[0].codigo);
+                    console.log('nome = ',          contact[0].nome);
+                    console.log('duracao = ',       contact[0].duracao);
+                    console.log('dataInicio = ',    contact[0].dataInicio);
+                    console.log('dataEntrega = ',   contact[0].dataEntrega);
+                    console.log('dataTermino = ',   contact[0].dataTermino);
+                    console.log('idWinTarefa = ',   contact[0].idWinTarefa);
+                } else {
+                    console.log('Nenhum resultado foi encontrado com a pesquisa feita.');
+                }
+            });
+
         });
 
         //Criando a tarefa

@@ -35,7 +35,9 @@
             //documents.fetch({data: {page: 3}})
             //postList.model = new PostModel(id: 1);
             postList.fetch();
-            */
+             */
+
+            //Utilizacao do router para carregar a listagem e chamar os links
             var appRouter = new AppRouter();
             appRouter.start();
 
@@ -76,8 +78,6 @@ $('#sampleArea').append(rendered); o html renderizado será colocado na definiç
     <table border="1" bordercolor="red" cellpadding="1" cellspacing="1">
         <tr>
             <!-- ver http://thomasdavis.github.com/2011/02/07/making-a-restful-ajax-app.html -->
-            <!-- <td> <a href="#?title={{title}}" id="remove-button">Remover este Post</a> </td> -->
-            <!-- <td> <a href="#findByName/{{title}}" id="remove-button">Remover este Post</a> </td>  -->
             <td> <a href="#findByName/{{title}}">Remover este Post</a> </td>
             <td> <h2>{{title}} &nbsp;</h2> </td>
             <td>{{text}} </td>

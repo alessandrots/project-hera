@@ -4,7 +4,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import br.jsan.org.app.dao.TarefaDao;
@@ -12,9 +15,17 @@ import br.jsan.org.app.domain.Tarefa;
 import br.jsan.org.app.model.TesteModel;
 import br.jsan.org.app.presenter.TarefaPresenter;
 import br.jsan.org.core.EngineJson;
+import br.jsan.org.core.utils.Utils;
 
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * TODO
+ * Pensar em transferir toda a regra negocial aqui para uma classe BO, ou um facade. O serviço vai ser só porta de entrada.
+ * TODO
+ * @author alessandrots
+ *
+ */
 public class TarefaService extends ServiceImpl<TarefaPresenter> {
 	//TODO - via spring 
 	private TarefaDao tarefaDao;
@@ -197,6 +208,123 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 		}
 		
 		return listaRetorno;
+	}
+	
+	@ClasseNegocial(negocial=true)
+	public void sincronizarTarefas(TarefaPresenter pPresenter) {
+		//
+		System.out.println(" source = " + pPresenter.getSource());
+		TarefaPresenter presenterSource = recuperarTarefaPorWinTarefa(pPresenter.getSource());
+		
+		System.out.println(" target = " + pPresenter.getTarget());
+		TarefaPresenter presenterTarget = recuperarTarefaPorWinTarefa(pPresenter.getTarget());
+		
+		System.out.println(" TipoRelacionamentoLogico = " + pPresenter.getTipoRelacionamentoLogico());
+		
+		Integer tipoRelacionamento = Integer.parseInt(pPresenter.getTipoRelacionamentoLogico());
+		
+		switch (tipoRelacionamento) {
+			case 0://Constante.TIPO_RELACIONAMENTO_LOGICO_TI.intValue()
+				atualizarRelacionamentoTerminoInicio(presenterSource, presenterTarget);
+			break;
+			
+			case 1://Constante.TIPO_RELACIONAMENTO_LOGICO_II.intValue()
+				atualizarRelacionamentoInicioInicio(presenterSource, presenterTarget);
+			break;
+			
+			case 2://Constante.TIPO_RELACIONAMENTO_LOGICO_IT.intValue()
+				atualizarRelacionamentoInicioTermino(presenterSource, presenterTarget);
+			break;
+			
+			case 3://Constante.TIPO_RELACIONAMENTO_LOGICO_TT.intValue()
+				atualizarRelacionamentoTerminoTermino(presenterSource, presenterTarget);
+			break;
+
+			default: //lançar exceção TODO
+			break;
+		}
+		
+	}
+	
+	private void atualizarRelacionamentoTerminoTermino(TarefaPresenter presenterSource, TarefaPresenter presenterTarget) {
+		// TODO Auto-generated method stub		
+	}
+
+	private void atualizarRelacionamentoInicioTermino(TarefaPresenter presenterSource, TarefaPresenter presenterTarget) {
+		// TODO Auto-generated method stub		
+	}
+
+	private void atualizarRelacionamentoInicioInicio(TarefaPresenter presenterSource, TarefaPresenter presenterTarget) {
+		// TODO Auto-generated method stub		
+	}
+
+	/**
+	 * Calculando as datas após a ligação entre uma Tarefa de Origem e de Destino.
+	 * 
+	 * @param presenterTarefaOrigem
+	 * @param presenterTarefaDestino
+	 */
+	private void atualizarRelacionamentoTerminoInicio(TarefaPresenter presenterTarefaOrigem, TarefaPresenter presenterTarefaDestino) {
+		//CALCULANDO AS DATAS DA TAREFA DE ORIGEM
+		Calendar calDataInicioTarefaOrigem = GregorianCalendar.getInstance();
+		String[] dataInicioPartes = Utils.getInstance().quebrarDataEmPartes(presenterTarefaOrigem.getDataInicio());
+		
+		//Recuperando a data de início e duração na Tarefa de Origem
+		int duracaoTarefaOrigemDataInicio = Integer.parseInt(presenterTarefaOrigem.getDuracao());
+		calDataInicioTarefaOrigem.set(Integer.parseInt(dataInicioPartes[2]), 
+									  Integer.parseInt(dataInicioPartes[1]), 
+									  Integer.parseInt(dataInicioPartes[0]), 
+									  0, 0, 0);
+		Date dataInicioOrigem = calDataInicioTarefaOrigem.getTime();
+		
+		//Criando a data fim baseado na data início
+		Date dataTerminoOrigem = new Date(dataInicioOrigem.getTime()); 
+		Calendar calDataTerminoTarefaOrigem = GregorianCalendar.getInstance();
+		calDataTerminoTarefaOrigem.setTime(dataTerminoOrigem);
+		
+		//Recalculando a data fim da origem (a data fim = dataInicio + duração -1)		
+		calDataTerminoTarefaOrigem.add(Calendar.DATE, duracaoTarefaOrigemDataInicio-1);		
+		
+		//Atualizando as datas na Tarefa de Origem
+		presenterTarefaOrigem.setDataTermino(Utils.getInstance().transformarDateToString(calDataTerminoTarefaOrigem.getTime()));
+		
+		
+		//CALCULANDO AS DATAS DA TAREFA DE DESTINO
+		
+		//A data de inicio da tarefa de destino é (dataInicioOrigem + duracaoTarefaOrigem)
+		Calendar calDataInicioTarefaDestino = GregorianCalendar.getInstance();
+		calDataInicioTarefaDestino.setTime(dataInicioOrigem);		
+		calDataInicioTarefaDestino.add(Calendar.DATE, duracaoTarefaOrigemDataInicio);
+		
+		int duracaoTarefaDestinoDataInicio = Integer.parseInt(presenterTarefaDestino.getDuracao());
+		Date dataInicioDestino = calDataInicioTarefaDestino.getTime();
+		
+		//Criando a data fim baseado na data início
+		Calendar calDataTerminoTarefaDestino = GregorianCalendar.getInstance();
+		Date dataTerminoDestino = new Date(dataInicioDestino.getTime()); 
+		calDataTerminoTarefaDestino.setTime(dataTerminoDestino);
+		
+		//Recalculando a data fim da origem (a data fim = dataInicio + duração -1)		
+		calDataTerminoTarefaDestino.add(Calendar.DATE, duracaoTarefaDestinoDataInicio-1);		
+		
+		//Atualizando as datas (inicio e fim) na Tarefa de Destino
+		presenterTarefaDestino.setDataInicio(Utils.getInstance().transformarDateToString(calDataInicioTarefaDestino.getTime()));
+		presenterTarefaDestino.setDataTermino(Utils.getInstance().transformarDateToString(calDataTerminoTarefaDestino.getTime()));		
+	}
+
+	private TarefaPresenter recuperarTarefaPorWinTarefa(String idWinTarefa) {
+		TarefaPresenter presenter = null;
+		
+		if (this.lista != null && this.lista.size() > 0){
+			loop:for (TarefaPresenter presenterAtual : this.lista) {
+				if (presenterAtual.getIdWinTarefa().equalsIgnoreCase(idWinTarefa)) {
+					presenter = presenterAtual;
+					break loop;
+				}
+			}
+		}
+		
+		return presenter;
 	}
 
 	@Override

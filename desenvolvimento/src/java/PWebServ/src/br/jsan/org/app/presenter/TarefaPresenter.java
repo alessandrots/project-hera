@@ -16,6 +16,11 @@ public class TarefaPresenter extends PresenterImpl {
 	private String dataTermino;
 	private String idWinTarefa;
 	
+	private String source;
+	private String target;
+	private String tipoRelacionamentoLogico;
+	
+	
 	/**
 	 * @return the codigo
 	 */
@@ -100,6 +105,44 @@ public class TarefaPresenter extends PresenterImpl {
 	public void setIdWinTarefa(String idWinTarefa) {
 		this.idWinTarefa = idWinTarefa;
 	}
+	/**
+	 * @return the source
+	 */
+	public String getSource() {
+		return source;
+	}
+	/**
+	 * @param source the source to set
+	 */
+	public void setSource(String source) {
+		this.source = source;
+	}
+	/**
+	 * @return the target
+	 */
+	public String getTarget() {
+		return target;
+	}
+	/**
+	 * @param target the target to set
+	 */
+	public void setTarget(String target) {
+		this.target = target;
+	}
+	/**
+	 * @return the tipoRelacionamentoLogico
+	 */
+	public String getTipoRelacionamentoLogico() {
+		return tipoRelacionamentoLogico;
+	}
+	/**
+	 * @param tipoRelacionamentoLogico the tipoRelacionamentoLogico to set
+	 */
+	public void setTipoRelacionamentoLogico(String tipoRelacionamentoLogico) {
+		this.tipoRelacionamentoLogico = tipoRelacionamentoLogico;
+	}
+	
+	
 	
 	 
 }
