@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"	
+	xsi:schemaLocation=
+		"http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+		
+	<!-- 
+		O DataSource da aplicação.
+		Neste caso, este só deve ser usado em ambiente de desenvolvimento, pois não nos
+		oferece um pool de conexões.
+		
+		A cada chamada ao método getConnection() do bean obtido uma nova conexão é obtida.
+		
+		this("jdbc:postgresql://localhost:5432/outline", "outline", "jv121206", "org.postgresql.Driver");
+	 -->
+	 
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="username" value="outline"/>
+		<property name="password" value="jv121206"/>
+		<property name="driverClassName" value="org.postgresql.Driver"/>
+		<property name="url" value="jdbc:postgresql://localhost:5432/outline"/>
+	</bean>
+	
+	
+	<!-- DataSource usando um pool C3P0 -->
+	<!-- 
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		
+		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
+		<property name="user" value="sf"/>
+		<property name="password" value="sf"/>
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/spring_forum"/>
+		
+		<property name="maxPoolSize" value="10"/>
+		<property name="acquireIncrement" value="1"/>
+		<property name="maxIdleTime" value="120"/>
+		<property name="acquireRetryAttempts" value="10"/>
+		<property name="initialPoolSize" value="1"/>
+			  
+	</bean>
+	 -->
+	
+	<!-- 
+		O SessionFactory do Hibernate.
+		Repare que é do Hibernate 4
+	 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+		
+		<property name="annotatedClasses">
+			<array>
+			    <!--
+				<value>br.com.itexto.springforum.entidades.Usuario</value>
+				<value>br.com.itexto.springforum.entidades.PermissaoUsuario</value>
+				<value>br.com.itexto.springforum.entidades.Assunto</value>
+				<value>br.com.itexto.springforum.entidades.Topico</value>
+				-->
+				<value>com.outline.org.app.domain.Tarefa</value>
+			</array>
+		</property>
+		
+	</bean>
+	<tx:advice transaction-manager="transactionManager" id="txAdvice">
+		<tx:attributes>
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.outline.org.app.dao.*Dao.*(..))"/>
+	</aop:config>
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<aop:aspectj-autoproxy/>
+	
+</beans>

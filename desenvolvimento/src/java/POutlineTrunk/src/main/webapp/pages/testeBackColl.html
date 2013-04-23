@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<!--
+//http://stackoverflow.com/questions/8844345/creating-a-backbone-view-for-a-collection
+//http://stackoverflow.com/questions/11574756/bind-a-collection-to-a-model-in-backbone
+-->
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Backbone COLLECTION</title>
+
+    <script src="../js/jquery/jquery-1.8.3.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/backbone/underscore.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/backbone/mustache.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/backbone/backbone.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="../js/mvc/PostModel.js"></script>
+    <script src="../js/mvc/PostView.js"></script>
+    <script src="../js/mvc/PostCollectionView.js"></script>
+    <script src="../js/mvc/PostCollection.js"></script>
+    <script src="../js/mvc/util.js"></script>
+    <script src="../js/mvc/router.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            /*
+            var postList = new PostList();
+            //TODO - definir o contextPath numa variável para ser lida em runtime, no caso aqui newproject
+            //se passar uma nova url, executa a url, senão, executa a url default q está definida no PostList
+            postList.url = '/newproject/project/cadTarefas/recuperarListaTeste2';
+
+            var postCollectionView = new PostCollectionView({collection:postList});
+
+            //fazer o teste passando um parâmetros no fetch()... e ver como chega no java...
+            //na documentação é algo assim {data:{coisa:'tal'}}
+            //documents.fetch({data: {page: 3}})
+            //postList.model = new PostModel(id: 1);
+            postList.fetch();
+             */
+
+            //Utilizacao do router para carregar a listagem e chamar os links
+            var appRouter = new AppRouter();
+            appRouter.start();
+
+            Backbone.emulateHTTP = true;
+            Backbone.emulateJSON = true
+        });
+
+    </script>
+</head>
+
+<body>
+
+<!--
+AQUI VAI MOSTRAR TODO O CONTEÚDO RECUPERADO DA COLEÇÃO
+1) Aqui funciona lá na view chamando dentro do método addOne, da seguinte forma:
+$('#sampleArea').append(rendered); o html renderizado será colocado na definição da div acima
+
+<div id="sampleArea"></div>
+<script type="text/template" id="post-template">
+        <p>
+            <a href="#" id="remove-button">Remover este Post</a>
+        </p>
+        <h2>{{title}} &nbsp; <a href="#" id="teste"> Remover este Post</a></h2>
+        <p>{{text}}</p>
+</script>
+
+2) Agora, da forma como está, estou jogando o conteúdo dentro do body mesmo utiliando  o 'el'.
+ el: ('body'),
+ ...
+ dentro do addOne:
+ var rendered = Mustache.to_html(this.template, modelItem.toJSON());
+ this.$el.append(rendered);
+
+-->
+
+
+<script type="text/template" id="post-template">
+    <table border="1" bordercolor="red" cellpadding="1" cellspacing="1">
+        <tr>
+            <!-- ver http://thomasdavis.github.com/2011/02/07/making-a-restful-ajax-app.html -->
+            <td> <a href="#findByName/{{title}}">Remover este Post</a> </td>
+            <td> <h2>{{title}} &nbsp;</h2> </td>
+            <td>{{text}} </td>
+        </tr>
+    </table>
+    <!--
+    <p>
+        <a href="#?title={{title}}" id="remove-button">Remover este Post</a><br>
+        <h2>{{title}} &nbsp; <a href="#" id="teste"> Teste</a></h2><br>
+        {{text}}
+    </p>
+    <br><br>
+    -->
+</script>
+
+</body>
+</html>
+
