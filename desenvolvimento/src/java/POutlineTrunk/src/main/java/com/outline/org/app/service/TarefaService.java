@@ -6,6 +6,8 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.google.gson.reflect.TypeToken;
 import com.outline.org.app.domain.Tarefa;
@@ -15,19 +17,18 @@ import com.outline.org.app.presenter.TesteModel;
 import com.outline.org.util.EngineJson;
 
 /**
- * TODO
- * Pensar em transferir toda a regra negocial aqui para uma classe BO, ou um facade. O serviço vai ser só porta de entrada.
- * TODO
+ * 
  * @author alessandrots
  *
  */
+@Component("cadTarefas")
 public class TarefaService extends ServiceImpl<TarefaPresenter> {
-	//TODO - via spring 
+	@Autowired	 
 	private TarefaFacade tarefaFacade;
 	
 
 	public TarefaService() {
-		tarefaFacade = new TarefaFacade();
+		//tarefaFacade = new TarefaFacade();
 	}
 
 	@Override
@@ -82,7 +83,7 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 	}
 	
 	@ClasseNegocial(negocial=true)
-	public List<Tarefa> recuperarPorChave(Integer chave) {
+	public Tarefa recuperarPorChave(Long chave) {
 		return this.tarefaFacade.recuperarPorChave(chave);
 	}
 	
@@ -138,5 +139,11 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 	public Type getTypeToken() {
 		return new TypeToken<TarefaPresenter>() {}.getType();
 	}
+	
+	public void setTarefaFacade(TarefaFacade tarefaFacade) {
+		this.tarefaFacade = tarefaFacade;
+	}
+	
+	
 	
 }

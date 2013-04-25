@@ -8,13 +8,10 @@ import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-
 
 import com.google.gson.Gson;
 import com.outline.org.app.presenter.IPresenter;
 
-@Service
 public abstract class ServiceImpl<T> implements IService {
 	
 	private Object[] parametrosExecucao;
@@ -64,6 +61,13 @@ public abstract class ServiceImpl<T> implements IService {
 		//Método abstrato - Carregando o respectivo Presenter via TypeToken na  classe filha
 		typeObj = getTypeToken();
 		
+		/**
+		 * TODO para quando vir null criar um objeto sem nada
+		 * 
+		 * Se os dados de requisição vierem nulo, então cria um método, de repente abstrato, que retorna,
+		 * uma instância do Presenter.
+		 * 
+		 */
 		t = gson.fromJson(dadosRequisicao, typeObj);
 		
 		return t;
@@ -119,15 +123,15 @@ public abstract class ServiceImpl<T> implements IService {
 		}
 	}
 	
-	private Object[] gerarArrayDeParametros(Object... x) { 
-		Object[] arrParametros = null;
-		
-		if (x != null && x.length > 0){
-			arrParametros = x;
-		}
-		
-		return arrParametros;
-	}
+//	private Object[] gerarArrayDeParametros(Object... x) { 
+//		Object[] arrParametros = null;
+//		
+//		if (x != null && x.length > 0){
+//			arrParametros = x;
+//		}
+//		
+//		return arrParametros;
+//	}
 	
 	public void setClasse(Class<T> classe) {
 		this.classe = classe;

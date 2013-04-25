@@ -12,7 +12,7 @@ import java.util.List;
 
 
 import com.google.gson.reflect.TypeToken;
-import com.outline.org.app.dao.TarefaDao;
+import com.outline.org.app.dao.TarefaDAO;
 import com.outline.org.app.domain.Tarefa;
 import com.outline.org.app.presenter.TarefaPresenter;
 import com.outline.org.app.presenter.TesteModel;
@@ -21,12 +21,12 @@ import com.outline.org.util.Utils;
 
 public class TarefaServiceTemp extends ServiceImpl<TarefaPresenter> {
 	//TODO - via spring 
-	private TarefaDao tarefaDao;
+	private TarefaDAO tarefaDao;
 	
 	private List<TarefaPresenter> lista;
 
 	public TarefaServiceTemp() {
-		tarefaDao = new TarefaDao();
+		tarefaDao = new TarefaDAO();
 	}
 
 	@Override
@@ -84,15 +84,15 @@ public class TarefaServiceTemp extends ServiceImpl<TarefaPresenter> {
 		
 	}
 	
-	@ClasseNegocial(negocial=true)
-	public List<Tarefa> recuperarTodos() {
-		return tarefaDao.obterTodasTarefas();
-	}
-	
-	@ClasseNegocial(negocial=true)
-	public List<Tarefa> recuperarPorChave(Integer chave) {
-		return tarefaDao.obterTodasTarefas();
-	}
+//	@ClasseNegocial(negocial=true)
+//	public List<Tarefa> recuperarTodos() {
+//		return tarefaDao.obterTodasTarefas();
+//	}
+//	
+//	@ClasseNegocial(negocial=true)
+//	public List<Tarefa> recuperarPorChave(Integer chave) {
+//		return tarefaDao.obterTodasTarefas();
+//	}
 	
 	@ClasseNegocial(negocial=true)
 	public List<TesteModel> recuperarListaTeste() {

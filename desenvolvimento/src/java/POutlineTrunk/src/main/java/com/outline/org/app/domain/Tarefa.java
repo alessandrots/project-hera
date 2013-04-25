@@ -1,31 +1,44 @@
 package com.outline.org.app.domain;
 
-import java.sql.Timestamp;
+import java.io.Serializable;
 
-public class Tarefa implements Domain {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+
+@Entity 
+@Table(name="negocio.tb_tarefa")
+public class Tarefa implements Comparable<Tarefa>, Serializable ,Domain {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5652715197735231887L;
 	
-	private Integer codigo;
-	private String nome;
-	private Integer duracao;
-	private Timestamp dataInicio;
-	private Timestamp dataEntrega;
-	private Timestamp dataTermino;
+	@Id @Generated(GenerationTime.INSERT) 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="icodigo", nullable=false) 
+	private Long codigo;
 	
+	@Column(name="snome", nullable=false, length=80)
+	private String nome;	
+
 	/**
 	 * @return the codigo
 	 */
-	public Integer getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
 	/**
 	 * @param codigo the codigo to set
 	 */
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 	/**
@@ -40,56 +53,13 @@ public class Tarefa implements Domain {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	/**
-	 * @return the dataInicio
-	 */
-	public Timestamp getDataInicio() {
-		return dataInicio;
-	}
-	/**
-	 * @param dataInicio the dataInicio to set
 	
-	
-	
-	 */
-	public void setDataInicio(Timestamp dataInicio) {
-		this.dataInicio = dataInicio;
+	public int compareTo(Tarefa o) {
+		if (o instanceof Tarefa) {
+			return getNome().compareTo(o.getNome());
+		} else {
+			return 0;
+		}
 	}
-	/**
-	 * @return the dataFim
-	 */
-	public Timestamp getDataEntrega() {
-		return dataEntrega;
-	}
-	/**
-	 * @param dataFim the dataFim to set
-	 */
-	public void setDataEntrega(Timestamp dataFim) {
-		this.dataEntrega = dataFim;
-	}
-	/**
-	 * @return the dataTermino
-	 */
-	public Timestamp getDataTermino() {
-		return dataTermino;
-	}
-	/**
-	 * @param dataTermino the dataTermino to set
-	 */
-	public void setDataTermino(Timestamp dataTermino) {
-		this.dataTermino = dataTermino;
-	}
-	/**
-	 * @return the duracao
-	 */
-	public Integer getDuracao() {
-		return duracao;
-	}
-	/**
-	 * @param duracao the duracao to set
-	 */
-	public void setDuracao(Integer duracao) {
-		this.duracao = duracao;
-	}	
 	
 }

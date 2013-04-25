@@ -6,25 +6,27 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.outline.org.app.dao.TarefaDao;
+import com.outline.org.app.dao.TarefaDAO;
 import com.outline.org.app.domain.Tarefa;
 import com.outline.org.app.presenter.TarefaPresenter;
 import com.outline.org.app.presenter.TesteModel;
 import com.outline.org.util.Utils;
 
-@Component
+@Component("tarefaFacade")
 public class TarefaFacade {
 
 	//TODO - mudar para o domain Tarefa
 	private List<TarefaPresenter> lista;
 	
-	private TarefaDao tarefaDao;
+	@Autowired
+	private TarefaDAO tarefaDao;
 	
 	public TarefaFacade() {
 		super();
-		tarefaDao = new TarefaDao();
+//		tarefaDao = new TarefaDao();
 	}
 
 
@@ -45,17 +47,15 @@ public class TarefaFacade {
 			}
 			this.lista.add(presenter);
 		}
-		
 	}
-	
 	
 	public List<Tarefa> recuperarTodos() {
-		return tarefaDao.obterTodasTarefas();
+		return tarefaDao.recuperarTodos();
 	}
 	
 	
-	public List<Tarefa> recuperarPorChave(Integer chave) {
-		return tarefaDao.obterTodasTarefas();
+	public Tarefa recuperarPorChave(Long chave) {
+		return tarefaDao.recuperarPorChave(chave);
 	}
 	
 	
@@ -286,4 +286,9 @@ public class TarefaFacade {
 		
 		return presenter;
 	}
+	
+	public void setTarefaDao(TarefaDAO tarefaDao) {
+		this.tarefaDao = tarefaDao;
+	}
+	
 }

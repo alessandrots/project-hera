@@ -18,13 +18,13 @@
   </description>
   
   <servlet>
-    <servlet-name>project</servlet-name>
-    <servlet-class>br.jsan.org.core.server.ProjectServlet</servlet-class>
+    <servlet-name>newproject</servlet-name>
+    <servlet-class>com.outline.org.core.server.ProjectServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-    	<servlet-name>project</servlet-name>
-        <url-pattern>/project/*</url-pattern>
+    	<servlet-name>newproject</servlet-name>
+        <url-pattern>/newproject/*</url-pattern>
   </servlet-mapping>
   
   <listener>

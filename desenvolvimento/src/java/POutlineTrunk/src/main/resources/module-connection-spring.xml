@@ -11,6 +11,8 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<context:annotation-config />
 		
 	<!-- 
 		O DataSource da aplicação.
@@ -63,25 +65,22 @@
 		
 		<property name="annotatedClasses">
 			<array>
-			    <!--
-				<value>br.com.itexto.springforum.entidades.Usuario</value>
-				<value>br.com.itexto.springforum.entidades.PermissaoUsuario</value>
-				<value>br.com.itexto.springforum.entidades.Assunto</value>
-				<value>br.com.itexto.springforum.entidades.Topico</value>
-				-->
 				<value>com.outline.org.app.domain.Tarefa</value>
 			</array>
 		</property>
 		
 	</bean>
+	
 	<tx:advice transaction-manager="transactionManager" id="txAdvice">
 		<tx:attributes>
 			<tx:method name="*"/>
 		</tx:attributes>
 	</tx:advice>
+	
 	<aop:config>
-		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.outline.org.app.dao.*Dao.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.outline.org.app.dao.*DAO.*(..))"/>
 	</aop:config>
+	
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>

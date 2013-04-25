@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONValue;
 
 import com.outline.org.app.service.IService;
-import com.outline.org.app.service.TarefaService;
 
 /**
  * TODO - botar o projeto todo no padrão maven e colocar as dependências.
@@ -106,13 +105,25 @@ public class ProjectServlet extends HttpServlet {
 	private IService carregarServico(String path) {
 		IService servico = null;
 		
-		//TODO atualização via Spring - pensar como fazer.
-		if (mapaServicos.containsKey(path)){
-			servico = mapaServicos.get("cadTarefas");
-		} else if (path != null && path.contains("cadTarefas")){
-			servico = new TarefaService();
-			mapaServicos.put("cadTarefas", servico);
+		SpringManager.getInstancia().setServletContext(getServletContext());
+		
+		if (path != null && !path.equals("")){
+			String[] arrayPath = path.split("/");
+			
+			String defServico = arrayPath[0];
+			
+			if (mapaServicos.containsKey(path)){
+				servico = mapaServicos.get(defServico);
+			} else if (path != null && path.contains(defServico)){
+//			servico = new TarefaService();
+				servico = SpringManager.getInstancia().getBean(defServico);
+				
+				if (servico != null){
+					mapaServicos.put(defServico, servico);
+				}
+			}
 		}
+		
 		
 		return servico;
 	}
