@@ -14,8 +14,7 @@ public class TarefaPresenter extends PresenterImpl {
 	private String dataInicio;
 	private String dataEntrega;
 	private String dataTermino;
-	private String idWinTarefa;
-	
+	private String idWinTarefa;	
 	private String source;
 	private String target;
 	private String tipoRelacionamentoLogico;

@@ -18,15 +18,14 @@ import com.outline.org.util.Utils;
 @Component("tarefaFacade")
 public class TarefaFacade {
 
-	//TODO - mudar para o domain Tarefa
-	private List<TarefaPresenter> lista;
-	
 	@Autowired
-	private TarefaDAO tarefaDao;
+	private TarefaDAO tarefaDAO;
+	
+	//TODO - mudar para o domain Tarefa
+	private List<TarefaPresenter> lista;	
 	
 	public TarefaFacade() {
 		super();
-//		tarefaDao = new TarefaDao();
 	}
 
 
@@ -50,12 +49,12 @@ public class TarefaFacade {
 	}
 	
 	public List<Tarefa> recuperarTodos() {
-		return tarefaDao.recuperarTodos();
+		return tarefaDAO.recuperarTodos();
 	}
 	
 	
 	public Tarefa recuperarPorChave(Long chave) {
-		return tarefaDao.recuperarPorChave(chave);
+		return tarefaDAO.recuperarPorChave(chave);
 	}
 	
 	
@@ -287,8 +286,8 @@ public class TarefaFacade {
 		return presenter;
 	}
 	
-	public void setTarefaDao(TarefaDAO tarefaDao) {
-		this.tarefaDao = tarefaDao;
+	public void setTarefaDAO(TarefaDAO tarefaDao) {
+		this.tarefaDAO = tarefaDao;
 	}
 	
 }

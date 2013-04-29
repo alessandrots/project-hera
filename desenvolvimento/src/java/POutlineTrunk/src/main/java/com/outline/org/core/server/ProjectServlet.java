@@ -200,6 +200,7 @@ public class ProjectServlet extends HttpServlet {
 					//TODO - tratar qdo vier vários valores por um parâmetro com %2C
 					mpAtributos.put(type, req.getParameter(type));
 				} else{
+					//vem do atributo de request -> model
 					jSonGerado = req.getParameter(type);
 				}
 			}

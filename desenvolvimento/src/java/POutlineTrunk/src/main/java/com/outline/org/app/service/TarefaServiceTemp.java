@@ -340,4 +340,12 @@ public class TarefaServiceTemp extends ServiceImpl<TarefaPresenter> {
 		return new TypeToken<TarefaPresenter>() {}.getType();
 	}
 
+	@Override
+	public String gerarDadosRequisicaoDefault() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
 }

@@ -143,6 +143,26 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 	public void setTarefaFacade(TarefaFacade tarefaFacade) {
 		this.tarefaFacade = tarefaFacade;
 	}
+
+	@Override
+	public String gerarDadosRequisicaoDefault() {
+		StringBuffer default_ = new StringBuffer();
+		
+		default_.append("{");
+		default_.append("'codigo': '0',");
+		default_.append("'nome': '',");
+		default_.append("'duracao': '',");
+		default_.append("'dataInicio': '',");
+		default_.append("'dataEntrega': '',");
+		default_.append("'dataTermino': '',");
+		default_.append("'idWinTarefa': '',");
+		default_.append("'source': '',");
+		default_.append("'target': '',");
+		default_.append("'tipoRelacionamentoLogico': ''");
+		default_.append("}");
+
+		return default_.toString();
+	}
 	
 	
 	

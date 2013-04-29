@@ -37,6 +37,7 @@ public abstract class ServiceImpl<T> implements IService {
 		this.parametrosExecucao = null;
 		
 		//Cria o objeto Presenter relacionado com a classe Servico e de acordo com o JSon passado.
+		//Este json é preenchido na servlet -> servico.setJSon(dados);
 		this.presenter = criarPresenterDeAcordoComUrl(getJSon());
 		
 //		Object[] parametrosMetodo = new Object[1];
@@ -61,17 +62,18 @@ public abstract class ServiceImpl<T> implements IService {
 		//Método abstrato - Carregando o respectivo Presenter via TypeToken na  classe filha
 		typeObj = getTypeToken();
 		
-		/**
-		 * TODO para quando vir null criar um objeto sem nada
-		 * 
-		 * Se os dados de requisição vierem nulo, então cria um método, de repente abstrato, que retorna,
-		 * uma instância do Presenter.
-		 * 
-		 */
-		t = gson.fromJson(dadosRequisicao, typeObj);
+//		if (dadosRequisicao == null || dadosRequisicao.equals("")) {
+//			dadosRequisicao = gerarDadosRequisicaoDefault();
+//		}
+		
+		if (dadosRequisicao != null && !dadosRequisicao.equals("")) {
+			t = gson.fromJson(dadosRequisicao, typeObj);
+		}
 		
 		return t;
 	}
+
+	public abstract String gerarDadosRequisicaoDefault();
 
 	/**
 	 * Retorna o método específico, de acordo com a ação passada da camada de apresentação, que deve ser executado na classe de serviço.

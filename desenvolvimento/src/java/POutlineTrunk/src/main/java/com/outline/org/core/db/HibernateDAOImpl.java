@@ -5,6 +5,9 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 
 /**
  * Representação básica do Hibernate.
@@ -14,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author alessandrots
  *
  */
+
 public abstract class HibernateDAOImpl<T> implements IDao<T> {
 
 	@Autowired
