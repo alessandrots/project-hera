@@ -62,10 +62,6 @@ public abstract class ServiceImpl<T> implements IService {
 		//Método abstrato - Carregando o respectivo Presenter via TypeToken na  classe filha
 		typeObj = getTypeToken();
 		
-//		if (dadosRequisicao == null || dadosRequisicao.equals("")) {
-//			dadosRequisicao = gerarDadosRequisicaoDefault();
-//		}
-		
 		if (dadosRequisicao != null && !dadosRequisicao.equals("")) {
 			t = gson.fromJson(dadosRequisicao, typeObj);
 		}

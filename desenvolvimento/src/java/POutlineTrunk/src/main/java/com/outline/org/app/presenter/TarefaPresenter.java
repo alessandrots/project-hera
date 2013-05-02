@@ -1,6 +1,14 @@
 package com.outline.org.app.presenter;
 
 
+/**
+ *  source = window_1001
+ *  target = window_1002
+ *  TipoRelacionamentoLogico = 0
+ *  
+ * @author alessandrots
+ *
+ */
 public class TarefaPresenter extends PresenterImpl {
 
 	 /**
@@ -15,6 +23,8 @@ public class TarefaPresenter extends PresenterImpl {
 	private String dataEntrega;
 	private String dataTermino;
 	private String idWinTarefa;	
+	
+	//Campos usados para testar a sincronização no servidor
 	private String source;
 	private String target;
 	private String tipoRelacionamentoLogico;

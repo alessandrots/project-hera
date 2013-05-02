@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.outline.org.app.dao.TarefaDAO;
 import com.outline.org.app.domain.Tarefa;
@@ -33,7 +34,7 @@ public class TarefaFacade {
 		System.out.println(" >>>>> add ... ");
 	}
 	
-	
+	@Transactional
 	public void add(TarefaPresenter presenter) {
 		if (presenter != null && presenter.getIdWinTarefa() != null){
 			System.out.println(" >>>>> add ... codigo 		= " + presenter.getCodigo());
@@ -48,11 +49,13 @@ public class TarefaFacade {
 		}
 	}
 	
+	@Transactional
 	public List<Tarefa> recuperarTodos() {
 		return tarefaDAO.recuperarTodos();
 	}
 	
 	
+	@Transactional
 	public Tarefa recuperarPorChave(Long chave) {
 		return tarefaDAO.recuperarPorChave(chave);
 	}
@@ -69,6 +72,7 @@ public class TarefaFacade {
 //			model.setId(cont);
 			model.setTitle("titulo_" + cont);
 			model.setText("texto_" + cont);
+			
 			listaModel.add(model);
 		}
 		

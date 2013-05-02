@@ -22,6 +22,4 @@
 	
 	<util:properties id="outlineProperties" location="classpath:/outline.properties" />
 	
-	<aop:aspectj-autoproxy/>
-	
 </beans>
