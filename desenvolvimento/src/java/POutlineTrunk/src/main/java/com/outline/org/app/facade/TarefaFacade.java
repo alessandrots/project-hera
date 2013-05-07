@@ -78,14 +78,13 @@ public class TarefaFacade {
 	
 	@Transactional
 	public List<Tarefa> recuperarTodos() {
-//		return tarefaDAO.recuperarPorCodigo(1L);
 		return tarefaDAO.recuperarTodos();
 	}
 	
-//	@Transactional(readOnly=true)
-//	public List<Tarefa> recuperarPorCodigo() {
-//		return tarefaDAO.recuperarPorCodigo(1L);
-//	}
+	@Transactional(readOnly=true)
+	public List<Tarefa> recuperarPorCodigo(Long codigoTarefa) {
+		return tarefaDAO.recuperarPorCodigo(codigoTarefa);
+	}
 	
 	
 	@Transactional

@@ -88,6 +88,11 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 	}
 	
 	@ClasseNegocial(negocial=true)
+	public List<Tarefa> recuperarPorCodigo(TarefaPresenter pPresenter) {
+		return this.tarefaFacade.recuperarPorCodigo(new Long(pPresenter.getCodigo()));
+	}
+	
+	@ClasseNegocial(negocial=true)
 	public List<TesteModel> recuperarListaTeste() {
 		return this.tarefaFacade.recuperarListaTeste();
 	}
