@@ -15,9 +15,13 @@ public interface IDao<T> {
 	
 	public List<T> recuperarPaginado(int offset, int max);
 	
-	public void persistir(T objeto);
+	public void insert(final T entity);
 	
-	public void excluir(T objeto);
+	public void update(final T entity);	
+	
+	public void delete(final T entity);
+	
+	public void flush();
 	
 	public T recuperarPorChave(Long id);
 }

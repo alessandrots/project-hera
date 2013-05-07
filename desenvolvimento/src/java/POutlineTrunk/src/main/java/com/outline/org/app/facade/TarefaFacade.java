@@ -35,24 +35,57 @@ public class TarefaFacade {
 	}
 	
 	@Transactional
-	public void add(TarefaPresenter presenter) {
-		if (presenter != null && presenter.getIdWinTarefa() != null){
-			System.out.println(" >>>>> add ... codigo 		= " + presenter.getCodigo());
-			System.out.println(" >>>>> add ... nome   		= " + presenter.getNome());
-			System.out.println(" >>>>> add ... idWinTarefa 	= " + presenter.getIdWinTarefa());
-			
-			//listagem para guardar em memória. TODO			
-			if (this.lista == null){
-				this.lista = new ArrayList<TarefaPresenter>();
+	public void salvar(TarefaPresenter presenter) {
+		Tarefa tarefa = new Tarefa();
+		
+		if (presenter != null) {			
+			if (presenter.getDataEntrega() != null && !presenter.getDataEntrega().equals("")){
+				tarefa.setDataEntrega(Utils.getInstance().converterDataToDate(presenter.getDataEntrega()));
 			}
-			this.lista.add(presenter);
+			
+			if (presenter.getDataInicio() != null && !presenter.getDataInicio().equals("")){
+				tarefa.setDataInicio(Utils.getInstance().converterDataToDate(presenter.getDataInicio()));
+			}
+			
+			if (presenter.getDataTermino() != null && !presenter.getDataTermino().equals("")){
+				tarefa.setDataTermino(Utils.getInstance().converterDataToDate(presenter.getDataTermino()));
+			}
+			
+			if (presenter.getDuracao() != null && !presenter.getDuracao().equals("")){
+				tarefa.setDuracao(Integer.parseInt(presenter.getDuracao()));
+			}
+			
+			if (presenter.getIdWinTarefa() != null && !presenter.getIdWinTarefa().equals("")){
+				tarefa.setIdWinTarefa(presenter.getIdWinTarefa());
+			}
+			
+			if (presenter.getNome() != null && !presenter.getNome().equals("")){
+				tarefa.setNome(presenter.getNome());
+			}
+			
+			if (presenter.getCodigo() != null && !presenter.getCodigo().equals("")){
+				tarefa.setCodigo(Long.parseLong(presenter.getCodigo()));
+			}
+			
+			//Insert or Update
+			if (tarefa.getCodigo() != null){				
+				tarefaDAO.insert(tarefa);
+			} else {
+				tarefaDAO.update(tarefa);
+			}
 		}
 	}
 	
 	@Transactional
 	public List<Tarefa> recuperarTodos() {
+//		return tarefaDAO.recuperarPorCodigo(1L);
 		return tarefaDAO.recuperarTodos();
 	}
+	
+//	@Transactional(readOnly=true)
+//	public List<Tarefa> recuperarPorCodigo() {
+//		return tarefaDAO.recuperarPorCodigo(1L);
+//	}
 	
 	
 	@Transactional

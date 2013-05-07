@@ -16,6 +16,12 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
+/**
+ * http://code.google.com/p/exemplos/wiki/jpaDezenove
+ * 
+ * @author alessandrots
+ *
+ */
 @Entity 
 @Table(name="negocio.tb_tarefa")
 public class Tarefa implements Comparable<Tarefa>, Serializable ,Domain {
@@ -43,23 +49,14 @@ public class Tarefa implements Comparable<Tarefa>, Serializable ,Domain {
 	
 	@Column(name="data_entrega", nullable=true) @Temporal(TemporalType.TIMESTAMP)
 	private Date dataEntrega;
-	
-	@NotNull
-	@Column(name="data_termino", nullable=false) @Temporal(TemporalType.TIMESTAMP)
+		
+	@Column(name="data_termino", nullable=true) @Temporal(TemporalType.TIMESTAMP)
 	private Date dataTermino;
 	
-	@Column(name="idWinTarefa", nullable=false, length=80)
+	@NotNull
+	@Column(name="idWinTarefa", nullable=false, length=50)
 	private String idWinTarefa;	
 	
-//	@Column(name="source", nullable=false, length=80)
-//	private String source;
-//	
-//	@Column(name="target", nullable=false, length=80)
-//	private String target;
-//	
-//	@Column(name="itipo_relacionamento", nullable=false)
-//	private Integer tipoRelacionamentoLogico;
-
 	
 	/**
 	 * @return the codigo

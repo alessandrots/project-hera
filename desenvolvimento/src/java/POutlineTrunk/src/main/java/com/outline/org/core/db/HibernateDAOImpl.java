@@ -1,14 +1,12 @@
 package com.outline.org.core.db;
 
-//package com.outline.org.app.dao;
-
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.stereotype.Service;
 
 
 /**
@@ -35,7 +33,6 @@ import org.springframework.stereotype.Service;
  * @author alessandrots
  *
  */
-@Service
 public abstract class HibernateDAOImpl<T> implements IDao<T> {
 
 	@Resource(name = "sessionFactory")
@@ -50,13 +47,43 @@ public abstract class HibernateDAOImpl<T> implements IDao<T> {
 	
 	protected abstract Class getClazz();
 	
-	
-	public void persistir(T objeto) {
-		getSession().saveOrUpdate(objeto);
+	protected Criteria criteria(){
+		return getSession().createCriteria(getClazz());
 	}
 	
-	public void excluir(T objeto) {
-		getSession().delete(objeto);
+	
+//	public void persistir(T objeto) {
+//		getSession().save(objeto);
+//	}
+//	
+//	public void excluir(T objeto) {
+//		getSession().delete(objeto);
+//	}
+	
+	/**
+	 * Insere a entidade
+	 * @param entity
+	 */
+	public void insert(final T entity){
+		getSession().save(entity);
+	}
+	/**
+	 * Atualiza as informações da entidade 
+	 * @param entity
+	 */
+	public void update(final T entity){
+		getSession().update(entity);
+	}
+	/**
+	 * Exclui fisicamente a entidade
+	 * @param entity
+	 */
+	public void delete(final T entity){
+		getSession().delete(entity);
+	}
+	
+	public void flush() {
+		getSession().flush();
 	}
 	
 	public T recuperarPorChave(Long id) {

@@ -73,7 +73,7 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 	
 	@ClasseNegocial(negocial=true)
 	public void add(TarefaPresenter presenter) {
-		this.tarefaFacade.add(presenter);
+		this.tarefaFacade.salvar(presenter);
 		
 	}
 	
