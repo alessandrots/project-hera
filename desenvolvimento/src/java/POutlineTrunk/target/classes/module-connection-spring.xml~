@@ -19,14 +19,14 @@
 		
 		A cada chamada ao método getConnection() do bean obtido uma nova conexão é obtida.
 		
-		this("jdbc:postgresql://localhost:5432/outline", "outline", "jv121206", "org.postgresql.Driver");
+		this("jdbc:postgresql://localhost:5432/outline", "outline", "outline", "org.postgresql.Driver");
 	 
 	 
 	      <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		      <property name="username" value="outline"/>
-		      <property name="password" value="jv121206"/>
+		      <property name="password" value="outline"/>
 		      <property name="driverClassName" value="org.postgresql.Driver"/>
-		      <property name="url" value="jdbc:postgresql://localhost:5432/outline"/>
+		      <property name="url" value="jdbc:postgresql://127.0.0.1:5432/outline"/>
 	      </bean>
 	      
 	      <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -69,12 +69,10 @@
 	 -->
 	 
 	 
-	 <!--  session factory do tabularium -->
-	 
+	 <!--  session factory do tabularium  -->	 
 	 <bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="outline-ds" />
-		<!-- <property name="packagesToScan" value="br.gov.mpdft.sisdoc.entity, br.gov.mpdft.sisdoc.entity.corporativo"/> -->
+		<property name="dataSource" ref="outline-ds" />		
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
@@ -82,30 +80,10 @@
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.transaction.flush_before_completion">true</prop>
 				<prop key="hibernate.transaction.auto_close_session">true</prop>				
-				<prop key="hibernate.connection.release_mode">auto</prop>
-				<!--
-				<prop key="hibernate.cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</prop>
-				<prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</prop>
-				<prop key="hibernate.cache.use_second_level_cache">true</prop>
-				<prop key="hibernate.cache.use_query_cache">true</prop>
-				-->
+				<prop key="hibernate.connection.release_mode">auto</prop>		
 			</props>
 		</property>
-		<!--
-		<property name="eventListeners">
-			<map>
-				<entry key="pre-insert">
-					<bean class="br.gov.mpdft.infra.hibernateEventListeners.AuditoriaEventListener" />
-				</entry>
-				<entry key="pre-update">
-					<bean class="br.gov.mpdft.infra.hibernateEventListeners.AuditoriaEventListener" />
-				</entry>
-				<entry key="pre-delete">
-					<bean class="br.gov.mpdft.infra.hibernateEventListeners.AuditoriaEventListener" />
-				</entry>
-			</map>
-		</property>
-		-->
+		
 		
 		<property name="annotatedClasses">
 			<array>
@@ -113,7 +91,7 @@
 			</array>
 		</property>
 	</bean>	
-
+	
 	
 	<tx:advice transaction-manager="transactionManager" id="txAdvice">
 		<tx:attributes>

@@ -49,12 +49,14 @@
 		<param-value>classpath:/module-core-spring.xml</param-value>
 	</context-param>
   
+  <!--
    <resource-ref>
       <description>DB Connection</description>
-      <res-ref-name>OutlineDS</res-ref-name>
+      <res-ref-name>jdbc/OutlineDS</res-ref-name>
       <res-type>javax.sql.DataSource</res-type>
       <res-auth>Container</res-auth>
   </resource-ref>
+  -->
   
   <!-- The Welcome File List
     <welcome-file-list>        

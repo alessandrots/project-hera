@@ -14,6 +14,8 @@
 		
 	<context:annotation-config />
 
+
+	<!--  -->
 	<jee:jndi-lookup id="outline-ds" jndi-name="jdbc/OutlineDS"/>
 	
 	<import resource="classpath:/module-component-spring.xml"/>

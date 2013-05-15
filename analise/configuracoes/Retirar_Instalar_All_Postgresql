@@ -1,0 +1,54 @@
+sudo apt-get --purge remove pgdg-keyring postgresql-8.4  postgresql-9.1 postgresql-9.2 postgresql-client  postgresql-client-8.4 postgresql-client-9.1 postgresql-client-9.2 postgresql-client-common postgresql-common  postgresql-doc postgresql-doc-8.4 
+
+ rm -rf /var/lib/postgresql/
+ rm -rf /var/log/postgresql/
+ rm -rf /etc/postgresql/
+
+************************************************************
+1) (ver todos os postgres instalados)
+dpkg -l | grep postgres 
+ii  pgdg-keyring                         2012.1                            keyring for apt.postgresql.org
+ii  postgresql-9.1                       9.1.9-1.pgdg60+1                  object-relational SQL database, version 9.1 server
+ii  postgresql-client-9.1                9.1.9-1.pgdg60+1                  front-end programs for PostgreSQL 9.1
+ii  postgresql-client-common             141.pgdg60+1                      manager for multiple PostgreSQL client versions
+ii  postgresql-common                    141.pgdg60+1                      PostgreSQL database-cluster manager
+
+2) descobrir pastas existentes:
+	find /etc -name postgres*
+	find /var -name postgres*
+
+3) Removendo referências do postgres
+	#apt-get --purge remove pgdg-keyring postgresql-9.1 postgresql-client-9.1 postgresql-client-common postgresql-common pgadmin3
+	#apt-get purge pgadmin3
+
+4) Remover pastas referências do postgres :
+ rm -rf /var/lib/postgresql/
+ rm -rf /var/log/postgresql/
+ rm -rf /etc/postgresql/
+
+************************************************************
+5) INSTALANDO
+http://www.postgresql.org/download/linux/debian/
+http://renanpro.com/2011/06/25/instalando-e-configurando-postgresql-pgadmin3/
+
+************************************************************
+6) Criar usuário, colocar senha, criar banco via PSQL
+   >>> http://fgsl.eti.br/blog/?p=283 (IMPORTANTEEEEE)
+# sudo su postgres
+# psql
+# alter role postgres encrypted password ‘a senha que você quiser’;
+	ex.: alter role postgres encrypted password '123456';
+
+
+6.1) Seguir os passos para criar um novo usuário de banco para o postgres; (IMPORTANTEEEEE)
+  http://www.cyberciti.biz/faq/howto-add-postgresql-user-account/
+************************************************************
+7) http://pt.wikibooks.org/wiki/PostgreSQL_Pr%C3%A1tico/DML/Consultas
+	\l -- lista bancos, donos e codificação
+	\d -- descreve tabela, índice, seqüência ou view (visão)
+	\du -- lista usuários e permissões
+	\dg -- lista grupos
+	\dp -- lista privilégios de acesso à tabelas, views (visões) e sequências
+
+
+	

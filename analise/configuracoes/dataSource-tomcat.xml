@@ -1,0 +1,4 @@
+<Resource name="jdbc/OutlineDS" auth="Container" type="javax.sql.DataSource"
+	      maxActive="100" maxIdle="30" maxWait="100"
+              username="outline" password="outline" driverClassName="org.postgresql.Driver"
+              url="jdbc:postgresql://127.0.0.1:5432/outline"/>

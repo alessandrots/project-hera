@@ -1,0 +1,10 @@
+<Context path="/outline" reloadable="true" docBase="/home/alessandrots/wksDiversos/POutlineTrunk/src/main/webapp" workDir="/home/alessandrots/wksDiversos/POutlineTrunk/work" >
+<!-- Extra info begin -->
+<Resource name="jdbc/OutlineDS" auth="Container" type="javax.sql.DataSource"
+	      maxActive="100" maxIdle="30" maxWait="100"
+              username="outline" password="outline" driverClassName="org.postgresql.Driver"
+              url="jdbc:postgresql://127.0.0.1:5432/outline"/>
+<!-- Extra info end -->
+	<Logger className="org.apache.catalina.logger.SystemOutLogger" verbosity="4" timestamp="true"/>
+	<Loader className="org.apache.catalina.loader.DevLoader" reloadable="true" debug="1" useSystemClassLoaderAsParent="false" />
+</Context>
