@@ -1,0 +1,91 @@
+ Tutorial GIT
+
+1) git init
+The .git directory
+	On the left you'll notice a .git directory. It's usually hidden but we're showing it to you for convenience.
+	If you click it you'll notice it has all sorts of directories and files inside it. You'll rarely ever need to do anything 
+	inside here but it's the guts of Git, where all the magic happens.
+
+2) git status
+	Os estágios do git:
+
+ 2.1) staged:
+	Files are ready to be committed.
+ 2.2)unstaged:
+	Files with changes that have not been prepared to be commited.
+ 2.3)untracked:
+	Files aren't tracked by Git yet. This usually indicates a newly created file.
+ 2.4) deleted:
+	File has been deleted and is waiting to be removed from Git.
+
+3) add all:
+	You can also type git add . 
+	The dot represents the current directory, so everything in it, and everything beneath it gets added.
+
+4) git reset:
+	You can use git reset <filename> to remove a file or files from the staging area.
+
+5) Committing
+	Notice how Git says changes to be committed? The files listed here are in the Staging Area, and they are not in our repository yet. 
+	We could add or remove files from the stage before we store them in the repository.
+
+	To store our staged changes we run the commit command with a message describing what we've changed. Let's do that now by typing, for ex.:
+	git commit -m "Add cute octocat story"
+
+       OBS.:
+	Staging Area:
+		A place where we can group files together before we "commit" them to Git.
+	Commit
+		A "commit" is a snapshot of our repository. This way if we ever need to look back at the changes we've made (or if someone else does), 
+		we will see a nice timeline of all changes.
+
+6) Wildcards:
+	We need quotes so that Git will receive the wildcard before our shell can interfere with it. Without quotes our shell will only execute the
+	wildcard search within the current directory. Git will receive the list of files the shell found instead of the wildcard and it will not 
+	be able to add the files inside of the octofamily directory.
+
+7) More useful logs:
+	Use git log --summary to see more information for each commit. 
+	You can see where new files were added for the first time or where files were deleted. 
+	It's a good overview of what's going on in the project.
+
+8) git remote:
+	Git doesn't care what you name your remotes, but it's typical to name your main one origin.
+	It's also a good idea for your main repository to be on a remote server like GitHub in case your machine is lost at sea during a transatlantic
+	boat cruise or crushed by three monkey statues during an earthquake.
+
+9) Pushing Remotely
+	The push command tells Git where to put our commits when we're ready, and boy we're ready. So let's push our local changes to our origin 
+	repo (on GitHub).
+
+	The name of our remote is origin and the default local branch name is master. The -u tells Git to remember the parameters, so that next time we
+	can simply run git push and Git will know what to do. Go ahead and push it!
+
+	git push -u origin master
+
+10)  Pulling Remotely
+	Let's pretend some time has passed. We've invited other people to our github project who have pulled your changes, made their own commits, 
+	and pushed them.
+	We can check for changes on our GitHub repository and pull down any new changes by running:
+	git pull origin master
+
+	git stash: (IMPORTANTE)
+	Sometimes when you go to pull you may have changes you don't want to commit just yet. One option you have, other than commiting, 
+	is to stash the changes.
+	Use the command 'git stash' to stash your changes, and 'git stash apply' to re-apply your changes after your pull.
+
+11) Differences
+	Uh oh, looks like there has been some additions and changes to the octocat family. Let's take a look at what is different from our last commit 	
+	by using the git diff command.
+
+	In this case we want the diff of our most recent commit, which we can refer to using the HEAD pointer.
+	git diff HEAD.
+
+	HEAD
+	The HEAD is a pointer that holds your position within all your different commits. By default HEAD points to your most recent commit, 
+	so it can be used as a quick way to reference that commit without having to look up the SHA.
+
+12) Staged Differences (cont'd)
+	Good, now go ahead and run git diff with the --staged option to see the changes you just staged. You should see that octodog.txt was created.
+	git diff --staged
+
