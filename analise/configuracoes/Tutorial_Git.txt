@@ -89,3 +89,51 @@ The .git directory
 	Good, now go ahead and run git diff with the --staged option to see the changes you just staged. You should see that octodog.txt was created.
 	git diff --staged
 
+13) Resetting the Stage
+So now that octodog is part of the family, octocat is all depressed. Since we love octocat more than octodog, we'll turn his frown around by removing octodog.txt.
+
+You can unstage files by using the git reset command. Go ahead and remove octofamily/octodog.txt.
+
+ ex.: git reset octofamily/octodog.txt
+
+14) Undo
+	git reset did a great job of unstaging octodog.txt, but you'll notice that he's still there. He's just not staged anymore. It would be great if
+ 	we could go back to how things were before octodog came around and ruined the party.
+	Files can be changed back to how they were at the last commit by using the command: git checkout -- <target>. Go ahead and get rid of all the
+	changes since the last commit for octocat.txt
+
+*******************************************
+ 15) BRANCH (Branching Out)
+	When developers are working on a feature or bug they'll often create a copy (aka. branch) of their code they can make separate commits to. 
+	Then when they're done they can merge this branch back into their main master branch.
+	We want to remove all these pesky octocats, so let's create a branch called clean_up, where we'll do all the work:
+		git branch clean_up
+
+ 15.1) Switching Branches
+	Great! Now if you type git branch you'll see two local branches: 
+		a main branch named master and y
+		our new branch named clean_up.
+
+	You can switch branches using the git checkout <branch> command. Try it now to switch to the clean_up branch:
+		git checkout clean_up
+
+ 16) All at Once
+	You can use:
+		git checkout -b new_branch
+
+	to checkout and create a branch at the same time. This is the same thing as doing:
+		git branch new_branch
+		git checkout new_branch
+
+ 17) Removing All The Things
+	Ok, so you're in the clean_up branch. You can finally remove all those pesky octocats by using the git rm command which will not only remove
+	the actual files from disk, but will also stage the removal of the files for us.
+	You're going to want to use a wildcard again to get all the octocats in one sweep, go ahead and run:
+		git rm '*.txt'
+
+	Remove all the things!
+	Removing one file is great and all, but what if you want to remove an entire folder? You can use the recursive option on git rm:
+		git rm -r folder_of_cats
+	This will recursively remove all folders and files from the given directory.
+
+
