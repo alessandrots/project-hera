@@ -9,14 +9,14 @@ The .git directory
 2) git status
 	Os estágios do git:
 
- 2.1) staged:
-	Files are ready to be committed.
- 2.2)unstaged:
-	Files with changes that have not been prepared to be commited.
- 2.3)untracked:
-	Files aren't tracked by Git yet. This usually indicates a newly created file.
- 2.4) deleted:
-	File has been deleted and is waiting to be removed from Git.
+	 2.1) staged:
+		Files are ready to be committed.
+	 2.2)unstaged:
+		Files with changes that have not been prepared to be commited.
+	 2.3)untracked:
+		Files aren't tracked by Git yet. This usually indicates a newly created file.
+	 2.4) deleted:
+		File has been deleted and is waiting to be removed from Git.
 
 3) add all:
 	You can also type git add . 
@@ -135,5 +135,108 @@ You can unstage files by using the git reset command. Go ahead and remove octofa
 	Removing one file is great and all, but what if you want to remove an entire folder? You can use the recursive option on git rm:
 		git rm -r folder_of_cats
 	This will recursively remove all folders and files from the given directory.
+
+ 18) The '-a' option
+	If you happen to delete a file without using 'git rm' you'll find that you still have to 'git rm' the deleted files from the working tree. 
+	You can save this step by using the '-a' option on 'git commit', which auto removes deleted files with the commit.
+		git commit -am "Delete stuff"
+
+ 19) Switching Back to master
+	Great, you're almost finished with the cat... er the bug fix, you just need to switch back to the master branch so you can copy (or merge) your 	changes from the clean_up branch back into the master branch.
+
+	Go ahead and checkout the master branch:
+		git checkout master
+
+ 20) Pull Requests
+	If you're hosting your repo on GitHub, you can do something called a pull request.
+	A pull request allows the boss of the project to look through your changes and make comments before deciding to merge in the change. 
+	It's a really great feature that is used all the time for remote workers and open-source projects.
+	Check out out the pull request help page for more information.
+
+ 21) 1.23 Preparing to Merge
+	Alrighty, the moment has come when you have to merge your changes from the clean_up branch into the master branch. 
+	Take a deep breath, it's not that scary.
+
+	We're already on the master branch, so we just need to tell Git to merge the clean_up branch into it:
+		git merge clean_up
+
+ 22) Merge Conflicts
+	Merge Conflicts can occur when changes are made to a file at the same time. A lot of people get really scared when a conflict happens, 
+	but fear not! They aren't that scary, you just need to decide which code to keep.
+
+	Merge conflicts are beyond the scope of this course, but if you're interested in reading more, take a look the section of the Pro Git book on
+	how conflicts are presented.
+
+ 23) Keeping Things Clean
+	Congratulations! You just accomplished your first successful bugfix and merge. All that's left to do is clean up after yourself. 
+	Since you're done with the clean_up branch you don't need it anymore.
+	You can use git branch -d <branch name> to delete a branch. Go ahead and delete the clean_up branch now:
+		git branch -d clean_up
+
+	Force delete (IMPORTANTE)
+		What if you have been working on a feature branch and you decide you really don't want this feature anymore? You might decide to delete 		the branch since you're scrapping the idea. You'll notice that git branch -d bad_feature doesn't work. This is because -d won't let you 		delete something that hasn't been merged.
+		You can either add the --force (-f) option or use -D which combines -d -f together into one command.
+
+ 24) The Final Push
+	Here we are, at the last step. I'm proud that you've made it this far, and it's been great learning Git with you. 
+	All that's left for you to do now is to push everything you've been working on to your remote repository, and you're done!
+		git push
+
+
+************************************************************************************************************
+
+
+>>> DICAS IMPORTANTES:
+
+	1) links importantes:
+		https://help.github.com/
+		http://git-scm.com/book
+		http://git-scm.com/book/en/Customizing-Git-Git-Hooks
+
+
+	2) http://git-scm.com/book/en/Getting-Started-First-Time-Git-Setup
+		git config --global color.branch auto
+		git config --global color.diff auto
+		git config --global color.interactive auto
+		git config --global color.status auto
+
+		$ git config --global user.name "John Doe"
+		$ git config --global user.email johndoe@example.com
+		$ git config --global core.editor emacs
+		$ git config --global merge.tool vimdiff
+		$ git config --list
+
+	3) git reset --soft HEAD^ (UNDO last commit, put changes into stages, rollback the last commit)
+
+	4) git commit --amend -m "New Message": Change the last commit.
+
+	5) git reset --hard HEAD^ (UNDO last commit and all changes)
+
+	6) git reset --hard HEAD^^ (UNDO last 2 commit and all changes)
+
+	6.1) Para descartar as mudanÇas
+	 ex.: git checkout -- index.html test.hml
+
+	 - GITHUB
+	 - BitBucket
+	 - Gitosis
+	 - Gitorious
+
+
+	git push -u origin master
+	 origin : Remote repository name
+	 master : local branch to push
+
+	7) 
+	https://github.com/settings/
+
+	para mudar a senha do GITHUB e 
+	https://github.com/settings/
+
+	Para gerar a para a senha keygen:
+	http://blog.dmatoso.com/2011/09/git-no-windows-github/
+	 >>> No item 3
+
+	-> git pull : to pull changes down from the remote (origin)
 
 
