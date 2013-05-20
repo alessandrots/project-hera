@@ -1,3 +1,10 @@
+sudo apt-get --purge remove pgdg-keyring postgresql-8.4  postgresql-9.1 postgresql-9.2 postgresql-client  postgresql-client-8.4 postgresql-client-9.1 postgresql-client-9.2 postgresql-client-common postgresql-common  postgresql-doc postgresql-doc-8.4 
+
+ rm -rf /var/lib/postgresql/
+ rm -rf /var/log/postgresql/
+ rm -rf /etc/postgresql/
+
+************************************************************
 1) (ver todos os postgres instalados)
 dpkg -l | grep postgres 
 ii  pgdg-keyring                         2012.1                            keyring for apt.postgresql.org
