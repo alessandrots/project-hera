@@ -1,0 +1,36 @@
+Estratégia
+ 1) Criar uma tag
+   $ git tag -a v0.0.0.1 -m "version 0.0.0.1"
+
+ 2) Crio uma pasta branch na minha máquina
+ 2.1) Aí faço um clone do projeto
+  $ git clone https://github.com/alessandrots/project-hera.git
+
+ 3) Criar o branch arquitetura:
+   $ git branch arquitetura  
+
+ 4) Associo o branch remoto arquitetura e associo com o repositório
+  $ git checkout -b arquitetura origin/arquitetura 
+  ou 
+ 4.1)$ git push origin arquitetura : linka local branch ao remote branch
+ 
+ 5) Vejo como está a lista de branches
+  $ git branch -a
+
+ 5.1) Aí git branch irá mostrar somente o branch local (master) para ver os branches remotos:
+ git branch -r
+    origin/master
+    origin/new_branch
+
+ 5.2) comando importante:
+  $ git remote show origin
+
+ 6)  faço todas as modificações necessárias
+  $ git add
+  $ git commit
+  
+  Por fim jogo para o repositório (no branch que estou trabalhando, no caso arquitetura):
+  $ git push
+
+ 7) Faço os mesmos passos para o branch desenv
+$ git branch desenv
