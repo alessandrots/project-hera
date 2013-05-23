@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 import com.google.gson.reflect.TypeToken;
 import com.outline.org.app.domain.Tarefa;
 import com.outline.org.app.facade.TarefaFacade;
+import com.outline.org.app.presenter.IPresenter;
 import com.outline.org.app.presenter.TarefaPresenter;
-import com.outline.org.app.presenter.TesteModel;
 import com.outline.org.util.EngineJson;
 
 /**
@@ -25,11 +25,7 @@ import com.outline.org.util.EngineJson;
 public class TarefaService extends ServiceImpl<TarefaPresenter> {
 	@Autowired	 
 	private TarefaFacade tarefaFacade;
-	
 
-	public TarefaService() {
-		//tarefaFacade = new TarefaFacade();
-	}
 
 	@Override
 	public void execute(String acao) {
@@ -54,6 +50,9 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 				if (Collection.class.isAssignableFrom(objeto.getClass())) {
 					String jsonRetorno = EngineJson.getInstancia().serializarColecao((List)objeto);
 					setResposta(jsonRetorno);
+				} else {
+					String jsonRetorno = EngineJson.getInstancia().serializarObjeto((IPresenter)objeto);
+					setResposta(jsonRetorno);
 				}
 			}
 		} catch (IllegalArgumentException e) {
@@ -63,12 +62,6 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	@ClasseNegocial(negocial=true)
-	public void add() {
-		System.out.println(" >>>>> add ... ");
-		this.tarefaFacade.add();
 	}
 	
 	@ClasseNegocial(negocial=true)
@@ -88,28 +81,8 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 	}
 	
 	@ClasseNegocial(negocial=true)
-	public List<Tarefa> recuperarPorCodigo(TarefaPresenter pPresenter) {
+	public Tarefa recuperarPorCodigo(TarefaPresenter pPresenter) {
 		return this.tarefaFacade.recuperarPorCodigo(new Long(pPresenter.getCodigo()));
-	}
-	
-	@ClasseNegocial(negocial=true)
-	public List<TesteModel> recuperarListaTeste() {
-		return this.tarefaFacade.recuperarListaTeste();
-	}
-	
-	@ClasseNegocial(negocial=true)
-	public List<TesteModel> recuperarListaTeste2() {
-		return this.tarefaFacade.recuperarListaTeste2();
-	}
-	
-	@ClasseNegocial(negocial=true)
-	public List<TesteModel> recuperarListaTeste2(TarefaPresenter pPresenter) {
-		return this.tarefaFacade.recuperarListaTeste2(pPresenter);
-	}
-	
-	@ClasseNegocial(negocial=true)
-	public List<TarefaPresenter> recuperarTodasTarefas() {
-		return this.tarefaFacade.recuperarTodasTarefas();
 	}
 	
 	@ClasseNegocial(negocial=true)
@@ -117,10 +90,15 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 		return this.tarefaFacade.recuperarTarefaPorNome(pPresenter);
 	}
 	
+	@ClasseNegocial(negocial=true)
+	public TarefaPresenter recuperarTarefaPorWinTarefa(TarefaPresenter pPresenter) {
+		return this.tarefaFacade.recuperarTarefaPorWinTarefa(pPresenter.getIdWinTarefa());
+	}
+	
 	
 	@ClasseNegocial(negocial=true)
-	public List<TarefaPresenter> recuperarTarefaPorWinTarefa(TarefaPresenter pPresenter) {
-		return this.tarefaFacade.recuperarTarefaPorWinTarefa(pPresenter);
+	public List<TarefaPresenter> recuperarPorQualquerParteDoNome(TarefaPresenter pPresenter) {
+		return this.tarefaFacade.recuperarPorQualquerParteDoNome(pPresenter);
 	}
 	
 	@ClasseNegocial(negocial=true)

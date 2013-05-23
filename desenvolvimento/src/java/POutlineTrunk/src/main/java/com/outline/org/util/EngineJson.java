@@ -29,6 +29,10 @@ public class EngineJson {
 		return engJson;
 	}
 	
+	public String serializarObjeto(Object objeto) {
+		return gson.toJson(objeto);
+	}
+	
 	public String serializarColecao(Collection<Domain> colecao) {
 		return gson.toJson(colecao);
 	}

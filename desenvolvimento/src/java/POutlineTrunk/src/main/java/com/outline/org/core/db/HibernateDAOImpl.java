@@ -45,20 +45,11 @@ public abstract class HibernateDAOImpl<T> implements IDao<T> {
 		return getSessionFactory().getCurrentSession();
 	}
 	
-	protected abstract Class getClazz();
+//	protected abstract Class getClazz();
 	
 	protected Criteria criteria(){
-		return getSession().createCriteria(getClazz());
+		return getSession().createCriteria(getEntityClass());
 	}
-	
-	
-//	public void persistir(T objeto) {
-//		getSession().save(objeto);
-//	}
-//	
-//	public void excluir(T objeto) {
-//		getSession().delete(objeto);
-//	}
 	
 	/**
 	 * Insere a entidade
@@ -86,18 +77,31 @@ public abstract class HibernateDAOImpl<T> implements IDao<T> {
 		getSession().flush();
 	}
 	
-	public T recuperarPorChave(Long id) {
-		return (T) getSession().get(getClazz(), id);
+	/**
+	 * Retorna a classe da entidade
+	 * @return Class<T>
+	 */
+	protected abstract Class<T> getEntityClass();
+	
+	protected String getEntityName(){
+		return getEntityClass().getName();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public T recuperarPorChave(Long id) {
+		return (T) getSession().get(getEntityClass(), id);
+	}
+	
+	@SuppressWarnings("unchecked")
 	public List<T> recuperarPaginado(int offset, int max) {
-		return (List<T>) getSession().createCriteria(getClazz())
+		return (List<T>) getSession().createCriteria(getEntityClass())
 						   .setMaxResults(max)
 						   .setFirstResult(offset).list();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<T> recuperarTodos() {
-		return (List<T>) getSession().createCriteria(getClazz()).list();
+		return (List<T>) getSession().createCriteria(getEntityClass()).list();
 	}
 
 

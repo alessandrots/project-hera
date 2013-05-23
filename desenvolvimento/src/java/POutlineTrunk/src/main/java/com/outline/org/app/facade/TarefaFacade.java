@@ -13,59 +13,28 @@ import org.springframework.transaction.annotation.Transactional;
 import com.outline.org.app.dao.TarefaDAO;
 import com.outline.org.app.domain.Tarefa;
 import com.outline.org.app.presenter.TarefaPresenter;
-import com.outline.org.app.presenter.TesteModel;
 import com.outline.org.util.Utils;
 
+/**
+ * 
+ * @author alessandrots
+ *
+ */
 @Component("tarefaFacade")
 public class TarefaFacade {
 
 	@Autowired
 	private TarefaDAO tarefaDAO;
 	
-	//TODO - mudar para o domain Tarefa
-	private List<TarefaPresenter> lista;	
-	
 	public TarefaFacade() {
 		super();
-	}
-
-
-	public void add() {
-		System.out.println(" >>>>> add ... ");
-	}
+	}	
 	
 	@Transactional
 	public void salvar(TarefaPresenter presenter) {
-		Tarefa tarefa = new Tarefa();
-		
 		if (presenter != null) {			
-			if (presenter.getDataEntrega() != null && !presenter.getDataEntrega().equals("")){
-				tarefa.setDataEntrega(Utils.getInstance().converterDataToDate(presenter.getDataEntrega()));
-			}
-			
-			if (presenter.getDataInicio() != null && !presenter.getDataInicio().equals("")){
-				tarefa.setDataInicio(Utils.getInstance().converterDataToDate(presenter.getDataInicio()));
-			}
-			
-			if (presenter.getDataTermino() != null && !presenter.getDataTermino().equals("")){
-				tarefa.setDataTermino(Utils.getInstance().converterDataToDate(presenter.getDataTermino()));
-			}
-			
-			if (presenter.getDuracao() != null && !presenter.getDuracao().equals("")){
-				tarefa.setDuracao(Integer.parseInt(presenter.getDuracao()));
-			}
-			
-			if (presenter.getIdWinTarefa() != null && !presenter.getIdWinTarefa().equals("")){
-				tarefa.setIdWinTarefa(presenter.getIdWinTarefa());
-			}
-			
-			if (presenter.getNome() != null && !presenter.getNome().equals("")){
-				tarefa.setNome(presenter.getNome());
-			}
-			
-			if (presenter.getCodigo() != null && !presenter.getCodigo().equals("")){
-				tarefa.setCodigo(Long.parseLong(presenter.getCodigo()));
-			}
+			Tarefa tarefa = new Tarefa();
+			transformToDomain(presenter, tarefa);
 			
 			//Insert or Update
 			if (tarefa.getCodigo() != null){				
@@ -74,135 +43,85 @@ public class TarefaFacade {
 				tarefaDAO.update(tarefa);
 			}
 		}
-	}
+	}	
 	
-	@Transactional
+	@Transactional(readOnly=true)
 	public List<Tarefa> recuperarTodos() {
 		return tarefaDAO.recuperarTodos();
 	}
 	
 	@Transactional(readOnly=true)
-	public List<Tarefa> recuperarPorCodigo(Long codigoTarefa) {
-		return tarefaDAO.recuperarPorCodigo(codigoTarefa);
+	public Tarefa recuperarPorCodigo(Long codigoTarefa) {
+		return tarefaDAO.recuperarPorChave(codigoTarefa);
 	}
-	
-	
-	@Transactional
+		
+	@Transactional(readOnly=true)
 	public Tarefa recuperarPorChave(Long chave) {
 		return tarefaDAO.recuperarPorChave(chave);
 	}
-	
-	
-	public List<TesteModel> recuperarListaTeste() {
-		List<TesteModel> listaModel = new ArrayList<TesteModel>();
 		
-		int cont = 0;
-		
-		for (int i = 0; i < 10; i++) {
-			TesteModel model = new TesteModel();			
-			cont = i + 1;
-//			model.setId(cont);
-			model.setTitle("titulo_" + cont);
-			model.setText("texto_" + cont);
-			
-			listaModel.add(model);
-		}
-		
-		return listaModel;
-	}
-	
-	
-	public List<TesteModel> recuperarListaTeste2() {
-		List<TesteModel> listaModel = new ArrayList<TesteModel>();
-		
-		int cont = 0;
-		
-		for (int i = 0; i < 3; i++) {
-			TesteModel model = new TesteModel();			
-			cont = i + 1;
-			model.setTitle("Alessandro_" + cont);
-			model.setText("AnaClaudia_" + cont);
-			listaModel.add(model);
-		}
-		
-		return listaModel;
-	}
-	
-	
-	public List<TesteModel> recuperarListaTeste2(TarefaPresenter pPresenter) {
-		List<TesteModel> listaModel = new ArrayList<TesteModel>();
-		System.out.println("executando o método com parâmetro");
-		
-		int cont = 0;
-		
-		for (int i = 0; i < 3; i++) {
-			TesteModel model = new TesteModel();			
-			cont = i + 1;			
-			model.setTitle("Alessandro_" + cont);
-			model.setText("AnaClaudia_" + cont);
-			
-			if (pPresenter!= null && pPresenter.getNome().equals("Alessandro_" + cont)) {
-				listaModel.add(model);
-			}
-			
-		}
-		
-		return listaModel;
-	}
-	
-	
-	public List<TarefaPresenter> recuperarTodasTarefas() {
-		List<TarefaPresenter> listaRetorno = null;
-		
-		listaRetorno = this.lista;
-		
-		return listaRetorno;
-	}
-	
-	
+	@Transactional(readOnly=true)
 	public List<TarefaPresenter> recuperarTarefaPorNome(TarefaPresenter pPresenter) {
 		List<TarefaPresenter> listaRetorno = null;
 		
-		if (pPresenter != null){
-			if (this.lista != null && this.lista.size() > 0) {
+		if (pPresenter != null && (pPresenter.getNome() != null && !pPresenter.getNome().equals(""))){
+			List<Tarefa> lista = tarefaDAO.recuperarTarefaPorNome(pPresenter.getNome());
+			
+			if (lista != null && lista.size() > 0) {
 				listaRetorno = new ArrayList<TarefaPresenter>();
 				
-				for (TarefaPresenter tarefaPresenter : this.lista) {
-					if (pPresenter.getNome().equalsIgnoreCase(tarefaPresenter.getNome())) {
-						listaRetorno.add(tarefaPresenter);
-					}
+				for (Tarefa t: lista){
+					TarefaPresenter presenter = new TarefaPresenter();
+					transformToPresenter(t, presenter);
+					listaRetorno.add(presenter);
 				}
 			}
-		} else {
-			listaRetorno = this.lista;
 		}
 		
 		return listaRetorno;
 	}
 	
-	
-	
-	public List<TarefaPresenter> recuperarTarefaPorWinTarefa(TarefaPresenter pPresenter) {
+	@Transactional(readOnly=true)
+	public List<TarefaPresenter> recuperarPorQualquerParteDoNome(TarefaPresenter pPresenter) {
 		List<TarefaPresenter> listaRetorno = null;
 		
-		if (pPresenter != null){
-			if (this.lista != null && this.lista.size() > 0) {
+		if (pPresenter != null && (pPresenter.getNome() != null && !pPresenter.getNome().equals(""))){
+			List<Tarefa> lista = tarefaDAO.recuperarPorQualquerParteDoNome(pPresenter.getNome());
+			
+			if (lista != null && lista.size() > 0) {
 				listaRetorno = new ArrayList<TarefaPresenter>();
 				
-				for (TarefaPresenter tarefaPresenter : this.lista) {
-					if (pPresenter.getIdWinTarefa().equalsIgnoreCase(tarefaPresenter.getIdWinTarefa())) {
-						listaRetorno.add(tarefaPresenter);
-					}
+				for (Tarefa t: lista){
+					TarefaPresenter presenter = new TarefaPresenter();
+					transformToPresenter(t, presenter);
+					listaRetorno.add(presenter);
 				}
 			}
-		} else {
-			listaRetorno = this.lista;
 		}
 		
 		return listaRetorno;
 	}
 	
+	@Transactional(readOnly=true)
+	public TarefaPresenter recuperarTarefaPorWinTarefa(String idWinTarefa) {
+		TarefaPresenter presenter = null;
+		
+		if (idWinTarefa != null && !idWinTarefa.equals("")){
+			Tarefa t  = tarefaDAO.recuperarTarefaPorWinTarefa(idWinTarefa);
+			presenter = new TarefaPresenter();
+			transformToPresenter(t, presenter);
+		}
+		
+		return presenter;
+	}
 	
+	/**
+	 * Método originalmente invocado pela camada de apresentação, por esta razão é público e recebe um Presenter 
+	 * como parâmetro.
+	 *  
+	 * @param pPresenter
+	 */
+	@Transactional
 	public void sincronizarTarefas(TarefaPresenter pPresenter) {
 		//
 		System.out.println(" source = " + pPresenter.getSource());
@@ -283,7 +202,6 @@ public class TarefaFacade {
 		//Atualizando as datas na Tarefa de Origem
 		presenterTarefaOrigem.setDataTermino(Utils.getInstance().transformarDateToString(calDataTerminoTarefaOrigem.getTime()));
 		
-		
 		//CALCULANDO AS DATAS DA TAREFA DE DESTINO
 		
 		//A data de inicio da tarefa de destino é (dataInicioOrigem + duracaoTarefaOrigem)
@@ -307,19 +225,77 @@ public class TarefaFacade {
 		presenterTarefaDestino.setDataTermino(Utils.getInstance().transformarDateToString(calDataTerminoTarefaDestino.getTime()));		
 	}
 	
-	private TarefaPresenter recuperarTarefaPorWinTarefa(String idWinTarefa) {
-		TarefaPresenter presenter = null;
-		
-		if (this.lista != null && this.lista.size() > 0){
-			loop:for (TarefaPresenter presenterAtual : this.lista) {
-				if (presenterAtual.getIdWinTarefa().equalsIgnoreCase(idWinTarefa)) {
-					presenter = presenterAtual;
-					break loop;
-				}
-			}
+	
+	/**
+	 * gera o domain específico a partir de um presenter.
+	 * 
+	 * @param presenter
+	 * @param tarefa
+	 */
+	private void transformToDomain(TarefaPresenter presenter, Tarefa tarefa) {
+		if (presenter.getDataEntrega() != null && !presenter.getDataEntrega().equals("")){
+			tarefa.setDataEntrega(Utils.getInstance().converterDataToDate(presenter.getDataEntrega()));
 		}
 		
-		return presenter;
+		if (presenter.getDataInicio() != null && !presenter.getDataInicio().equals("")){
+			tarefa.setDataInicio(Utils.getInstance().converterDataToDate(presenter.getDataInicio()));
+		}
+		
+		if (presenter.getDataTermino() != null && !presenter.getDataTermino().equals("")){
+			tarefa.setDataTermino(Utils.getInstance().converterDataToDate(presenter.getDataTermino()));
+		}
+		
+		if (presenter.getDuracao() != null && !presenter.getDuracao().equals("")){
+			tarefa.setDuracao(Integer.parseInt(presenter.getDuracao()));
+		}
+		
+		if (presenter.getIdWinTarefa() != null && !presenter.getIdWinTarefa().equals("")){
+			tarefa.setIdWinTarefa(presenter.getIdWinTarefa());
+		}
+		
+		if (presenter.getNome() != null && !presenter.getNome().equals("")){
+			tarefa.setNome(presenter.getNome());
+		}
+		
+		if (presenter.getCodigo() != null && !presenter.getCodigo().equals("")){
+			tarefa.setCodigo(Long.parseLong(presenter.getCodigo()));
+		}
+	}
+	
+	/**
+	 * gera o presenter específico a partir de um domain.
+	 * 
+	 * @param tarefa
+	 * @param presenter
+	 */
+	private void transformToPresenter(Tarefa tarefa, TarefaPresenter presenter) {
+		if (tarefa.getDataEntrega() != null && !tarefa.getDataEntrega().equals("")){
+			presenter.setDataEntrega(Utils.getInstance().transformarDateToString(tarefa.getDataEntrega()));
+		}
+		
+		if (tarefa.getDataInicio() != null && !tarefa.getDataInicio().equals("")){
+			presenter.setDataInicio(Utils.getInstance().transformarDateToString(tarefa.getDataInicio()));
+		}
+		
+		if (tarefa.getDataTermino() != null && !tarefa.getDataTermino().equals("")){
+			presenter.setDataTermino(Utils.getInstance().transformarDateToString(tarefa.getDataTermino()));
+		}
+		
+		if (tarefa.getDuracao() != null && !tarefa.getDuracao().equals("")){
+			presenter.setDuracao(Integer.toString(tarefa.getDuracao()));
+		}
+		
+		if (tarefa.getIdWinTarefa() != null && !tarefa.getIdWinTarefa().equals("")){
+			presenter.setIdWinTarefa(tarefa.getIdWinTarefa());
+		}
+		
+		if (tarefa.getNome() != null && !tarefa.getNome().equals("")){
+			presenter.setNome(tarefa.getNome());
+		}
+		
+		if (tarefa.getCodigo() != null && !tarefa.getCodigo().equals("")){
+			presenter.setCodigo(Long.toString(tarefa.getCodigo()));
+		}
 	}
 	
 	public void setTarefaDAO(TarefaDAO tarefaDao) {

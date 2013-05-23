@@ -333,19 +333,19 @@
             //por fim faço um parse do JSON para poder recuperar os valores nos atributos
             myModel.fetch({data: {idWinTarefa: 'window_1002'}}).done(function () {
                 //console.log('myModel = ', myModel.toJSON());
-                console.log(JSON.stringify(myModel.toJSON(), '', '  '));
+                //console.log(JSON.stringify(myModel.toJSON(), '', '  '));
                 var contact = JSON.parse(JSON.stringify(myModel.toJSON(), '', '  '));
 
-                if (contact != undefined && contact[0] != undefined) {
-                    console.log('codigo = ',        contact[0].codigo);
-                    console.log('nome = ',          contact[0].nome);
-                    console.log('duracao = ',       contact[0].duracao);
-                    console.log('dataInicio = ',    contact[0].dataInicio);
-                    console.log('dataEntrega = ',   contact[0].dataEntrega);
-                    console.log('dataTermino = ',   contact[0].dataTermino);
-                    console.log('idWinTarefa = ',   contact[0].idWinTarefa);
+                if (contact !== undefined) {
+                    console.log('codigo = ',        contact.codigo);
+                    console.log('nome = ',          contact.nome);
+                    console.log('duracao = ',       contact.duracao);
+                    console.log('dataInicio = ',    contact.dataInicio);
+                    console.log('dataEntrega = ',   contact.dataEntrega);
+                    console.log('dataTermino = ',   contact.dataTermino);
+                    console.log('idWinTarefa = ',   contact.idWinTarefa);
                 } else {
-                    console.log('Nenhum resultado foi encontrado com a pesquisa feita.');
+                    console.log('recuperarTarefaPorWinTarefa --> Nenhum resultado foi encontrado com a pesquisa feita.');
                 }
             });
 
@@ -354,22 +354,53 @@
         //faz a busca de várias tarefas para um mesmo parâmetro
         //mas tem que fazer o tratamento no JAVA, o %2C é a vírgula
         // (http://stackoverflow.com/questions/6182356/what-is-2c-in-a-url)
+//        $('#getTarefas').click(function(){
+//            //OK - traz o dado filtrado
+//            //appRouter.findByWinTarefa('window_1002');
+//
+//            myModel = new TarefaModel();
+//            myModel.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
+//
+//            //Aqui busca os dados filtrado pelo param idWinTarefa com o valor window_1002,
+//            //é retornado o formato JSON e chamo o stringify para ver os dados num formato legível
+//            //por fim faço um parse do JSON para poder recuperar os valores nos atributos
+//            myModel.fetch({data: {idWinTarefa: 'window_1001%2Cwindow_1002'}}).done(function () {
+//                //console.log('myModel = ', myModel.toJSON());
+//                console.log(JSON.stringify(myModel.toJSON(), '', '  '));
+//                var contact = JSON.parse(JSON.stringify(myModel.toJSON(), '', '  '));
+//
+//                if (contact != undefined && contact[0] != undefined) {
+//                    console.log('codigo = ',        contact[0].codigo);
+//                    console.log('nome = ',          contact[0].nome);
+//                    console.log('duracao = ',       contact[0].duracao);
+//                    console.log('dataInicio = ',    contact[0].dataInicio);
+//                    console.log('dataEntrega = ',   contact[0].dataEntrega);
+//                    console.log('dataTermino = ',   contact[0].dataTermino);
+//                    console.log('idWinTarefa = ',   contact[0].idWinTarefa);
+//                } else {
+//                    console.log('Nenhum resultado foi encontrado com a pesquisa feita.');
+//                }
+//            });
+//
+//        });//end of #getTarefas
+
+
         $('#getTarefas').click(function(){
             //OK - traz o dado filtrado
             //appRouter.findByWinTarefa('window_1002');
 
             myModel = new TarefaModel();
-            myModel.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
+            myModel.urlRoot = 'project/cadTarefas/recuperarTodos';
 
             //Aqui busca os dados filtrado pelo param idWinTarefa com o valor window_1002,
             //é retornado o formato JSON e chamo o stringify para ver os dados num formato legível
             //por fim faço um parse do JSON para poder recuperar os valores nos atributos
-            myModel.fetch({data: {idWinTarefa: 'window_1001%2Cwindow_1002'}}).done(function () {
+            myModel.fetch().done(function () {
                 //console.log('myModel = ', myModel.toJSON());
                 console.log(JSON.stringify(myModel.toJSON(), '', '  '));
                 var contact = JSON.parse(JSON.stringify(myModel.toJSON(), '', '  '));
 
-                if (contact != undefined && contact[0] != undefined) {
+                if (contact !==  undefined && contact[0] !== undefined) {
                     console.log('codigo = ',        contact[0].codigo);
                     console.log('nome = ',          contact[0].nome);
                     console.log('duracao = ',       contact[0].duracao);
@@ -378,7 +409,7 @@
                     console.log('dataTermino = ',   contact[0].dataTermino);
                     console.log('idWinTarefa = ',   contact[0].idWinTarefa);
                 } else {
-                    console.log('Nenhum resultado foi encontrado com a pesquisa feita.');
+                    console.log('recuperarTodos --> Nenhum resultado foi encontrado com a pesquisa feita.');
                 }
             });
 
@@ -408,8 +439,9 @@
                 //console.log('myModel = ', myModel.toJSON());
                 console.log(JSON.stringify(myModel.toJSON(), '', '  '));
                 var contact = JSON.parse(JSON.stringify(myModel.toJSON(), '', '  '));
+                //TODO fazer um foreach
 
-                if (contact != undefined && contact[0] != undefined) {
+                if (contact !== undefined && contact[0] !== undefined) {
                     console.log('codigo = ',        contact[0].codigo);
                     console.log('nome = ',          contact[0].nome);
                     console.log('duracao = ',       contact[0].duracao);
@@ -418,12 +450,48 @@
                     console.log('dataTermino = ',   contact[0].dataTermino);
                     console.log('idWinTarefa = ',   contact[0].idWinTarefa);
                 } else {
-                    console.log('Nenhum resultado foi encontrado com a pesquisa feita.');
+                    console.log('recuperarTarefaPorWinTarefa --> Nenhum resultado foi encontrado com a pesquisa feita.');
                 }
 
             });
 
-        });//end of #getTarefas
+        });//end of #getTarefas2
+
+        $('#getTarefas3').click(function(){
+            //OK - traz o dado filtrado
+            //appRouter.findByWinTarefa('window_1002');
+
+            myModel = new TarefaModel();
+            myModel.urlRoot = 'project/cadTarefas/recuperarPorQualquerParteDoNome';
+
+            var search_params = {
+                'nome': 'teste'
+            };
+
+            //Aqui busca os dados filtrado por VÁRIOS PARÂMETROS,
+            //No server(java) vai gerar o seguinte JSON:
+            //{"key3":"value3","key2":"value2","key1":"value1","idWinTarefa":"window_1001%2Cwindow_1002","keyN":"valueN"}
+            //http://stackoverflow.com/questions/12315973/fetch-backbone-collection-with-search-parameters
+            myModel.fetch({data: $.param(search_params)}).done(function () {
+                //console.log('myModel = ', myModel.toJSON());
+                console.log(JSON.stringify(myModel.toJSON(), '', '  '));
+                var contact = JSON.parse(JSON.stringify(myModel.toJSON(), '', '  '));
+
+                if (contact !== undefined && contact[0] !== undefined) {
+                    console.log('codigo = ',        contact[0].codigo);
+                    console.log('nome = ',          contact[0].nome);
+                    console.log('duracao = ',       contact[0].duracao);
+                    console.log('dataInicio = ',    contact[0].dataInicio);
+                    console.log('dataEntrega = ',   contact[0].dataEntrega);
+                    console.log('dataTermino = ',   contact[0].dataTermino);
+                    console.log('idWinTarefa = ',   contact[0].idWinTarefa);
+                } else {
+                    console.log('recuperarTarefaPorWinTarefa --> Nenhum resultado foi encontrado com a pesquisa feita.');
+                }
+
+            });
+
+        });//end of #getTarefas2
 
 
 
@@ -518,6 +586,7 @@
                                 <li><button type="button" id="getTarefa">Recuperar Tarefa</button></li>
                                 <li><button type="button" id="getTarefas">Recuperar Tarefas</button></li>
                                 <li><button type="button" id="getTarefas2">Recuperar Tarefas com Varios Params</button></li>
+                                <li><button type="button" id="getTarefas3">Recuperar Tarefas Por Nome Varios Params</button></li>
                                 <li>
                                     <fieldset title="Novos Componentes">
                                         <legend>Novos Componentes:</legend>

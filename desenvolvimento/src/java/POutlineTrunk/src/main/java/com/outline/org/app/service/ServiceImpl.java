@@ -12,6 +12,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import com.google.gson.Gson;
 import com.outline.org.app.presenter.IPresenter;
 
+/**
+ * 
+ * @author alessandrots
+ *
+ */
+
 public abstract class ServiceImpl<T> implements IService {
 	
 	private Object[] parametrosExecucao;
@@ -45,6 +51,9 @@ public abstract class ServiceImpl<T> implements IService {
 		
 		//gera a lista dos métodos que são realmente de negócio
 		gerarListaMetodosNegociaisInstanciaFilha();		
+		
+		//limpando a resposta existente em memória
+		setResposta(null);
 	}	
 	
 	/**
