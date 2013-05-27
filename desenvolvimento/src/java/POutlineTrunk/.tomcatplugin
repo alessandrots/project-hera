@@ -9,7 +9,8 @@
     <extraInfo>%3CResource+name%3D%22jdbc%2FOutlineDS%22+auth%3D%22Container%22+type%3D%22javax.sql.DataSource%22%0A%09++++++maxActive%3D%22100%22+maxIdle%3D%2230%22+maxWait%3D%22100%22%0A++++++++++++++username%3D%22outline%22+password%3D%22outline%22+driverClassName%3D%22org.postgresql.Driver%22%0A++++++++++++++url%3D%22jdbc%3Apostgresql%3A%2F%2F127.0.0.1%3A5432%2Foutline%22%2F%3E</extraInfo>
     <webPath>/outline</webPath>
     <webClassPathEntries>
-        <webClassPathEntry>/POutlineTrunk/target/classes</webClassPathEntry>
+        <webClassPathEntry>/POutlineArquitetura/target/classes</webClassPathEntry>
+        <webClassPathEntry>/POutlineArquitetura/target/test-classes</webClassPathEntry>
         <webClassPathEntry>M2_REPO/antlr/antlr/2.7.7/antlr-2.7.7.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/asm/asm/3.3.1/asm-3.3.1.jar</webClassPathEntry>
