@@ -21,6 +21,11 @@ import com.outline.org.core.db.HibernateDAOImpl;
 @Repository
 public class TarefaDAO extends HibernateDAOImpl<Tarefa> {
 	
+	@Override
+	protected Class<Tarefa> getEntityClass() {
+		return Tarefa.class;
+	}
+	
 	/**
 	 * Métodos customizados.
 	 * 
@@ -75,9 +80,6 @@ public class TarefaDAO extends HibernateDAOImpl<Tarefa> {
 		return listaTarefa;
 	}
 
-	@Override
-	protected Class<Tarefa> getEntityClass() {
-		return Tarefa.class;
-	}
+	
 
 }

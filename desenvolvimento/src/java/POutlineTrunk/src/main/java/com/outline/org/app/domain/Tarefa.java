@@ -57,6 +57,10 @@ public class Tarefa implements Comparable<Tarefa>, Serializable ,Domain {
 	@Column(name="idWinTarefa", nullable=false, length=50)
 	private String idWinTarefa;	
 	
+	@NotNull
+	@Column(name="ipacotetrabalho", nullable=false)
+	private int pacote;
+	
 	
 	/**
 	 * @return the codigo
@@ -168,6 +172,22 @@ public class Tarefa implements Comparable<Tarefa>, Serializable ,Domain {
 	public void setIdWinTarefa(String idWinTarefa) {
 		this.idWinTarefa = idWinTarefa;
 	}	
+	
+
+	/**
+	 * @return the pacote
+	 */
+	public int getPacote() {
+		return pacote;
+	}
+
+
+	/**
+	 * @param pacote the pacote to set
+	 */
+	public void setPacote(int pacote) {
+		this.pacote = pacote;
+	}
 
 
 	public int compareTo(Tarefa o) {

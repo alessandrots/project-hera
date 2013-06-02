@@ -35,6 +35,7 @@ public class TarefaFacade {
 		if (presenter != null) {			
 			Tarefa tarefa = new Tarefa();
 			transformToDomain(presenter, tarefa);
+			tarefa.setPacote(1);
 			
 			//Insert or Update
 			if (tarefa.getCodigo() != null){				

@@ -87,6 +87,7 @@
 		<property name="annotatedClasses">
 			<array>
 				<value>com.outline.org.app.domain.Tarefa</value>
+				<value>com.outline.org.app.domain.Usuario</value>
 			</array>
 		</property>
 	</bean>	
@@ -120,6 +121,7 @@
 	<context:component-scan base-package="com.outline.org.app.service" />
 	<context:component-scan base-package="com.outline.org.app.controle" />
 	<context:component-scan base-package="com.outline.org.core.db" />
+	<!-- <context:component-scan base-package="com.outline.org.app.security" />  -->
 	
 	<aop:aspectj-autoproxy/>
 	

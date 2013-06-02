@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 public class EngineJDBC {
 	
 	private static Connection conn;
@@ -89,6 +91,31 @@ public class EngineJDBC {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void cadastrarUsuario() {
+		Connection conexao 		= getConn();
+		
+		try {
+			StringBuffer sql = new StringBuffer();
+			sql.append(" Insert into negocio.tb_usuario (snome,susername, semail, spassword) VALUES ");
+			sql.append(" (?,?, ?, ?) ");
+			PreparedStatement ps = conexao.prepareStatement(sql.toString());
+						
+			//setando filtros
+			ps.setString(1, "Alessandro T. Santos");
+			ps.setString(2, "alessandrots");
+			ps.setString(3, "alessandro.teixeira@gmail.com");
+			ps.setString(4, DigestUtils.sha256Hex("123456"));
+			
+			//Adicionando linha
+			int linha = ps.executeUpdate();
+
+			conexao.commit();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static void main(String[] args) {
 		
@@ -96,6 +123,8 @@ public class EngineJDBC {
 		
 //		EngineDB.recuperarTodosTesteTmp();//OK
 		
-		EngineJDBC.recuperarTodasTarefas();
+//		EngineJDBC.recuperarTodasTarefas();//OK
+		
+		EngineJDBC.cadastrarUsuario();
 	}
 }

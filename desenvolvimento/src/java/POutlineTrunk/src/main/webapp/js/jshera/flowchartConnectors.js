@@ -760,7 +760,7 @@
 
 //Fazendo a inicialização do objeto jsPlumbDemo
 jsPlumb.bind("ready", function() {
-        alert('abrindo jshera2');
+        alert('abrindo jshera NOVO!');
 	
 	//comentando a inicialização de objetos
 	//jsPlumbDemo.init();

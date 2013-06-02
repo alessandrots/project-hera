@@ -1,0 +1,16 @@
+﻿
+
+insert into negocio.tb_projeto (snome, sdescricao) values('Projeto Teste', 'Teste')
+insert into negocio.tb_eap (snome, sdescricao, iprojeto) values ('EAP Projeto Teste', 'Teste', 1)
+insert into negocio.tb_fase (snome, sdescricao, ieap) values ('FASE EAP Teste', 'Teste', 1)
+insert into negocio.tb_produto (snome, sdescricao, ifase) values ('Produto Fase Teste', 'Teste', 1)
+insert into negocio.tb_pacote_trabalho (snome, sdescricao, iproduto) values ('Pacote Trabalho Teste', 'Teste', 1)
+
+select * from negocio.tb_projeto
+select * from negocio.tb_eap
+select * from negocio.tb_fase
+select * from negocio.tb_produto
+select * from negocio.tb_pacote_trabalho
+select * from negocio.tb_tarefa
+select * from negocio.tb_usuario
+

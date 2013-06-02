@@ -17,24 +17,25 @@
      Test Servlet
   </description>
   
-  <!--
-  <servlet>
-    <servlet-name>newproject</servlet-name>
-    <servlet-class>com.outline.org.core.server.ProjectServlet</servlet-class>
-  </servlet>
-    
-  <servlet-mapping>
-    	<servlet-name>newproject</servlet-name>
-        <url-pattern>/newproject/*</url-pattern>
-  </servlet-mapping>
-  -->
+  <!-- Configuração do filtro básico da aplicação para o Spring Security -->
+  <filter>
+	  <!-- O nome do filtro é importante:
+	  ele aponta para o nome de um bean de mesmo nome que será criado internamente pelo
+	  Spring Security para lidar com a segurança de requisições. -->
+	  <filter-name>springSecurityFilterChain</filter-name>
+	  <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  
+  <filter-mapping>
+	  <filter-name>springSecurityFilterChain</filter-name>
+	  <url-pattern>/*</url-pattern>
+  </filter-mapping>
   
   <servlet>
     <servlet-name>project</servlet-name>
     <servlet-class>com.outline.org.core.server.ProjectServlet</servlet-class>
   </servlet>
-  
-  
+    
   <servlet-mapping>
     	<servlet-name>project</servlet-name>
         <url-pattern>/project/*</url-pattern>

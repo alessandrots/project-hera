@@ -14,7 +14,7 @@
 			authentication-failure-url="/index.jsp"
 			login-page="/index.html"
 			default-target-url="/index.html"/>
-		<security:intercept-url pattern="/index.html" access="isAnonymous()"/>
+		<security:intercept-url pattern="/index.html" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 		<!-- 
 		<security:intercept-url pattern="/**" access="isAnonymous()"/>
 		 -->
