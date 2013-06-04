@@ -13,12 +13,11 @@ var TarefaView = Backbone.View.extend({
     className: 'page-form',
 
     id: 'post-form',
-
-    attributes: {
-        action: 'posts',
-        method: 'PUT'
-    },
    */
+    attributes: {
+        type: 'PUT'
+    },
+
 
     events: {
         "submit" : "savePost"
@@ -136,8 +135,8 @@ var TarefaView = Backbone.View.extend({
     },
 
     showError:function(model, error) {
-        console.log('showError');add
-        console.log(error.responseText);
+        console.log('showError');
+        //console.log(error.responseText);
     },
 
     goToIndex: function() {

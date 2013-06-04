@@ -449,6 +449,8 @@
         this.attributes = _.extend({}, attributes, attrs);
       }
 
+      console.log('dentro do backbone.save()');
+
       // After a successful server-side save, the client is (optionally)
       // updated with the server-side state.
       if (options.parse === void 0) options.parse = true;
@@ -1394,16 +1396,20 @@
     // Ensure that we have a URL.
     if (!options.url) {
       params.url = _.result(model, 'url') || urlError();
+
+      console.log('params.url = '+ params.url);
     }
 
     // Ensure that we have the appropriate request data.
     if (options.data == null && model && (method === 'create' || method === 'update' || method === 'patch')) {
       params.contentType = 'application/json';
       params.data = JSON.stringify(options.attrs || model.toJSON(options));
+        console.log('params.contentType = '+ params.contentType);
     }
 
     // For older servers, emulate JSON by encoding the request into an HTML-form.
     if (options.emulateJSON) {
+      console.log('emulateJSON !!! = ' + params.data);
       params.contentType = 'application/x-www-form-urlencoded';
       params.data = params.data ? {model: params.data} : {};
     }
@@ -1411,7 +1417,8 @@
     // For older servers, emulate HTTP by mimicking the HTTP method with `_method`
     // And an `X-HTTP-Method-Override` header.
     if (options.emulateHTTP && (type === 'PUT' || type === 'DELETE' || type === 'PATCH')) {
-      params.type = 'POST';
+         params.type = 'POST';
+        console.log('params.type = '+ params.type);
       if (options.emulateJSON) params.data._method = type;
       var beforeSend = options.beforeSend;
       options.beforeSend = function(xhr) {
@@ -1423,21 +1430,31 @@
     // Don't process data on a non-GET request.
     if (params.type !== 'GET' && !options.emulateJSON) {
       params.processData = false;
+        console.log('GET');
     }
 
     var success = options.success;
     options.success = function(resp) {
       if (success) success(model, resp, options);
+        console.log('success trigger');
       model.trigger('sync', model, resp, options);
     };
 
     var error = options.error;
     options.error = function(xhr) {
       if (error) error(model, xhr, options);
+        console.log('error trigger');
       model.trigger('error', model, xhr, options);
     };
 
+    /*
+    console.log(' username  = '  + model.get('j_username') +
+                ' password  = '  + model.get('j_password')
+    );
+    */
+
     // Make the request, allowing the user to override any Ajax options.
+      console.log('xhr = ' + params.data + ' model = ' + model.get('j_password'));
     var xhr = options.xhr = Backbone.ajax(_.extend(params, options));
     model.trigger('request', model, xhr, options);
     return xhr;

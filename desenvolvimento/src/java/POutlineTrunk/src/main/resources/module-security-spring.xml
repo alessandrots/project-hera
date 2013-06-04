@@ -11,10 +11,10 @@
 	
 	<security:http auto-config="true" use-expressions="true">
 		<security:form-login 
-			authentication-failure-url="/index.jsp"
+			authentication-failure-url="/index.html"
 			login-page="/index.html"
 			default-target-url="/index.html"/>
-		<security:intercept-url pattern="/index.html" access="isAnonymous()"/>
+		<security:intercept-url pattern="/index.html" access="permitAll"/>
 		<!-- 
 		<security:intercept-url pattern="/**" access="isAnonymous()"/>
 		 -->
@@ -27,12 +27,21 @@
 	
 	<security:authentication-manager>
 		<security:authentication-provider ref="authenticationProvider"/>
+		
+		<!--
 		<security:authentication-provider>
 			<security:user-service>
 				<security:user name="jimmy" password="hendrix" authorities="ROLE_MEMBRO"/>
 				<security:user name="admin" password="admin" authorities="ROLE_MEMBRO,ROLE_ADMIN"/>
 			</security:user-service>
 		</security:authentication-provider>
+		-->
+		
+		<security:authentication-provider>
+		  <security:jdbc-user-service data-source-ref="outline-ds"
+		      users-by-username-query="SELECT susername, spassword, 'true' as enable FROM negocio.tb_usuario WHERE susername=?"
+		      authorities-by-username-query="SELECT susername, spassword FROM negocio.tb_usuario WHERE susername=?" />
+	      </security:authentication-provider>
 	</security:authentication-manager>
 
 </beans>

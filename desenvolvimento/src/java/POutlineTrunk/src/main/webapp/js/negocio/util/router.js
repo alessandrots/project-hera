@@ -19,7 +19,7 @@ var AppRouter = Backbone.Router.extend({
     initialize: function(){
         console.log('router => initialize');
         this.tarefaList = new TarefaList();
-        this.tarefaList.url = '/newproject/project/cadTarefas/recuperarTodasTarefas';
+        this.tarefaList.url = 'project/cadTarefas/recuperarTodos';
     },
 
     /**

@@ -109,8 +109,11 @@ public class TarefaFacade {
 		
 		if (idWinTarefa != null && !idWinTarefa.equals("")){
 			Tarefa t  = tarefaDAO.recuperarTarefaPorWinTarefa(idWinTarefa);
-			presenter = new TarefaPresenter();
-			transformToPresenter(t, presenter);
+			
+			if (t != null){
+				presenter = new TarefaPresenter();			
+				transformToPresenter(t, presenter);
+			}
 		}
 		
 		return presenter;

@@ -58,11 +58,13 @@
         <script type="text/javascript" src="js/negocio/colecao/TarefaCollectionView.js"></script>
         <script type="text/javascript" src="js/negocio/colecao/TarefaList.js"></script>
         <script type="text/javascript" src="js/negocio/util/router.js"></script>
+        <script type="text/javascript" src="js/negocio/modelo/LoginModel.js"></script>
+        <script type="text/javascript" src="js/negocio/visao/LoginView.js"></script>
 
 <script type="text/javascript">
 //<![CDATA[
 
-    //TODO - botar num arquivo javascript
+    //TODO - botar num arquivo javascript - quebrar em partes
 	$(document).ready(function() {
 
 
@@ -318,8 +320,9 @@
         //COMPONENTES BACKBONE
         var appRouter = new AppRouter();
         appRouter.start();
-        Backbone.emulateHTTP = true;
-        Backbone.emulateJSON = true;
+        //TODO comentado temporariamente
+        //Backbone.emulateHTTP = true;
+        //Backbone.emulateJSON = true;
 
         $('#getTarefa').click(function(){
             //OK - traz o dado filtrado
@@ -497,6 +500,7 @@
 
         //Backbone.js
         var tarefaView = new TarefaView();
+        var loginView  = new LoginView();
 
 	});
 // ]]>	
@@ -506,7 +510,19 @@
 	<body>  
 		<div id="principal" align="center">
 			<div id="containerPlumb">
-				  <div id="render"></div>
+				  <div id="render">
+
+                      <div id="loginArea">
+                          <li id="liCadastroLogin">
+                             <script type="text/template" id="login-post-form">
+                               <label>Usu&aacute;rio: <input type="text" id="j_username" name="j_username" size="20"></label>
+                               <label>Senha:          <input type="text" id="j_password" name="j_password" size="12"></label>
+                               <input type="submit" value="OK" />
+                             </script>
+                          </li>
+                      </div>
+
+                  </div>
 				   <!-- desenho dos componentes - workspace do usuário -->
 			</div>
 

@@ -32,7 +32,7 @@ public class Usuario implements Comparable<Tarefa>, Serializable ,Domain {
 	private String nome;	
 
 	@NotNull
-	@Column(name="susername", nullable=false, length=100)
+	@Column(name="susername", nullable=false, length=20)
 	private String login;
 
 	@NotNull
@@ -42,10 +42,6 @@ public class Usuario implements Comparable<Tarefa>, Serializable ,Domain {
 	@NotNull
 	@Column(name="spassword", nullable=false, length=128)
 	private String hashSenha;
-
-	@NotNull
-	@Column(name="idWinTarefa", nullable=false, length=50)
-	private String idWinTarefa;
 	
 	/**
 	 * @return the codigo
@@ -115,21 +111,7 @@ public class Usuario implements Comparable<Tarefa>, Serializable ,Domain {
 	 */
 	public void setHashSenha(String hashSenha) {
 		this.hashSenha = hashSenha;
-	}
-
-	/**
-	 * @return the idWinTarefa
-	 */
-	public String getIdWinTarefa() {
-		return idWinTarefa;
-	}
-
-	/**
-	 * @param idWinTarefa the idWinTarefa to set
-	 */
-	public void setIdWinTarefa(String idWinTarefa) {
-		this.idWinTarefa = idWinTarefa;
-	}
+	}	
 
 	@Override
 	public int compareTo(Tarefa o) {
