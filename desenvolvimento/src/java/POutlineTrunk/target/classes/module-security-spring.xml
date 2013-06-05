@@ -15,7 +15,8 @@
 			login-page="/login.jsp"
 			default-target-url="/index.html" />
 		<security:intercept-url pattern="/login.jsp" access="permitAll"/>	
-		<security:intercept-url pattern="/index.html" access="hasRole('ROLE_MEMBRO')"/>
+		<security:intercept-url pattern="/index.html" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/*.jsp" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/" access="permitAll"/>	
 		<security:intercept-url pattern="/project/**" access="hasRole('ROLE_MEMBRO')"/>		
 	</security:http>

@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8cb90a1c-2e6e-4c4f-892d-85fd523987a6" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/js/index.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.tomcatplugin" afterPath="$PROJECT_DIR$/.tomcatplugin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/outline/org/app/security/AuthenticationOutline.java" afterPath="$PROJECT_DIR$/src/main/java/com/outline/org/app/security/AuthenticationOutline.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/.#webclasspath" afterPath="$PROJECT_DIR$/src/main/webapp/.#webclasspath" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.classpath" afterPath="$PROJECT_DIR$/.classpath" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/outline/org/app/security/AuthenticationProviderImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/outline/org/app/security/AuthenticationProviderImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/index.html" afterPath="$PROJECT_DIR$/src/main/webapp/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/module-security-spring.xml" afterPath="$PROJECT_DIR$/src/main/resources/module-security-spring.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/module-security-spring.xml" afterPath="$PROJECT_DIR$/target/classes/module-security-spring.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="POutlineTrunk.iws" />
