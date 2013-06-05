@@ -43,27 +43,27 @@
   
   <listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+  </listener>
 	
-	<context-param>
+  <context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:/module-core-spring.xml</param-value>
-	</context-param>
+  </context-param>
   
-  <!-- -->
+   <!-- -->
    <resource-ref>
       <description>DB Connection</description>
       <res-ref-name>jdbc/OutlineDS</res-ref-name>
       <res-type>javax.sql.DataSource</res-type>
       <res-auth>Container</res-auth>
-  </resource-ref>
+   </resource-ref>
   
   
-  <!-- The Welcome File List
+    <!-- The Welcome File List-->
     <welcome-file-list>        
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
-  -->
+  
 
 
 </web-app>

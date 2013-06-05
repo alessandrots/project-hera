@@ -24,8 +24,6 @@
         <webClassPathEntry>M2_REPO/commons-io/commons-io/2.1/commons-io-2.1.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar</webClassPathEntry>
-        <webClassPathEntry>M2_REPO/javax/el/el-api/1.1/el-api-1.1.jar</webClassPathEntry>
-        <webClassPathEntry>M2_REPO/javax/servlet/jsp/jsp-api/2.1/jsp-api-2.1.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/javax/servlet/jstl/1.2/jstl-1.2.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/junit/junit/4.5/junit-4.5.jar</webClassPathEntry>

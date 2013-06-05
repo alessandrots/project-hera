@@ -1,5 +1,8 @@
 package com.outline.org.app.security;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,13 +30,19 @@ public class AuthenticationProviderImpl implements AuthenticationProvider  {
 			return null;
 		}
 		
-		/* TODO
-		List<PermissaoUsuario> permissoes = getDaoPermissao().getPermissoesUsuario(usuario);
-		SFAuthentication resultado = new SFAuthentication(usuario, permissoes);
-		resultado.setAuthenticated(usuario != null);
-		*/
+//		TODO
+//		List<PermissaoUsuario> permissoes = getDaoPermissao().getPermissoesUsuario(usuario);
+//		SFAuthentication resultado = new SFAuthentication(usuario, permissoes);
 		
-		AuthenticationOutline resultado = new AuthenticationOutline(usuario);
+		List<PermissaoUsuario> permissoes = new ArrayList<PermissaoUsuario>();
+		PermissaoUsuario permissaoUsuario = new PermissaoUsuario();
+		permissaoUsuario.setId(1);
+		permissaoUsuario.setRole("ROLE_MEMBRO");
+		permissoes.add(permissaoUsuario);
+		
+		AuthenticationOutline resultado = new AuthenticationOutline(usuario, permissoes);
+		resultado.setAuthenticated(usuario != null);
+		
 		return resultado;
 	}
 
