@@ -46,22 +46,22 @@ public class TarefaFacade {
 		}
 	}	
 	
-	@Transactional(readOnly=true)
+	@Transactional
 	public List<Tarefa> recuperarTodos() {
 		return tarefaDAO.recuperarTodos();
 	}
 	
-	@Transactional(readOnly=true)
+	@Transactional
 	public Tarefa recuperarPorCodigo(Long codigoTarefa) {
 		return tarefaDAO.recuperarPorChave(codigoTarefa);
 	}
 		
-	@Transactional(readOnly=true)
+	@Transactional
 	public Tarefa recuperarPorChave(Long chave) {
 		return tarefaDAO.recuperarPorChave(chave);
 	}
 		
-	@Transactional(readOnly=true)
+	@Transactional
 	public List<TarefaPresenter> recuperarTarefaPorNome(TarefaPresenter pPresenter) {
 		List<TarefaPresenter> listaRetorno = null;
 		
@@ -82,7 +82,7 @@ public class TarefaFacade {
 		return listaRetorno;
 	}
 	
-	@Transactional(readOnly=true)
+	@Transactional
 	public List<TarefaPresenter> recuperarPorQualquerParteDoNome(TarefaPresenter pPresenter) {
 		List<TarefaPresenter> listaRetorno = null;
 		
@@ -103,7 +103,7 @@ public class TarefaFacade {
 		return listaRetorno;
 	}
 	
-	@Transactional(readOnly=true)
+	@Transactional
 	public TarefaPresenter recuperarTarefaPorWinTarefa(String idWinTarefa) {
 		TarefaPresenter presenter = null;
 		
