@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenerationTime;
 
 @Entity 
 @Table(name="negocio.tb_usuario")
-public class Usuario implements Comparable<Tarefa>, Serializable ,Domain {
+public class Usuario implements Comparable<Usuario>, Serializable ,Domain {
 
 	/**
 	 * 
@@ -114,8 +114,8 @@ public class Usuario implements Comparable<Tarefa>, Serializable ,Domain {
 	}	
 
 	@Override
-	public int compareTo(Tarefa o) {
-		if (o instanceof Tarefa) {
+	public int compareTo(Usuario o) {
+		if (o instanceof Usuario) {
 			return getNome().compareTo(o.getNome());
 		} else {
 			return 0;

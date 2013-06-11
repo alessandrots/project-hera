@@ -12,44 +12,6 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">	
 		
-	<!-- 
-		O SessionFactory do Hibernate. FUNCIONANDO.
-		O DataSource da aplicação.
-		Neste caso, este só deve ser usado em ambiente de desenvolvimento, pois não nos oferece um pool de conexões.
-		
-		A cada chamada ao método getConnection() do bean obtido uma nova conexão é obtida.
-		
-		this("jdbc:postgresql://localhost:5432/outline", "outline", "outline", "org.postgresql.Driver");
-	 
-	 
-	      <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		      <property name="username" value="outline"/>
-		      <property name="password" value="outline"/>
-		      <property name="driverClassName" value="org.postgresql.Driver"/>
-		      <property name="url" value="jdbc:postgresql://127.0.0.1:5432/outline"/>
-	      </bean>
-	      
-	      <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		      <property name="dataSource" ref="dataSource"/>
-		      <property name="hibernateProperties">
-			      <props>
-				      <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
-				      <prop key="hibernate.hbm2ddl.auto">update</prop>				
-				      <prop key="hibernate.show_sql">true</prop>
-				      <prop key="hibernate.format_sql">true</prop>
-			      </props>
-		      </property>
-		      
-		      <property name="annotatedClasses">
-			      <array>
-				      <value>com.outline.org.app.domain.Tarefa</value>
-			      </array>
-		      </property>
-		      
-	      </bean>
-	-->
-	
-	
 	<!-- DataSource usando um pool C3P0 VER ISTO AQUIIIII TODO-->
 	<!-- 	
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -86,8 +48,16 @@
 		
 		<property name="annotatedClasses">
 			<array>
+				<value>com.outline.org.app.domain.Projeto</value>
+				<value>com.outline.org.app.domain.Eap</value>
+				<value>com.outline.org.app.domain.Fase</value>
+				<value>com.outline.org.app.domain.Produto</value>
+				<value>com.outline.org.app.domain.PacoteTrabalho</value>
 				<value>com.outline.org.app.domain.Tarefa</value>
 				<value>com.outline.org.app.domain.Usuario</value>
+				<value>com.outline.org.app.domain.TipoRecurso</value>
+				<value>com.outline.org.app.domain.Recurso</value>
+				<value>com.outline.org.app.domain.Calendario</value>
 			</array>
 		</property>
 	</bean>	
