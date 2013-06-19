@@ -42,6 +42,9 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 			//recupera o método negocial 
 			Method metodoAserExecutado = getMetodoParaExecutar(acao);
 			
+			//Passando a autenticação
+			tarefaFacade.setAutenticado(getUsuarioAutenticado());
+			
 			//invoca a sua execução com a passagem de parâmetros
 			Object objeto = metodoAserExecutado.invoke(this, getParametros());
 			
@@ -146,7 +149,6 @@ public class TarefaService extends ServiceImpl<TarefaPresenter> {
 
 		return default_.toString();
 	}
-	
 	
 	
 }

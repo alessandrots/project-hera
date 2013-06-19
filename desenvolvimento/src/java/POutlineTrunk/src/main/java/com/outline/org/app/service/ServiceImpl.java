@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.google.gson.Gson;
+import com.outline.org.app.domain.Usuario;
 import com.outline.org.app.presenter.IPresenter;
+import com.outline.org.app.security.AuthenticationOutline;
 
 /**
  * 
@@ -28,6 +30,7 @@ public abstract class ServiceImpl<T> implements IService {
 	private List<Method> listaMetodosNegociaisInstancia;
 	private IPresenter presenter;
 	private String resposta;
+	private Usuario usuarioAutenticado;
 	
 	@Autowired
 	@Qualifier("outlineProperties")
@@ -217,5 +220,18 @@ public abstract class ServiceImpl<T> implements IService {
 		this.outlineProperties = outlineProperties;
 	}
 	
+	@Override
+	public void setUsuarioAutenticado(AuthenticationOutline auth) {
+		if (auth.isAuthenticated()){
+			this.usuarioAutenticado = (Usuario)auth.getDetails();
+		} else {
+			//criar um Usuário Anônimo ou lançar uma exceção por não ter autenticação TODO
+		}
+	}
+
+	@Override
+	public Usuario getUsuarioAutenticado() {
+		return this.usuarioAutenticado;
+	}
 	
 }

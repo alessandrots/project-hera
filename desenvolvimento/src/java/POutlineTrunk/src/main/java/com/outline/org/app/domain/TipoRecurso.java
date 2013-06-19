@@ -26,8 +26,8 @@ public class TipoRecurso implements Comparable<TipoRecurso>, Serializable ,Domai
 	@Column(name="icodigo", nullable=false) 
 	private Long codigo;
 	
-	@Column(name="snome", nullable=false, length=80)
-	private String nome;
+	@Column(name="sdescricao", nullable=false, length=80)
+	private String descricao;
 	
 	@Column(name="cativo", nullable=false)
 	private Boolean ativo;
@@ -49,15 +49,15 @@ public class TipoRecurso implements Comparable<TipoRecurso>, Serializable ,Domai
 	/**
 	 * @return the nome
 	 */
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descricao;
 	}
 
 	/**
 	 * @param nome the nome to set
 	 */
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDescricao(String nome) {
+		this.descricao = nome;
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class TipoRecurso implements Comparable<TipoRecurso>, Serializable ,Domai
 	@Override
 	public int compareTo(TipoRecurso o) {
 		if (o instanceof TipoRecurso) {
-			return getNome().compareTo(o.getNome());
+			return getDescricao().compareTo(o.getDescricao());
 		} else {
 			return 0;
 		}

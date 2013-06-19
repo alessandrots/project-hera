@@ -1,5 +1,8 @@
 package com.outline.org.app.service;
 
+import com.outline.org.app.domain.Usuario;
+import com.outline.org.app.security.AuthenticationOutline;
+
 public interface IService {
 
 	public void execute(String acao);
@@ -15,4 +18,8 @@ public interface IService {
 	public String getResposta();
 	
 	public void setResposta(String resposta);
+	
+	public void setUsuarioAutenticado(AuthenticationOutline auth);
+	
+	public Usuario getUsuarioAutenticado();
 }

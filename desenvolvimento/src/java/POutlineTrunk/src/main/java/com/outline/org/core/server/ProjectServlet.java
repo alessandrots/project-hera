@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONValue;
 
+import com.outline.org.app.security.AuthenticationOutline;
 import com.outline.org.app.service.IService;
 
 /**
@@ -77,6 +79,13 @@ public class ProjectServlet extends HttpServlet {
 				//Criado o domain de camada de apresentação
 //				IPresenter objPresenter = gerarPresenterViaJSon(req, req.getPathInfo());
 				String jsonDados = gerarJsonViaRequest(req);
+				
+				//passando a autenticação
+				Principal seguranca = req.getUserPrincipal();
+				
+				if (seguranca != null) {			
+					servico.setUsuarioAutenticado((AuthenticationOutline)seguranca);
+				}
 				
 				//TODO - o serviço vai executar sempre o método execute e dentro dele vai executar
 				//a funcionalidade passada como segundo parâmetro

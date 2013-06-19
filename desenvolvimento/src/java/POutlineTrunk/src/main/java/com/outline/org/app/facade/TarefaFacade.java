@@ -10,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.outline.org.app.dao.CalendarioDAO;
 import com.outline.org.app.dao.TarefaDAO;
+import com.outline.org.app.domain.Calendario;
 import com.outline.org.app.domain.Tarefa;
+import com.outline.org.app.domain.Usuario;
 import com.outline.org.app.presenter.TarefaPresenter;
 import com.outline.org.util.Utils;
 
@@ -25,6 +28,11 @@ public class TarefaFacade {
 
 	@Autowired
 	private TarefaDAO tarefaDAO;
+	
+	@Autowired
+	private CalendarioDAO calendarioDAO;
+	
+	private Usuario autenticado;
 	
 	public TarefaFacade() {
 		super();
@@ -127,7 +135,12 @@ public class TarefaFacade {
 	 */
 	@Transactional
 	public void sincronizarTarefas(TarefaPresenter pPresenter) {
-		//
+		if (this.autenticado != null){
+			System.out.println(" source = " + this.autenticado.getLogin());
+			
+			List<Calendario> listaCal = calendarioDAO.recuperarCalendarioPorLogin(this.autenticado.getLogin());
+		}
+		
 		System.out.println(" source = " + pPresenter.getSource());
 		TarefaPresenter presenterSource = recuperarTarefaPorWinTarefa(pPresenter.getSource());
 		
@@ -305,5 +318,14 @@ public class TarefaFacade {
 	public void setTarefaDAO(TarefaDAO tarefaDao) {
 		this.tarefaDAO = tarefaDao;
 	}
+
+	/**
+	 * @param autenticado the autenticado to set
+	 */
+	public void setAutenticado(Usuario autenticado) {
+		this.autenticado = autenticado;
+	}
+
+	
 	
 }

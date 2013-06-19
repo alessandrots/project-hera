@@ -91,7 +91,7 @@
 	<context:component-scan base-package="com.outline.org.app.service" />
 	<context:component-scan base-package="com.outline.org.app.controle" />
 	<context:component-scan base-package="com.outline.org.core.db" />
-	<!-- <context:component-scan base-package="com.outline.org.app.security" />  -->
+	<context:component-scan base-package="com.outline.org.app.security" />
 	
 	<aop:aspectj-autoproxy/>
 	
