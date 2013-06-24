@@ -57,14 +57,10 @@ var AppRouter = Backbone.Router.extend({
 
     findByWinTarefa: function(id){
         console.log('router => findByWinTarefa');
-//        var tarefaList2 = new TarefaList();
-//        tarefaList2.url = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
-//        this.tarefaCollectionView = new TarefaCollectionView({collection: tarefaList2});
-//        tarefaList2.fetch({data: {idWinTarefa: id}});
-
         this.tarefaList = new TarefaList();
         this.tarefaList.url = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
         this.tarefaCollectionView = new TarefaCollectionView({collection: this.tarefaList});
+        console.log('router => findByWinTarefa => mudando o el.', id);
         this.tarefaList.fetch({data: {idWinTarefa: id}});
     },
 

@@ -8,25 +8,21 @@
 var TarefaView = Backbone.View.extend({
 
 
-    tagName: 'form',
-    /*
-    className: 'page-form',
+   tagName: 'form',
 
-    id: 'post-form',
-   */
     attributes: {
         type: 'PUT'
     },
-
 
     events: {
         "submit" : "savePost"
     },
 
-    initialize: function(model) {
+    initialize: function() {
         _.bindAll(this, 'render', 'savePost', 'goToIndex');
 
         this.template = $('#post-form').html();
+        //console.log(' TarefaView -> this.template : ', this.template);
 
         //http://net.tutsplus.com/tutorials/javascript-ajax/build-a-contacts-manager-using-backbone-js-part-5/
         /*
@@ -43,7 +39,6 @@ var TarefaView = Backbone.View.extend({
         this.nomeTarefa  = '';
 
         this.model = new TarefaModel();
-
         this.model.on("error", this.showError);
         //this.model.on("error", this.model.showErrors);
         this.model.on("sync", this.goToIndex);
@@ -55,9 +50,8 @@ var TarefaView = Backbone.View.extend({
      * Funcionou com Mustache.js.
      */
     render: function() {
-        var rendered = Mustache.to_html(this.template);
+        var rendered = Mustache.to_html(this.template, this.model);
         //console.log(rendered);
-
         this.$el.html(rendered);
 
         this.nomeInput          = this.$el.find('#cad_nome');
@@ -67,10 +61,29 @@ var TarefaView = Backbone.View.extend({
         //this.idWindowTarefa     = this.$el.find('#id_window_tarefa');
         this.duracaoInput       = this.$el.find('#cad_duracao');
 
-        console.log('this.el = ' + this.el);
-
+        //console.log('this.el = ' + this.el);
         $('#liCadastro').append(this.el);
     },
+
+    /*
+    render: function() {
+        console.log('PostView - render ');//ok
+
+        var template = this.$el.html(this.template(this.model.toJSON()));
+        //this.$el.html(this.template(this.model.toJSON()));
+
+        return this;
+    },
+
+
+    findByWinTarefa: function(id){
+        console.log('router => findByWinTarefa');
+        this.model.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
+        this.model.fetch({data: {idWinTarefa: id}});
+        $('#liCadastro').empty();
+        this.render();
+    },
+     */
 
     savePost: function(e) {
         e.preventDefault();//isto é importante
@@ -157,33 +170,44 @@ var TarefaView = Backbone.View.extend({
         var tarefaCurrent = this.nomeTarefa;
 
         //Clique na tarefa para adicionar o nome no input
+//        $('#' + this.nomeTarefa).click(function(){
+//            //$('#id_window_tarefa').val(this.nomeTarefa);
+//            console.log('tarefa criada e clicada = ', tarefaCurrent);
+//
+//            myModel = new TarefaModel();
+//            myModel.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
+//
+//            //Aqui busca os dados filtrado pelo param idWinTarefa com o valor window_1002,
+//            //é retornado o formato JSON e chamo o stringify para ver os dados num formato legível
+//            //por fim faço um parse do JSON para poder recuperar os valores nos atributos
+//            myModel.fetch({data: {idWinTarefa: tarefaCurrent}}).done(function () {
+//                //console.log('myModel = ', myModel.toJSON());
+//                //console.log(JSON.stringify(myModel.toJSON(), '', '  '));
+//                var contact = JSON.parse(JSON.stringify(myModel.toJSON(), '', '  '));
+//
+//                if (contact != undefined) {
+//                    console.log('codigo = ',        contact.codigo);
+//                    console.log('nome = ',          contact.nome);
+//                    console.log('duracao = ',       contact.duracao);
+//                    console.log('dataInicio = ',    contact.dataInicio);
+//                    console.log('dataEntrega = ',   contact.dataEntrega);
+//                    console.log('dataTermino = ',   contact.dataTermino);
+//                    console.log('idWinTarefa = ',   contact.idWinTarefa);
+//                } else {
+//                    console.log('Nenhum resultado foi encontrado com a pesquisa feita.');
+//                }
+//            });
+//
+//        });
+
         $('#' + this.nomeTarefa).click(function(){
-            //$('#id_window_tarefa').val(this.nomeTarefa);
-            console.log('tarefa criada e clicada = ', tarefaCurrent);
+            //$('#id_window_tarefa').val(nomeTarefa);
+            //myModel = new TarefaModel();
+            //myModel.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
+            var appRouter = new AppRouter();
+            appRouter.findByWinTarefa(tarefaCurrent);
+//            this.findByWinTarefa(tarefaCurrent);
 
-            myModel = new TarefaModel();
-            myModel.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
-
-            //Aqui busca os dados filtrado pelo param idWinTarefa com o valor window_1002,
-            //é retornado o formato JSON e chamo o stringify para ver os dados num formato legível
-            //por fim faço um parse do JSON para poder recuperar os valores nos atributos
-            myModel.fetch({data: {idWinTarefa: tarefaCurrent}}).done(function () {
-                //console.log('myModel = ', myModel.toJSON());
-                console.log(JSON.stringify(myModel.toJSON(), '', '  '));
-                var contact = JSON.parse(JSON.stringify(myModel.toJSON(), '', '  '));
-
-                if (contact != undefined && contact[0] != undefined) {
-                    console.log('codigo = ',        contact[0].codigo);
-                    console.log('nome = ',          contact[0].nome);
-                    console.log('duracao = ',       contact[0].duracao);
-                    console.log('dataInicio = ',    contact[0].dataInicio);
-                    console.log('dataEntrega = ',   contact[0].dataEntrega);
-                    console.log('dataTermino = ',   contact[0].dataTermino);
-                    console.log('idWinTarefa = ',   contact[0].idWinTarefa);
-                } else {
-                    console.log('Nenhum resultado foi encontrado com a pesquisa feita.');
-                }
-            });
 
         });
 

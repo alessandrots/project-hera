@@ -67,7 +67,6 @@
     //TODO - botar num arquivo javascript - quebrar em partes
 	$(document).ready(function() {
 
-
         var opcoesAcordeao = {
             fillSpace: true,
             autoHeight: false,
@@ -90,7 +89,12 @@
                 }).insertBefore($('#inspector')).hide().fadeIn(2000);
             }
         };
+
         $('#inspector').tabs(opcoesAbas);
+
+        //COMPONENTES BACKBONE
+        var appRouter = new AppRouter();
+        //appRouter.start();
 
 
         //jstree
@@ -131,6 +135,8 @@
                 
         var contaJanela = 0;
 
+        var tarefaView = new TarefaView();
+
 		//Criar Tarefa
 		$('#criarTarefa').click(function(){
 		       contaJanela = retornarProximoID(contaJanela);
@@ -155,35 +161,45 @@
 		       });
 
 
-              //Clique na tarefa para adicionar o nome no input
-               $('#' + nomeTarefa).click(function(){
-                   $('#id_window_tarefa').val(nomeTarefa);
+               //Clique na tarefa para adicionar o nome no input - OK tá funcionando
+//               $('#' + nomeTarefa).click(function(){
+//                   $('#id_window_tarefa').val(nomeTarefa);
+//
+//                   myModel = new TarefaModel();
+//                   myModel.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
+//
+//                   //Aqui busca os dados filtrado pelo param idWinTarefa com o valor window_1002,
+//                   //é retornado o formato JSON e chamo o stringify para ver os dados num formato legível
+//                   //por fim faço um parse do JSON para poder recuperar os valores nos atributos
+//                   myModel.fetch({data: {idWinTarefa: nomeTarefa}}).done(function () {
+//                       //console.log('myModel = ', myModel.toJSON());
+//                       //console.log(JSON.stringify(myModel.toJSON(), '', '  '));
+//                       var contact = JSON.parse(JSON.stringify(myModel.toJSON(), '', '  '));
+//
+//                       if (contact != undefined) {
+//                           console.log('codigo = ',        contact.codigo);
+//                           console.log('nome = ',          contact.nome);
+//                           console.log('duracao = ',       contact.duracao);
+//                           console.log('dataInicio = ',    contact.dataInicio);
+//                           console.log('dataEntrega = ',   contact.dataEntrega);
+//                           console.log('dataTermino = ',   contact.dataTermino);
+//                           console.log('idWinTarefa = ',   contact.idWinTarefa);
+//                       } else {
+//                           console.log('Nenhum resultado foi encontrado com a pesquisa feita.');
+//                       }
+//                   });
+//               });
 
-                   myModel = new TarefaModel();
-                   myModel.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
+                $('#' + nomeTarefa).click(function(){
+                    $('#id_window_tarefa').val(nomeTarefa);
 
-                   //Aqui busca os dados filtrado pelo param idWinTarefa com o valor window_1002,
-                   //é retornado o formato JSON e chamo o stringify para ver os dados num formato legível
-                   //por fim faço um parse do JSON para poder recuperar os valores nos atributos
-                   myModel.fetch({data: {idWinTarefa: nomeTarefa}}).done(function () {
-                       //console.log('myModel = ', myModel.toJSON());
-                       console.log(JSON.stringify(myModel.toJSON(), '', '  '));
-                       var contact = JSON.parse(JSON.stringify(myModel.toJSON(), '', '  '));
+                    //myModel = new TarefaModel();
+                    //myModel.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
 
-                       if (contact != undefined && contact[0] != undefined) {
-                           console.log('codigo = ',        contact[0].codigo);
-                           console.log('nome = ',          contact[0].nome);
-                           console.log('duracao = ',       contact[0].duracao);
-                           console.log('dataInicio = ',    contact[0].dataInicio);
-                           console.log('dataEntrega = ',   contact[0].dataEntrega);
-                           console.log('dataTermino = ',   contact[0].dataTermino);
-                           console.log('idWinTarefa = ',   contact[0].idWinTarefa);
-                       } else {
-                           console.log('Nenhum resultado foi encontrado com a pesquisa feita.');
-                       }
-                   });
+                    appRouter.findByWinTarefa(nomeTarefa);//OK
+//                    tarefaView.findByWinTarefa(nomeTarefa);
+                });
 
-               });
 			
 		     //Criando a tarefa
 		     jsPlumbDemo.criarTarefa(nomeTarefa);
@@ -317,9 +333,7 @@
             jsPlumbDemo.proverSincronizacao(tarefasPai);
         });
 
-        //COMPONENTES BACKBONE
-        var appRouter = new AppRouter();
-        appRouter.start();
+
         //TODO comentado temporariamente
         //Backbone.emulateHTTP = true;
         //Backbone.emulateJSON = true;
@@ -499,7 +513,7 @@
 
 
         //Backbone.js
-        var tarefaView = new TarefaView();
+//        var tarefaView = new TarefaView();
         //var loginView  = new LoginView();
 
 	});
@@ -535,12 +549,13 @@
                             <li id="liCadastro">
                                 <script type="text/template" id="post-form">
                                     <h2>Dados da Tarefa</h2>
-                                    <p><label>Nome: <input type="text" id="cad_nome" name="cad_nome" size="50"></label></p>
-                                    <p><label>Data In&iacute;cio: <input type="text" id="cad_data_inicio" name="cad_data_inicio" size="10"></label></p>
-                                    <p><label>Dura&ccedil;&atilde;o: <input type="text" id="cad_duracao" name="cad_duracao" size="3"></label></p>
-                                    <p><label>Data de Entrega: <input type="text" id="cad_data_entrega" name="cad_data_entrega" size="10"></label></p>
-                                    <p><label>Data de T&eacute;rmino: <input type="text" id="cad_data_termino" name="cad_data_termino" size="10"></label></p>
-                                    <p><label>ID Janela: <input type="text" id="id_window_tarefa" name="id_window_tarefa" size="20"></label></p>
+                                    <p><label>Nome: <input type="text" id="cad_nome" name="cad_nome" size="50" value="{{nome}}"></label></p>
+                                    <p><label>Data In&iacute;cio: <input type="text" id="cad_data_inicio" name="cad_data_inicio" size="10" value="{{dataInicio}}"></label></p>
+                                    <p><label>Dura&ccedil;&atilde;o: <input type="text" id="cad_duracao" name="cad_duracao" size="3" value="{{duracao}}"></label></p>
+                                    <p><label>Data de Entrega: <input type="text" id="cad_data_entrega" name="cad_data_entrega" size="10" value="{{dataEntrega}}"></label></p>
+                                    <p><label>Data de T&eacute;rmino: <input type="text" id="cad_data_termino" name="cad_data_termino" size="10" value="{{dataTermino}}"></label></p>
+                                    <p><label>ID Janela: <input type="text" id="id_window_tarefa" name="id_window_tarefa" size="20" value="{{idWinTarefa}}"></label></p>
+                                    <p><label> <input type="text" id="id_codigo" value="{{codigo}}"></label></p>
                                     <p><input type="submit" value="Salvar" /></p>
                                 </script>
 
