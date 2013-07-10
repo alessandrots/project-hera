@@ -8,15 +8,15 @@
 var TarefaView = Backbone.View.extend({
 
 
-   tagName: 'form',
-
-    attributes: {
-        type: 'PUT'
-    },
-
-    events: {
-        "submit" : "savePost"
-    },
+//   tagName: 'form',
+//
+//    attributes: {
+//        type: 'PUT'
+//    },
+//
+//    events: {
+//        "submit" : "savePost"
+//    },
 
     initialize: function() {
         _.bindAll(this, 'render', 'savePost', 'goToIndex');
@@ -65,25 +65,54 @@ var TarefaView = Backbone.View.extend({
         $('#liCadastro').append(this.el);
     },
 
-    /*
-    render: function() {
-        console.log('PostView - render ');//ok
+    addOne: function(modelItem){
+        var rendered = Mustache.to_html(this.template, modelItem.toJSON());
+        this.$el.html(rendered);
 
-        var template = this.$el.html(this.template(this.model.toJSON()));
-        //this.$el.html(this.template(this.model.toJSON()));
-
-        return this;
-    },
-
-
-    findByWinTarefa: function(id){
-        console.log('router => findByWinTarefa');
-        this.model.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
-        this.model.fetch({data: {idWinTarefa: id}});
+        //Assim não dá
         $('#liCadastro').empty();
-        this.render();
+        $('#liCadastro').append(this.el);
+
     },
-     */
+
+    atualizarCadastro: function(e) {
+        e.preventDefault();//isto é importante
+
+        this.codigo             = $('#id_codigo');
+        this.nomeInput          = $('#cad_nome');
+        this.dataInicioInput    = $('#cad_data_inicio');
+        this.dataEntregaInput   = $('#cad_data_entrega');
+        this.dataTerminoInput   = $('#cad_data_termino');
+        this.duracaoInput       = $('#cad_duracao');
+        this.idWinTarefa        = $('#id_window_tarefa');
+
+        console.log('salvarCadastro/já recuperados --> ' +
+            ' nomeInput        = '  + this.nomeInput.val() +
+            ' dataInicioInput  = '  + this.dataInicioInput.val() +
+            ' dataEntregaInput = '  + this.dataEntregaInput.val() +
+            ' dataTerminoInput = '  + this.dataTerminoInput.val() +
+            ' duracaoInput     = '  + this.duracaoInput.val() +
+            ' idWinTarefa = '       + this.idWinTarefa.val() +
+            ' codigo = '            + this.codigo.val()
+        );
+
+        var details= {
+            codigo: this.codigo.val(),
+            nome: this.nomeInput.val(),
+            dataInicio: this.dataInicioInput.val(),
+            duracao: this.duracaoInput.val(),
+            dataEntrega: this.dataEntregaInput.val(),
+            dataTermino: this.dataTerminoInput.val(),
+            idWinTarefa: this.idWinTarefa.val()
+        };
+
+        //setando os atributos no model específico.
+        this.model.set(details);
+
+        var that = this.model;
+
+        this.model.save();
+    },
 
     savePost: function(e) {
         e.preventDefault();//isto é importante
@@ -165,53 +194,16 @@ var TarefaView = Backbone.View.extend({
         //var nomeTarefa = 'window_' + this.contaJanela;
 
         //alert(nomeTarefa);
-        $('<div class="window" id="' + this.nomeTarefa + '"><strong>' + this.contaJanela + '</strong></div>').prependTo('#render');
+//        $('<div class="window" id="' + this.nomeTarefa + '"><strong>' + this.contaJanela + '</strong></div>').prependTo('#render');
 
         var tarefaCurrent = this.nomeTarefa;
 
-        //Clique na tarefa para adicionar o nome no input
-//        $('#' + this.nomeTarefa).click(function(){
-//            //$('#id_window_tarefa').val(this.nomeTarefa);
-//            console.log('tarefa criada e clicada = ', tarefaCurrent);
-//
-//            myModel = new TarefaModel();
-//            myModel.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
-//
-//            //Aqui busca os dados filtrado pelo param idWinTarefa com o valor window_1002,
-//            //é retornado o formato JSON e chamo o stringify para ver os dados num formato legível
-//            //por fim faço um parse do JSON para poder recuperar os valores nos atributos
-//            myModel.fetch({data: {idWinTarefa: tarefaCurrent}}).done(function () {
-//                //console.log('myModel = ', myModel.toJSON());
-//                //console.log(JSON.stringify(myModel.toJSON(), '', '  '));
-//                var contact = JSON.parse(JSON.stringify(myModel.toJSON(), '', '  '));
-//
-//                if (contact != undefined) {
-//                    console.log('codigo = ',        contact.codigo);
-//                    console.log('nome = ',          contact.nome);
-//                    console.log('duracao = ',       contact.duracao);
-//                    console.log('dataInicio = ',    contact.dataInicio);
-//                    console.log('dataEntrega = ',   contact.dataEntrega);
-//                    console.log('dataTermino = ',   contact.dataTermino);
-//                    console.log('idWinTarefa = ',   contact.idWinTarefa);
-//                } else {
-//                    console.log('Nenhum resultado foi encontrado com a pesquisa feita.');
-//                }
-//            });
-//
-//        });
-
         $('#' + this.nomeTarefa).click(function(){
-            //$('#id_window_tarefa').val(nomeTarefa);
-            //myModel = new TarefaModel();
-            //myModel.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
             var appRouter = new AppRouter();
-            appRouter.findByWinTarefa(tarefaCurrent);
-//            this.findByWinTarefa(tarefaCurrent);
-
-
+            appRouter.findByWinTarefa2(tarefaCurrent);
         });
 
         //Criando a tarefa
-        jsPlumbDemo.criarTarefa(this.nomeTarefa);
+//        jsPlumbDemo.criarTarefa(this.nomeTarefa);
     }
 })

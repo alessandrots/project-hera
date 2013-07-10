@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8cb90a1c-2e6e-4c4f-892d-85fd523987a6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/js/negocio/colecao/TarefaCollectionView.js" afterPath="$PROJECT_DIR$/src/main/webapp/js/negocio/colecao/TarefaCollectionView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/outline/org/app/facade/TarefaFacade.java" afterPath="$PROJECT_DIR$/src/main/java/com/outline/org/app/facade/TarefaFacade.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/js/negocio/modelo/TarefaModel.js" afterPath="$PROJECT_DIR$/src/main/webapp/js/negocio/modelo/TarefaModel.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/js/negocio/visao/TarefaView.js" afterPath="$PROJECT_DIR$/src/main/webapp/js/negocio/visao/TarefaView.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/index.html" afterPath="$PROJECT_DIR$/src/main/webapp/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/js/negocio/util/router.js" afterPath="$PROJECT_DIR$/src/main/webapp/js/negocio/util/router.js" />
@@ -10,13 +12,13 @@
     </list>
     <ignored path="POutlineTrunk.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="8cb90a1c-2e6e-4c4f-892d-85fd523987a6" time="1371906599587" ignored="false" />
-    <file path="/index.html" changelist="8cb90a1c-2e6e-4c4f-892d-85fd523987a6" time="1371914388631" ignored="false" />
+    <file path="/Dummy.txt" changelist="8cb90a1c-2e6e-4c4f-892d-85fd523987a6" time="1373413506845" ignored="false" />
+    <file path="/index.html" changelist="8cb90a1c-2e6e-4c4f-892d-85fd523987a6" time="1373418432301" ignored="false" />
     <file path="/LoginView.js" changelist="8cb90a1c-2e6e-4c4f-892d-85fd523987a6" time="1370314887996" ignored="false" />
     <file path="/LoginModel.js" changelist="8cb90a1c-2e6e-4c4f-892d-85fd523987a6" time="1370305839437" ignored="false" />
     <file path="/backbone.js" changelist="8cb90a1c-2e6e-4c4f-892d-85fd523987a6" time="1370315292270" ignored="false" />
-    <file path="/TarefaView.js" changelist="8cb90a1c-2e6e-4c4f-892d-85fd523987a6" time="1371922874472" ignored="false" />
-    <file path="/router.js" changelist="8cb90a1c-2e6e-4c4f-892d-85fd523987a6" time="1371923642326" ignored="false" />
+    <file path="/TarefaView.js" changelist="8cb90a1c-2e6e-4c4f-892d-85fd523987a6" time="1373418045938" ignored="false" />
+    <file path="/router.js" changelist="8cb90a1c-2e6e-4c4f-892d-85fd523987a6" time="1373420440724" ignored="false" />
     <file path="/TarefaCollectionView.js" changelist="8cb90a1c-2e6e-4c4f-892d-85fd523987a6" time="1371925840442" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,7 +42,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="547" column="27" selection-start="24522" selection-end="24522" vertical-scroll-proportion="-12.958333">
+            <state line="469" column="17" selection-start="20363" selection-end="21106" vertical-scroll-proportion="-11.041667">
               <folding />
             </state>
           </provider>
@@ -49,25 +51,34 @@
       <file leaf-file-name="TarefaView.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/js/negocio/visao/TarefaView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="0" selection-start="226" selection-end="226" vertical-scroll-proportion="0.0">
+            <state line="197" column="0" selection-start="6825" selection-end="6825" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="router.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="TarefaModel.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/js/negocio/modelo/TarefaModel.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="27" column="0" selection-start="619" selection-end="619" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="router.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/js/negocio/util/router.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="43" selection-start="1441" selection-end="1441" vertical-scroll-proportion="0.0">
+            <state line="80" column="81" selection-start="2898" selection-end="2898" vertical-scroll-proportion="0.54230237">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TarefaCollectionView.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="TarefaCollectionView.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/js/negocio/colecao/TarefaCollectionView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="6" selection-start="1141" selection-end="1141" vertical-scroll-proportion="0.6743869">
+            <state line="26" column="14" selection-start="752" selection-end="752" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -95,10 +106,11 @@
         <option value="$PROJECT_DIR$/src/main/webapp/js/negocio/modelo/LoginModel.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/js/negocio/visao/LoginView.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/js/backbone/backbone.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/js/negocio/modelo/TarefaModel.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/index.html" />
-        <option value="$PROJECT_DIR$/src/main/webapp/js/negocio/util/router.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/js/negocio/visao/TarefaView.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/js/negocio/colecao/TarefaCollectionView.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/js/negocio/util/router.js" />
       </list>
     </option>
   </component>
@@ -134,6 +146,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -269,6 +282,44 @@
               <option name="myItemId" value="negocio" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="visao" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="POutlineTrunk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="POutlineTrunk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="negocio" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="util" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -358,18 +409,17 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
-    <property name="restartRequiresConfirmation" value="true" />
+    <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp/index.html" />
-    <property name="options.searchVisible" value="true" />
+    <property name="restartRequiresConfirmation" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
@@ -429,7 +479,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23389022" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26332536" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -533,18 +583,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/negocio/modelo/TarefaModel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="18" selection-start="426" selection-end="432" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/js/mvc/PostView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="39" selection-start="301" selection-end="301" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="12" column="39" selection-start="301" selection-end="301" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/js/mvc/router.js">
@@ -563,16 +604,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/js/mvc/PostCollection.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="4" selection-start="4" selection-end="4" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/negocio/colecao/TarefaList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="4" selection-start="4" selection-end="4" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="4" selection-start="4" selection-end="4" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/testeBackColl.html">
@@ -589,30 +621,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/negocio/colecao/TarefaList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="4" selection-start="4" selection-end="4" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="547" column="27" selection-start="24522" selection-end="24522" vertical-scroll-proportion="-12.958333">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/negocio/visao/TarefaView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="226" selection-end="226" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/negocio/util/router.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="43" selection-start="1441" selection-end="1441" vertical-scroll-proportion="0.0">
+        <state line="469" column="17" selection-start="20363" selection-end="21106" vertical-scroll-proportion="-11.041667">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/js/negocio/colecao/TarefaCollectionView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="6" selection-start="1141" selection-end="1141" vertical-scroll-proportion="0.6743869">
+        <state line="26" column="14" selection-start="752" selection-end="752" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/negocio/modelo/TarefaModel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="0" selection-start="619" selection-end="619" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/negocio/visao/TarefaView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="197" column="0" selection-start="6825" selection-end="6825" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/negocio/util/router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="80" column="81" selection-start="2898" selection-end="2898" vertical-scroll-proportion="0.54230237">
           <folding />
         </state>
       </provider>

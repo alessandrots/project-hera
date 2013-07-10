@@ -23,7 +23,7 @@ var TarefaCollectionView = Backbone.View.extend({
 
     addOne: function(modelItem){
         var rendered = Mustache.to_html(this.template, modelItem.toJSON());
-//        console.log(rendered);
+        console.log(rendered);
         //this.$el.append(rendered);
         this.$el.html(rendered);
 

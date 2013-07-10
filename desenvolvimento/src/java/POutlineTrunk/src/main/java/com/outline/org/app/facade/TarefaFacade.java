@@ -46,10 +46,10 @@ public class TarefaFacade {
 			tarefa.setPacote(1);
 			
 			//Insert or Update
-			if (tarefa.getCodigo() != null){				
-				tarefaDAO.insert(tarefa);
-			} else {
+			if (tarefa.getCodigo() != null && tarefa.getCodigo() != 0){				
 				tarefaDAO.update(tarefa);
+			} else {
+				tarefaDAO.insert(tarefa);
 			}
 		}
 	}	

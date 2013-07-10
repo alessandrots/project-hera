@@ -47,26 +47,23 @@ var TarefaModel = Backbone.Model.extend({
         if (attrs.nome == '') {
             console.log('O nome é obrigatório.');
             errors.push({name: 'nome', message: 'Please fill nome field.'});
-            //return 'O nome é obrigatório';
         }
 
         if (attrs.dataInicio == '') {
             console.log('A data de início é obrigatória.');
             errors.push({name: 'data de início', message: 'Please fill data de início field.'});
-            //return 'A data de início é obrigatória.';
         }
 
         if (attrs.duracao == '') {
             console.log('A duração é obrigatória.');
             errors.push({name: 'duração', message: 'Please fill duração field.'});
-            //return 'A duração é obrigatória.';
         }
 
-        if (attrs.idWinTarefa == '') {
-            console.log('A definição da tarefa é obrigatória.');
-            errors.push({name: 'definição da tarefa', message: 'Please fill definição da tarefa field.'});
-            //return 'A duração é obrigatória.';
-        }
+//        if (attrs.idWinTarefa == '') {
+//            console.log('A definição da tarefa é obrigatória.');
+//            errors.push({name: 'definição da tarefa', message: 'Please fill definição da tarefa field.'});
+//            //return 'A duração é obrigatória.';
+//        }
 
         return errors.length > 0 ? errors : false;
 

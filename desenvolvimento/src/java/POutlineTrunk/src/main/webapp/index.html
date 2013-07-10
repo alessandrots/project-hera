@@ -193,11 +193,7 @@
                 $('#' + nomeTarefa).click(function(){
                     $('#id_window_tarefa').val(nomeTarefa);
 
-                    //myModel = new TarefaModel();
-                    //myModel.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
-
-                    appRouter.findByWinTarefa(nomeTarefa);//OK
-//                    tarefaView.findByWinTarefa(nomeTarefa);
+                    appRouter.findByWinTarefa2(nomeTarefa);//OK
                 });
 
 			
@@ -368,39 +364,6 @@
 
         });//end of #getTarefas
 
-        //faz a busca de várias tarefas para um mesmo parâmetro
-        //mas tem que fazer o tratamento no JAVA, o %2C é a vírgula
-        // (http://stackoverflow.com/questions/6182356/what-is-2c-in-a-url)
-//        $('#getTarefas').click(function(){
-//            //OK - traz o dado filtrado
-//            //appRouter.findByWinTarefa('window_1002');
-//
-//            myModel = new TarefaModel();
-//            myModel.urlRoot = 'project/cadTarefas/recuperarTarefaPorWinTarefa';
-//
-//            //Aqui busca os dados filtrado pelo param idWinTarefa com o valor window_1002,
-//            //é retornado o formato JSON e chamo o stringify para ver os dados num formato legível
-//            //por fim faço um parse do JSON para poder recuperar os valores nos atributos
-//            myModel.fetch({data: {idWinTarefa: 'window_1001%2Cwindow_1002'}}).done(function () {
-//                //console.log('myModel = ', myModel.toJSON());
-//                console.log(JSON.stringify(myModel.toJSON(), '', '  '));
-//                var contact = JSON.parse(JSON.stringify(myModel.toJSON(), '', '  '));
-//
-//                if (contact != undefined && contact[0] != undefined) {
-//                    console.log('codigo = ',        contact[0].codigo);
-//                    console.log('nome = ',          contact[0].nome);
-//                    console.log('duracao = ',       contact[0].duracao);
-//                    console.log('dataInicio = ',    contact[0].dataInicio);
-//                    console.log('dataEntrega = ',   contact[0].dataEntrega);
-//                    console.log('dataTermino = ',   contact[0].dataTermino);
-//                    console.log('idWinTarefa = ',   contact[0].idWinTarefa);
-//                } else {
-//                    console.log('Nenhum resultado foi encontrado com a pesquisa feita.');
-//                }
-//            });
-//
-//        });//end of #getTarefas
-
 
         $('#getTarefas').click(function(){
             //OK - traz o dado filtrado
@@ -511,11 +474,17 @@
         });//end of #getTarefas2
 
 
+        $('#btnCadastro').click(function() {
+            console.log('aquiiii.....');
+//            tarefaView.savePost(event);
+            //link interessante: http://chilipepperdesign.com/2013/01/15/backbone-js-bind-callback-to-successful-model-fetch/
 
-        //Backbone.js
-//        var tarefaView = new TarefaView();
-        //var loginView  = new LoginView();
-
+            if ($('#id_codigo').val != undefined && $('#id_codigo').val() != '') {
+                tarefaView.atualizarCadastro(event);
+            } else {
+                tarefaView.savePost(event);
+            }
+        });
 	});
 // ]]>	
 </script>
@@ -525,17 +494,7 @@
 		<div id="principal" align="center">
 			<div id="containerPlumb">
 				  <div id="render">
-                      <!--
-                      <div id="loginArea">
-                          <li id="liCadastroLogin">
-                             <script type="text/template" id="login-post-form">
-                               <label>Usu&aacute;rio: <input type="text" id="j_username" name="j_username" size="20"></label>
-                               <label>Senha:          <input type="text" id="j_password" name="j_password" size="12"></label>
-                               <input type="submit" value="OK" />
-                             </script>
-                          </li>
-                      </div>
-                      -->
+
                   </div>
 				   <!-- desenho dos componentes - workspace do usuário -->
 			</div>
@@ -556,11 +515,11 @@
                                     <p><label>Data de T&eacute;rmino: <input type="text" id="cad_data_termino" name="cad_data_termino" size="10" value="{{dataTermino}}"></label></p>
                                     <p><label>ID Janela: <input type="text" id="id_window_tarefa" name="id_window_tarefa" size="20" value="{{idWinTarefa}}"></label></p>
                                     <p><label> <input type="text" id="id_codigo" value="{{codigo}}"></label></p>
-                                    <p><input type="submit" value="Salvar" /></p>
+                                    <!-- <p><input type="submit" value="Salvar" /></p> -->
                                 </script>
-
-                                <p id="mensagem"> </p><br/>
                             </li>
+                                <p><input type="button" id="btnCadastro" value="Salvar" /></p>
+                                <p id="mensagem"> </p><br/>
                         </p>
                     </div>
 
