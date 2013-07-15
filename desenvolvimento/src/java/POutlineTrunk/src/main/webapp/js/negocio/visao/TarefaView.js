@@ -42,7 +42,7 @@ var TarefaView = Backbone.View.extend({
         this.model.on("error", this.showError);
         //this.model.on("error", this.model.showErrors);
         this.model.on("sync", this.goToIndex);
-        this.render();
+//        this.render();
     },
 
     /**
