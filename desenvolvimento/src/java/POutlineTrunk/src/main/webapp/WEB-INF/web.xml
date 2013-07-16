@@ -17,11 +17,20 @@
      Test Servlet
   </description>
   
-  <!-- Configuração do filtro básico da aplicação para o Spring Security -->
+  <servlet>
+    <servlet-name>Resteasy</servlet-name>
+    <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
+  </servlet>
+	
+    <listener>
+        <listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
+    </listener>
+  
+  <!-- Configuracaoo do filtro basico da aplicacaoo para o Spring Security -->
   <filter>
-	  <!-- O nome do filtro é importante:
-	  ele aponta para o nome de um bean de mesmo nome que será criado internamente pelo
-	  Spring Security para lidar com a segurança de requisições. -->
+	  <!-- O nome do filtro eh importante:
+	  ele aponta para o nome de um bean de mesmo nome que serah criado internamente pelo
+	  Spring Security para lidar com a seguranca de requisicoes. -->
 	  <filter-name>springSecurityFilterChain</filter-name>
 	  <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
   </filter>
@@ -41,6 +50,11 @@
         <url-pattern>/project/*</url-pattern>
   </servlet-mapping>
   
+  <servlet-mapping>
+    <servlet-name>Resteasy</servlet-name>
+    <url-pattern>/ns/rest/*</url-pattern>
+  </servlet-mapping>
+  
   <listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
@@ -48,6 +62,23 @@
   <context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:/module-core-spring.xml</param-value>
+  </context-param>
+  
+   <context-param>
+    <param-name>resteasy.servlet.mapping.prefix</param-name>
+    <param-value>/ns/rest</param-value>
+  </context-param>
+  <context-param>
+    <param-name>resteasy.scan</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>resteasy.resources</param-name>
+    <param-value>com.outline.org.app.rest.ServicoRest</param-value>
+  </context-param>
+  <context-param>
+    <param-name>resteasy.providers</param-name>
+    <param-value>com.outline.org.app.rest.NegocioExceptionMapper</param-value>
   </context-param>
   
    <!-- -->

@@ -29,7 +29,7 @@ public class SpringManager {
 	}
 	
 	@SuppressWarnings({ "unchecked" })
-	protected <T> T getBean(final String beanName) {
+	public <T> T getBean(final String beanName) {
 		final ApplicationContext ctx = (ApplicationContext) context.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
 		return (T) ctx.getBean(beanName);
 	}

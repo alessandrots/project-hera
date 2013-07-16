@@ -486,6 +486,83 @@
                 tarefaView.savePost(event);
             }
         });
+        
+        
+      	//Botão Clonar Tarefa
+        $('#btnRest1').click(function(){
+        	console.log('loadContent btn1');
+            var url_ = "/outline/ns/rest/teste/listarResumidosSobResponsabilidadeMembro";
+
+            $.ajax({
+                type: "GET",
+                url: url_,
+
+                data: {
+                	haMaisDeTantosDiasInt: 1,
+                    haMaisDeTantosDiasExt: 2
+                },
+
+                // The key needs to match your method's input parameter (case-sensitive).
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+
+                success: function (data) {
+                    console.log('Success! ', data);
+
+                    //callback(data);
+                },
+
+                failure: function (errMsg) {
+                    console.log('Failure... ', errMsg);
+                }
+            })
+
+        });//fim btn1
+        
+        
+        
+      //Botão Clonar Tarefa
+        $('#btnRest2').click(function(){
+        	console.log('loadContent btn2');
+            var url_ = "/outline/ns/rest/teste/listarResumidosSobResponsabilidade2";
+            
+            $.ajax({
+                type: "POST",
+             	// The key needs to match your method's input parameter (case-sensitive).
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                url: url_,
+
+                //data: req.presenter,
+                data: formToJSON(),
+
+                success: function (data) {
+                    console.log('Success! ', data);
+
+                    //callback(data);
+                },
+
+                failure: function (errMsg) {
+                    console.log('Failure... ', errMsg);
+                }
+            })
+
+        });//fim btn1
+        
+        function formToJSON() {
+            return JSON.stringify({
+            	"codigo":"1",
+				"nome":"teste 1",
+				"duracao":"3",
+				"dataInicio":"10/04/2012",
+				"dataEntrega":"12/04/2012",
+				"dataTermino":"14/04/2012",
+				"idWinTarefa":"w_100"
+                });
+        }
+        
+        
+        
 	});
 // ]]>	
 </script>
@@ -595,6 +672,11 @@
                                 <!-- <li><button type="button" id="minimizar">Esconder</button></li> -->
                                 <li><button type="button" id="imprimir">Imprimir Hierarquia das Tarefas</button></li>
                                 <li><button type="button" id="imprimir2">Imprimir das Tarefas ja guardadas</button></li>
+                                <li><button type="button" id="btnRest1">Chamada Rest QueryParam</button></li>
+                                <li><button type="button" id="btnRest2">Chamada Rest JSONParam</button></li>
+                                
+                                
+                                
 
                             </ul>
                         </p>

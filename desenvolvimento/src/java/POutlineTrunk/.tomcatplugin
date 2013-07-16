@@ -10,6 +10,7 @@
     <webPath>/outline</webPath>
     <webClassPathEntries>
         <webClassPathEntry>/outline/target/classes</webClassPathEntry>
+        <webClassPathEntry>/outline/target/test-classes</webClassPathEntry>
         <webClassPathEntry>M2_REPO/antlr/antlr/2.7.7/antlr-2.7.7.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/asm/asm/3.3.1/asm-3.3.1.jar</webClassPathEntry>
@@ -17,26 +18,49 @@
         <webClassPathEntry>M2_REPO/cglib/cglib/2.2.2/cglib-2.2.2.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/com/google/code/gson/gson/1.4/gson-1.4.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/com/sun/xml/bind/jaxb-impl/2.2.4/jaxb-impl-2.2.4.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/com/thoughtworks/xstream/xstream/1.3.1/xstream-1.3.1.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/commons-codec/commons-codec/1.6/commons-codec-1.6.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/commons-fileupload/commons-fileupload/1.2.2/commons-fileupload-1.2.2.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/commons-io/commons-io/2.1/commons-io-2.1.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/commons-lang/commons-lang/2.6/commons-lang-2.6.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/javassist/javassist/3.12.1.GA/javassist-3.12.1.GA.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/javax/activation/activation/1.1/activation-1.1.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/javax/annotation/jsr250-api/1.0/jsr250-api-1.0.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/javax/mail/mail/1.4.4/mail-1.4.4.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/javax/servlet/jstl/1.2/jstl-1.2.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/javax/xml/bind/jaxb-api/2.2.3/jaxb-api-2.2.3.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/junit/junit/4.5/junit-4.5.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/log4j/log4j/1.2.14/log4j-1.2.14.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/org/apache/httpcomponents/httpclient/4.1.2/httpclient-4.1.2.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/org/apache/httpcomponents/httpcore/4.1.2/httpcore-4.1.2.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/org/apache/james/apache-mime4j/0.6/apache-mime4j-0.6.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/org/aspectj/aspectjrt/1.6.12/aspectjrt-1.6.12.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/org/aspectj/aspectjweaver/1.6.12/aspectjweaver-1.6.12.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/org/codehaus/jackson/jackson-core-asl/1.8.5/jackson-core-asl-1.8.5.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/org/codehaus/jackson/jackson-jaxrs/1.8.5/jackson-jaxrs-1.8.5.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/org/codehaus/jackson/jackson-mapper-asl/1.8.5/jackson-mapper-asl-1.8.5.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/org/codehaus/jackson/jackson-xc/1.8.5/jackson-xc-1.8.5.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/org/hibernate/common/hibernate-commons-annotations/4.0.1.Final/hibernate-commons-annotations-4.0.1.Final.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/org/hibernate/hibernate-core/4.1.7.Final/hibernate-core-4.1.7.Final.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/org/hibernate/hibernate-validator/4.2.0.Final/hibernate-validator-4.2.0.Final.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.1.Final/hibernate-jpa-2.0-api-1.0.1.Final.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/org/javassist/javassist/3.15.0-GA/javassist-3.15.0-GA.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/org/jboss/logging/jboss-logging/3.1.0.GA/jboss-logging-3.1.0.GA.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/org/jboss/resteasy/jaxrs-api/2.3.3.Final/jaxrs-api-2.3.3.Final.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/org/jboss/resteasy/resteasy-jackson-provider/2.3.3.Final/resteasy-jackson-provider-2.3.3.Final.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/org/jboss/resteasy/resteasy-jaxb-provider/2.3.3.Final/resteasy-jaxb-provider-2.3.3.Final.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/org/jboss/resteasy/resteasy-jaxrs/2.3.3.Final/resteasy-jaxrs-2.3.3.Final.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/org/jboss/resteasy/resteasy-multipart-provider/2.3.3.Final/resteasy-multipart-provider-2.3.3.Final.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/org/jboss/spec/javax/transaction/jboss-transaction-api_1.1_spec/1.0.0.Final/jboss-transaction-api_1.1_spec-1.0.0.Final.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/org/mockito/mockito-all/1.8.1/mockito-all-1.8.1.jar</webClassPathEntry>
+        <webClassPathEntry>M2_REPO/org/scannotation/scannotation/1.0.3/scannotation-1.0.3.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/org/slf4j/slf4j-log4j12/1.5.6/slf4j-log4j12-1.5.6.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/org/springframework/security/spring-security-acl/3.1.3.RELEASE/spring-security-acl-3.1.3.RELEASE.jar</webClassPathEntry>
