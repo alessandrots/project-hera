@@ -9,8 +9,7 @@
     <extraInfo>%3CResource+name%3D%22jdbc%2FOutlineDS%22+auth%3D%22Container%22+type%3D%22javax.sql.DataSource%22%0A%09++++++maxActive%3D%22100%22+maxIdle%3D%2230%22+maxWait%3D%22100%22%0A++++++++++++++username%3D%22outline%22+password%3D%22outline%22+driverClassName%3D%22org.postgresql.Driver%22%0A++++++++++++++url%3D%22jdbc%3Apostgresql%3A%2F%2F127.0.0.1%3A5432%2Foutline%22%2F%3E</extraInfo>
     <webPath>/outline</webPath>
     <webClassPathEntries>
-        <webClassPathEntry>/POutlineArquitetura/target/classes</webClassPathEntry>
-        <webClassPathEntry>/POutlineArquitetura/target/test-classes</webClassPathEntry>
+        <webClassPathEntry>/outline/target/classes</webClassPathEntry>
         <webClassPathEntry>M2_REPO/antlr/antlr/2.7.7/antlr-2.7.7.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/asm/asm/3.3.1/asm-3.3.1.jar</webClassPathEntry>
@@ -25,7 +24,6 @@
         <webClassPathEntry>M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/javax/el/el-api/1.1/el-api-1.1.jar</webClassPathEntry>
-        <webClassPathEntry>M2_REPO/javax/servlet/jsp/jsp-api/2.1/jsp-api-2.1.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/javax/servlet/jstl/1.2/jstl-1.2.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA.jar</webClassPathEntry>
         <webClassPathEntry>M2_REPO/junit/junit/4.5/junit-4.5.jar</webClassPathEntry>
